@@ -8,5 +8,16 @@ export const userLoggedIn = user => ({
 
 export const login = () => dispatch => {
   localStorage.user = yydASAuth.currentUser;
-  dispatch(userLoggedIn(yydASAuth.currentUser));
+  const accountVerified = yydASAuth.currentUser.emailVerified;
+  if (accountVerified) dispatch(userLoggedIn(yydASAuth.currentUser));
+  else {
+    yydASAuth.currentUser
+      .sendEmailVerification()
+      .then(function() {
+        dispatch(userLoggedIn(yydASAuth.currentUser));
+      })
+      .catch(function(error) {
+        throw error;
+      });
+  }
 };

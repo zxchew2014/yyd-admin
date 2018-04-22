@@ -9,8 +9,7 @@ class LoginForm extends React.Component {
     signInFlow: 'redirect',
     signInOptions: [
       {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: false
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
       }
     ],
     // Sets the `signedIn` state property to `true` once signed in.
