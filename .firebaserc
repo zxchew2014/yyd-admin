@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "yyd-admin"
+    "default": "yyd-admin",
+    "other": "yyd-as"
   }
 }
