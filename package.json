@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "env-cmd": "^7.0.0",
+    "dialog-polyfill": "^0.4.9",
+    "dotenv": "^5.0.1",
     "firebase": "^4.13.1",
     "husky": "^0.14.3",
     "promise-polyfill": "^7.1.2",
@@ -32,7 +34,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
   },
   "description": "YYD Admin Portal",
   "main": "index.js",

@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import LoginPage from './components/pages/login';
+import { Route } from 'react-router-dom';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="ui container">
+        <Route
+          location={this.props.location}
+          path="/"
+          exact
+          component={LoginPage}
+        />
       </div>
     );
   }
 }
+
+App.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
+};
 
 export default App;
