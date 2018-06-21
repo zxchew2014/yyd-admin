@@ -1,9 +1,13 @@
-import { yydASAuth } from '../firebase';
-import { USER_LOGGED_IN } from '../types';
+import { yydASAuth } from '../configs/firebase';
+import { USER_LOGGED_IN, USER_LOGGED_OUT } from './types';
 
 export const userLoggedIn = user => ({
   type: USER_LOGGED_IN,
   user
+});
+
+export const userLoggedOut = () => ({
+  type: USER_LOGGED_OUT
 });
 
 export const login = () => dispatch => {
@@ -20,4 +24,12 @@ export const login = () => dispatch => {
         throw error;
       });
   }
+};
+
+export const logout = () => dispatch => {
+  localStorage.removeItem('user');
+  yydASAuth
+    .signOut()
+    .then(() => dispatch(userLoggedOut()))
+    .catch(error => console.log(error));
 };

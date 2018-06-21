@@ -8,7 +8,6 @@ class LoginPage extends React.Component {
   submit = () => {
     this.props.login();
   };
-
   render() {
     return (
       <div>

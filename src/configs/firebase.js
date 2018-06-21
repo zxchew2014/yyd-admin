@@ -26,4 +26,11 @@ export const yydASApp = firebase.initializeApp(yydASConfig, 'other');
 export const yydASAuth = yydASApp.auth();
 export const yydASDb = yydASApp.database();
 
+export const branchesRef = yydASDb.ref('Branches');
+export const teachersRef = yydASDb.ref('Teacher_Allocation');
+export const subjectsRef = yydASDb.ref('Subjects');
+export const statesRef = yydASDb.ref('States');
+export const attendancesRef = yydASDb.ref('Attendances');
+export const studentsRef = yydASDb.ref('Students');
+
 export default firebase;
