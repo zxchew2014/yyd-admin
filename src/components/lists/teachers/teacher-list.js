@@ -1,33 +1,44 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as teachers from '../../../actions/teacher';
+import * as teachers from '../../../actions/teachers';
 import { Table, Icon } from 'semantic-ui-react';
 import { ScaleLoader } from 'react-spinners';
+import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 class TeacherList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      branch: this.props.branch || '',
       loading: true
     };
   }
 
   componentDidMount() {
-    const { fetchAllTeachers } = this.props;
-    fetchAllTeachers().then(this.setState({ loading: false }));
+    const { fetchAllTeachers, fetchTeachersByBranch } = this.props;
+    console.log(this.props.branch);
+    if (this.props.branch === '')
+      fetchAllTeachers().then(this.setState({ loading: false }));
+    else
+      fetchTeachersByBranch(this.props.branch).then(
+        this.setState({ loading: false })
+      );
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.branch !== this.props.branch) {
-      this.props
-        .fetchTeachersByBranch(this.props.branch)
-        .then(this.setState({ loading: false }));
+    const { branch, fetchTeachersByBranch } = this.props;
+    if (prevProps.branch !== branch) {
+      fetchTeachersByBranch(branch).then(this.setState({ loading: false }));
     }
   }
 
   removeTeacher = (teacher, branch_name) => {
     const { removeTeacher } = this.props;
     removeTeacher(teacher, branch_name);
+    this.setState({
+      branch: ''
+    });
   };
 
   render() {
@@ -39,9 +50,12 @@ class TeacherList extends React.Component {
       <Table.Row>
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell colSpan="2" textAlign="center">
-          Actions
-        </Table.HeaderCell>
+        <Table.HeaderCell>Branch</Table.HeaderCell>
+        {branch !== '' ? (
+          <Table.HeaderCell colSpan="2" textAlign="center">
+            Actions
+          </Table.HeaderCell>
+        ) : null}
       </Table.Row>
     );
 
@@ -52,31 +66,39 @@ class TeacherList extends React.Component {
           <Table.Row key={`${branch_key}-${teacher_key}`}>
             <Table.Cell>{counter++}.</Table.Cell>
             <Table.Cell>{teacher.Name}</Table.Cell>
-            <Table.Cell selectable textAlign="center">
-              <Icon name="edit" size="large" aria-label="Edit" />
-            </Table.Cell>
-            <Table.Cell
-              selectable
-              textAlign="center"
-              onClick={() => this.removeTeacher(teacher_key, branch_key)}
-            >
-              <Icon name="user delete" size="large" aria-label="Remove" />
-            </Table.Cell>
+            <Table.Cell>{branch_key}</Table.Cell>
+            {this.props.branch !== ''
+              ? [
+                  <Table.Cell selectable textAlign="center">
+                    <Icon name="edit" size="large" aria-label="Edit" />
+                  </Table.Cell>,
+                  <Table.Cell
+                    selectable
+                    textAlign="center"
+                    onClick={() => this.removeTeacher(teacher_key, branch_key)}
+                  >
+                    <Icon name="user delete" size="large" aria-label="Remove" />
+                  </Table.Cell>
+                ]
+              : null}
           </Table.Row>
         );
       });
 
     const renderAllTeacherList = () => {
       const { teachers } = this.props;
+
       return (
-        <Table unstackable>
-          {Object.keys(this.props.teachers).map(branch_key => {
+        <Table unstackable key="all-teacher">
+          {Object.keys(teachers).map(branch_key => {
             const branch = teachers[branch_key];
             counter = 1;
             return [
               <Table.Header key={branch_key} fullWidth>
                 <Table.Row key={branch_key}>
-                  <Table.HeaderCell colSpan="4">{branch_key}</Table.HeaderCell>
+                  <Table.HeaderCell colSpan="3">
+                    {branch_key} - {_.size(branch)} teachers
+                  </Table.HeaderCell>
                 </Table.Row>
                 {renderHeaderRow()}
               </Table.Header>,
@@ -90,7 +112,7 @@ class TeacherList extends React.Component {
     const renderTeachersByBranch = branch => {
       const { teachers } = this.props;
       return (
-        <Table fixed>
+        <Table unstackable key="teacher-by-branch">
           <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
           <Table.Body>{renderTeacherRows(teachers, branch)}</Table.Body>
         </Table>
@@ -109,10 +131,13 @@ class TeacherList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ teachers, branch }) => {
+TeacherList.propTypes = {
+  branch: PropTypes.string
+};
+
+const mapStateToProps = ({ teachers }) => {
   return {
-    teachers,
-    branch
+    teachers
   };
 };
 

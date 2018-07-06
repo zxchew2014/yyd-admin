@@ -1,11 +1,15 @@
 import { combineReducers } from 'redux';
 import user from './user';
-import { fetch_branches, get_branch } from './branch';
+import { getBranch, fetchBranchList } from './branch';
+import { fetchTeacherAttendance } from './attendance';
 import teachers from './teacher';
+import students from './student';
 
 export default combineReducers({
   user,
-  branches: fetch_branches,
-  branch: get_branch,
-  teachers
+  branches: fetchBranchList,
+  branch: getBranch,
+  attendance_teachers: fetchTeacherAttendance,
+  teachers,
+  students
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as teachers from '../../../actions/teacher';
-import { Form, Input, Button, Icon } from 'semantic-ui-react';
+import * as teachers from '../../../actions/teachers';
+import { Form, Input, Button } from 'semantic-ui-react';
 import _ from 'lodash';
 
 class AddTeacher extends React.Component {
@@ -9,30 +9,28 @@ class AddTeacher extends React.Component {
     super(props);
     this.state = {
       teacherName: '',
-      branch: '',
-      addFormVisible: false
+      branch: ''
     };
   }
 
-  handleInputChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
-  onSubmit = e => {
-    const { teacherName, branch, addFormVisible } = this.state;
+  onSubmit = event => {
+    const { teacherName, branch } = this.state;
     const { addTeacher } = this.props;
-    e.preventDefault();
+    event.preventDefault();
     addTeacher({ Name: _.startCase(teacherName) }, branch);
     this.setState({
       teacherName: '',
-      branch: '',
-      addFormVisible: !addFormVisible
+      branch: ''
     });
   };
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { loading, branch } = this.state;
+    const { branch } = this.state;
 
     const BRANCH_OPTIONS = _.map(branches, (value, key) => (
       <option key={key} defaultValue={value}>
@@ -61,53 +59,29 @@ class AddTeacher extends React.Component {
   }
 
   renderAddForm = () => {
-    const { addFormVisible, teacherName } = this.state;
-    if (addFormVisible) {
-      return (
-        <Form onSubmit={this.onSubmit}>
-          <Form.Field
-            id="form-input-control-first-name"
-            control={Input}
-            value={teacherName}
-            label="Full Name (Same as NRIC)"
-            placeholder="Full Name"
-            name="teacherName"
-            onChange={this.handleInputChange}
-            required
-          />
-
-          {JSON.stringify(this.state)}
-          {this.renderBranchDropDownList()}
-          <Button type="submit" primary>
-            Add Teacher
-          </Button>
-        </Form>
-      );
-    }
-    return null;
+    const { teacherName } = this.state;
+    return (
+      <Form onSubmit={this.onSubmit}>
+        <Form.Field
+          id="form-input-control-first-name"
+          control={Input}
+          value={teacherName}
+          label="Full Name (Same as NRIC)"
+          placeholder="Full Name"
+          name="teacherName"
+          onChange={this.handleInputChange}
+          required
+        />
+        {this.renderBranchDropDownList()}
+        <Button type="submit" primary>
+          Add Teacher
+        </Button>
+      </Form>
+    );
   };
 
   render() {
-    const { addFormVisible } = this.state;
-    return [
-      <div>
-        <Button
-          onClick={() => this.setState({ addFormVisible: !addFormVisible })}
-          basic
-        >
-          {addFormVisible ? (
-            <i className="large material-icons">
-              <Icon name="close" size="large" /> Close
-            </i>
-          ) : (
-            <i className="large material-icons">
-              <Icon name="add user" size="large" /> Add Teacher
-            </i>
-          )}
-        </Button>
-      </div>,
-      this.renderAddForm()
-    ];
+    return [<div className="add-teacher-form">{this.renderAddForm()}</div>];
   }
 }
 

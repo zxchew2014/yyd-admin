@@ -1,11 +1,18 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
-import * as actions from '../../actions/auth';
+import * as auths from '../../actions/auth';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
-function Header({ user, logout }) {
-  function renderUserData() {
+class Header extends React.Component {
+  renderLoginButton() {
+    return (
+      <Menu.Menu position="right">
+        <Menu.Item name="login" active="login" />
+      </Menu.Menu>
+    );
+  }
+  renderUserData() {
+    const { logout, user } = this.props;
     return (
       <Menu.Menu position="right">
         {user.email ? (
@@ -24,33 +31,21 @@ function Header({ user, logout }) {
       </Menu.Menu>
     );
   }
-
-  function renderLoginButton() {
+  render() {
+    const { user } = this.props;
     return (
-      <Menu.Menu position="right">
-        <Menu.Item name="login" active="login" />
-      </Menu.Menu>
+      <Menu pointing secondary>
+        {JSON.stringify(user) === JSON.stringify({})
+          ? this.renderLoginButton()
+          : this.renderUserData()}
+      </Menu>
     );
   }
-
-  return (
-    <Menu pointing secondary>
-      {JSON.stringify(user) === JSON.stringify({})
-        ? renderLoginButton()
-        : renderUserData()}
-    </Menu>
-  );
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({ user }) {
   return {
-    user: state.user
+    user
   };
 }
-
-Header.propTypes = {
-  user: PropTypes.object.isRequired,
-  logout: PropTypes.func.isRequired
-};
-
-export default connect(mapStateToProps, { logout: actions.logout })(Header);
+export default connect(mapStateToProps, auths)(Header);

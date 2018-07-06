@@ -1,7 +1,8 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import * as branches from '../../actions/branch';
+import * as branches from '../../../actions/branches';
+import TeacherList from './teacher-list';
 import { ScaleLoader } from 'react-spinners';
 import _ from 'lodash';
 
@@ -9,13 +10,10 @@ class BranchList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      branch: '',
       loading: true
     };
   }
-
-  onChangeBranch = e => {
-    this.props.getBranch(e.target.value);
-  };
 
   componentWillMount() {
     this.props.fetchBranches().then(this.setState({ loading: false }));
@@ -23,8 +21,6 @@ class BranchList extends React.Component {
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { loading } = this.state;
-
     const BRANCH_OPTIONS = _.map(branches, (value, key) => (
       <option key={key} defaultValue={value}>
         {value}
@@ -38,7 +34,7 @@ class BranchList extends React.Component {
           ref="branch"
           name="branch"
           id="branch"
-          onChange={this.onChangeBranch}
+          onChange={event => this.setState({ branch: event.target.value })}
           required
         >
           <option key="" defaultValue="" />
@@ -47,17 +43,23 @@ class BranchList extends React.Component {
       </Form.Field>
     );
 
+    return <Form>{FORM_FIELD_BRANCH()}</Form>;
+  }
+
+  render() {
+    const { branch, loading } = this.state;
+
     return loading ? (
       <div>
         <ScaleLoader loading={loading} color={'#000000'} />
       </div>
     ) : (
-      <Form>{FORM_FIELD_BRANCH()}</Form>
+      <div className="teacher-list-container">
+        {this.renderBranchDropDownList()}
+        <TeacherList id="teacher_list" branch={branch} />
+        <hr />
+      </div>
     );
-  }
-
-  render() {
-    return [this.renderBranchDropDownList()];
   }
 }
 

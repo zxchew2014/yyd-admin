@@ -10,10 +10,14 @@ const GuestRoute = ({ user, component: Component, ...rest }) => (
       (JSON.stringify(user) === JSON.stringify({})) === true ? (
         <Component {...props} />
       ) : !user.emailVerified ? (
-        <Redirect to="/teacher" />
+        <Redirect
+          to={{ pathname: '/attendance', state: { from: props.location } }}
+        />
       ) : (
         //Back to login
-        <Redirect to="/teacher" />
+        <Redirect
+          to={{ pathname: '/attendance', state: { from: props.location } }}
+        />
       )
     }
   />

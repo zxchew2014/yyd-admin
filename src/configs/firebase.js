@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+
 require('dotenv').config();
 
 const config = {
