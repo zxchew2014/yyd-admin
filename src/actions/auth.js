@@ -1,5 +1,5 @@
-import { yydASAuth } from '../configs/firebase';
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from './types';
+import { yydASAuth } from "../configs/firebase";
+import { USER_LOGGED_IN, USER_LOGGED_OUT } from "./types";
 
 export const userLoggedIn = user => ({
   type: USER_LOGGED_IN,
@@ -17,17 +17,17 @@ export const login = () => dispatch => {
   else {
     yydASAuth.currentUser
       .sendEmailVerification()
-      .then(function() {
+      .then(() => {
         dispatch(userLoggedIn(yydASAuth.currentUser));
       })
-      .catch(function(error) {
+      .catch(error => {
         throw error;
       });
   }
 };
 
 export const logout = () => dispatch => {
-  localStorage.removeItem('user');
+  localStorage.removeItem("user");
   yydASAuth
     .signOut()
     .then(() => dispatch(userLoggedOut()))

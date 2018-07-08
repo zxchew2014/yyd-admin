@@ -38,12 +38,15 @@ class SideMenu extends React.Component {
 
           <Menu.Item>
             <Menu.Header onClick={this.handleItemClick}>
-              <Link to="/teacher">View All Teachers</Link>
+              <Link to="/teacher">Teachers</Link>
             </Menu.Header>
             <Menu.Menu>
               <Menu.Item name="Add Teacher" onClick={this.handleItemClick}>
                 <Link to="/teacher/add">Add Teacher</Link>
               </Menu.Item>
+                <Menu.Item name="Add Teacher" onClick={this.handleItemClick}>
+                    <Link to="/teacher/attendance">Generate Attendance</Link>
+                </Menu.Item>
             </Menu.Menu>
           </Menu.Item>
 

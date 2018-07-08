@@ -1,16 +1,16 @@
-import React from 'react';
-import { Form } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import * as branches from '../../../actions/branches';
-import TeacherList from './teacher-list';
-import { ScaleLoader } from 'react-spinners';
-import _ from 'lodash';
+import React from "react";
+import { Form } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { ScaleLoader } from "react-spinners";
+import _ from "lodash";
+import TeacherList from "./teacher-list";
+import * as branches from "../../../actions/branches";
 
 class BranchList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      branch: '',
+      branch: "",
       loading: true
     };
   }
@@ -51,7 +51,7 @@ class BranchList extends React.Component {
 
     return loading ? (
       <div>
-        <ScaleLoader loading={loading} color={'#000000'} />
+        <ScaleLoader loading={loading} color={"#000000"} />
       </div>
     ) : (
       <div className="teacher-list-container">
@@ -69,4 +69,7 @@ const mapStateToProps = ({ branches }) => {
   };
 };
 
-export default connect(mapStateToProps, branches)(BranchList);
+export default connect(
+  mapStateToProps,
+  branches
+)(BranchList);

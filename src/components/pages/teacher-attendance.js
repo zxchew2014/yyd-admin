@@ -1,16 +1,16 @@
-import React from 'react';
-import RetrieveTeacherAttendanceForm from '../forms/attendance/teacher-attendance';
-import TeacherAttendanceList from '../lists/teachers/teacher-attendance-list';
-import { connect } from 'react-redux';
-import * as attendances from '../../actions/attendances';
-import { ScaleLoader } from 'react-spinners';
+import React from "react";
+import { connect } from "react-redux";
+import { ScaleLoader } from "react-spinners";
+import RetrieveTeacherAttendanceForm from "../forms/attendance/teacher-attendance";
+import TeacherAttendanceList from "../lists/teachers/teacher-attendance-list";
+import * as attendances from "../../actions/attendances";
 
 class AttendancePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: '',
-      endDate: '',
+      startDate: "",
+      endDate: "",
       loading: true,
       empty: true
     };
@@ -55,4 +55,7 @@ function mapStateToProps({ user, attendance_teachers }) {
   };
 }
 
-export default connect(mapStateToProps, attendances)(AttendancePage);
+export default connect(
+  mapStateToProps,
+  attendances
+)(AttendancePage);

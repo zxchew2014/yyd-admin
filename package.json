@@ -1,16 +1,37 @@
 {
   "name": "yyd-admin",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zxchew2014/yyd-admin.git"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "precommit": "pretty-quick lint-staged",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "eslint src"
+  },
+  "author": "Sky Chew <zxchew.2014@sis.smu.edu.sg>",
+  "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "dialog-polyfill": "^0.4.9",
+    "dialog-polyfill": "^0.4.10",
     "dotenv": "^5.0.1",
     "firebase": "^4.13.1",
     "firebaseui": "^2.7.0",
     "husky": "^0.14.3",
     "jspdf": "^1.4.1",
+    "jspdf-autotable": "^2.3.4",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "promise-polyfill": "^7.1.2",
@@ -31,33 +52,20 @@
     "semantic-ui-react": "^0.80.0",
     "styled-components": "^3.3.2"
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
-  "scripts": {
-    "precommit": "lint-staged",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint src"
-  },
-  "description": "YYD Admin Portal",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:zxchew2014/yyd-admin.git"
-  },
-  "author": "Sky Chew",
-  "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^8.2.5",
     "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.7.0",
-    "lint-staged": "^7.0.4",
-    "prettier": "1.12.1"
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-react-app": "^2.1.0",
+    "eslint-plugin-flowtype": "^2.49.3",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "eslint-plugin-react": "^7.10.0",
+    "lint-staged": "^7.2.0",
+    "prettier": "^1.13.7",
+    "pretty-quick": "^1.6.0"
   },
   "homepage": "https://yyd-admin.firebaseapp.com"
 }
