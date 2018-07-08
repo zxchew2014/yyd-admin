@@ -1,13 +1,13 @@
-import React from 'react';
-import { Menu } from 'semantic-ui-react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Menu } from "semantic-ui-react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class SideMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeItem: ''
+      activeItem: ""
     };
   }
 
@@ -44,9 +44,9 @@ class SideMenu extends React.Component {
               <Menu.Item name="Add Teacher" onClick={this.handleItemClick}>
                 <Link to="/teacher/add">Add Teacher</Link>
               </Menu.Item>
-                <Menu.Item name="Add Teacher" onClick={this.handleItemClick}>
-                    <Link to="/teacher/attendance">Generate Attendance</Link>
-                </Menu.Item>
+              <Menu.Item name="Add Teacher" onClick={this.handleItemClick}>
+                <Link to="/teacher/attendance">Generate Attendance</Link>
+              </Menu.Item>
             </Menu.Menu>
           </Menu.Item>
 
@@ -89,4 +89,7 @@ const mapStateToProps = ({ user }) => {
   };
 };
 
-export default connect(mapStateToProps, {})(SideMenu);
+export default connect(
+  mapStateToProps,
+  {}
+)(SideMenu);

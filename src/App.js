@@ -24,51 +24,51 @@ const BodyContainer = styled.div`
 const ContentContainer = styled.div``;
 
 class App extends React.Component {
-    render() {
-        return (
-            <UIContainer className="ui container">
-                <Header />
-                <BodyContainer>
-                    <SideMenu/>
-                    <ContentContainer className="content-container">
-                        <GuestRoute
-                            location={this.props.location}
-                            path="/"
-                            exact
-                            component={LoginPage}
-                        />
+  render() {
+    return (
+      <UIContainer className="ui container">
+        <Header />
+        <BodyContainer>
+          <SideMenu />
+          <ContentContainer className="content-container">
+            <GuestRoute
+              location={this.props.location}
+              path="/"
+              exact
+              component={LoginPage}
+            />
 
-                        <UserRoute
-                            location={this.props.location}
-                            path="/teacher/attendance"
-                            exact
-                            component={AttendancePage}
-                        />
+            <UserRoute
+              location={this.props.location}
+              path="/teacher/attendance"
+              exact
+              component={AttendancePage}
+            />
 
-                        <UserRoute
-                            location={this.props.location}
-                            path="/teacher"
-                            exact
-                            component={TeacherPage}
-                        />
+            <UserRoute
+              location={this.props.location}
+              path="/teacher"
+              exact
+              component={TeacherPage}
+            />
 
-                        <UserRoute
-                            location={this.props.location}
-                            path="/teacher/add"
-                            exact
-                            component={AddTeacherPage}
-                        />
-                    </ContentContainer>
-                </BodyContainer>
-            </UIContainer>
-        );
-    }
+            <UserRoute
+              location={this.props.location}
+              path="/teacher/add"
+              exact
+              component={AddTeacherPage}
+            />
+          </ContentContainer>
+        </BodyContainer>
+      </UIContainer>
+    );
+  }
 }
 
 App.propTypes = {
-    location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired
-    }).isRequired
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default App;
