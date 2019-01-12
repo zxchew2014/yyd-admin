@@ -5,7 +5,7 @@ export default (state = {}, action) => {
     case FETCH_STUDENTS:
       return action.students;
     case FETCH_STUDENTS_BY_BRANCH:
-      return action.students;
+      return action.students || {};
     default:
       return state;
   }

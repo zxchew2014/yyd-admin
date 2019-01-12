@@ -1,12 +1,12 @@
 import React from "react";
 import {Form} from "semantic-ui-react";
 import {connect} from "react-redux";
-import {ScaleLoader} from "react-spinners";
 import _ from "lodash";
-import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
+import StudentList from "./student-list";
 
-class ViewTeacherList extends React.Component {
+
+class ViewStudentList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,14 +50,10 @@ class ViewTeacherList extends React.Component {
     render() {
         const {branch, loading} = this.state;
 
-        return loading ? (
-            <div>
-                <ScaleLoader loading={loading} color="#000000"/>
-            </div>
-        ) : (
+        return(
             <div className="teacher-list-container">
                 {this.renderBranchDropDownList()}
-                <TeacherList id="teacher_list" branch={branch}/>
+                <StudentList id="student_list" branch={branch}/>
                 <hr/>
             </div>
         );
@@ -68,4 +64,4 @@ const mapStateToProps = ({branches}) => ({
     branches
 });
 
-export default connect(mapStateToProps, BRANCHES)(ViewTeacherList);
+export default connect(mapStateToProps, BRANCHES)(ViewStudentList);

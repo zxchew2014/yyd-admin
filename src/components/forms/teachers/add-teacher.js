@@ -1,36 +1,38 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import * as teachers from '../../../actions/teachers';
-import { Form, Input, Button } from 'semantic-ui-react';
-import _ from 'lodash';
+import React from "react";
+import { connect } from "react-redux";
+import _ from "lodash";
+import { Form, Input, Button } from "semantic-ui-react";
+import * as teachers from "../../../actions/teachers";
 
 class AddTeacher extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      teacherName: '',
-      branch: ''
+      Name: "",
+      Branch: "",
+      Mobile: ""
     };
   }
+
+  onSubmit = event => {
+    const { addTeacher } = this.props;
+    event.preventDefault();
+    addTeacher(this.state).then(
+        this.setState ({
+              Name: "",
+              Branch: "",
+              Mobile: ""
+            }
+        ));
+  };
 
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
-  onSubmit = event => {
-    const { teacherName, branch } = this.state;
-    const { addTeacher } = this.props;
-    event.preventDefault();
-    addTeacher({ Name: _.startCase(teacherName) }, branch);
-    this.setState({
-      teacherName: '',
-      branch: ''
-    });
-  };
-
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { branch } = this.state;
+    const { Branch } = this.state;
 
     const BRANCH_OPTIONS = _.map(branches, (value, key) => (
       <option key={key} defaultValue={value}>
@@ -43,13 +45,13 @@ class AddTeacher extends React.Component {
         <label htmlFor="branch">Branch</label>
         <select
           ref="branch"
-          name="branch"
+          name="Branch"
           id="branch"
           onChange={this.handleInputChange}
-          value={branch}
+          value={Branch || ""}
           required
         >
-          <option key={branch} defaultValue={branch} />
+          <option key={Branch || "" } defaultValue={Branch || ""} />
           {BRANCH_OPTIONS}
         </select>
       </Form.Field>
@@ -59,19 +61,31 @@ class AddTeacher extends React.Component {
   }
 
   renderAddForm = () => {
-    const { teacherName } = this.state;
+    const { Name, Mobile } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
         <Form.Field
           id="form-input-control-first-name"
           control={Input}
-          value={teacherName}
+          value={Name || ""}
           label="Full Name (Same as NRIC)"
           placeholder="Full Name"
-          name="teacherName"
+          name="Name"
           onChange={this.handleInputChange}
           required
         />
+
+        <Form.Field
+            id="form-input-control-mobile"
+            control={Input}
+            value={Mobile || ""}
+            type="number"
+            label="Mobile Number"
+            placeholder="Mobile Number"
+            name="Mobile"
+            onChange={this.handleInputChange}
+        />
+
         {this.renderBranchDropDownList()}
         <Button type="submit" primary>
           Add Teacher
@@ -85,10 +99,8 @@ class AddTeacher extends React.Component {
   }
 }
 
-const mapStateToProps = ({ branches }) => {
-  return {
+const mapStateToProps = ({ branches }) => ({
     branches
-  };
-};
+  });
 
-export default connect(mapStateToProps, teachers)(AddTeacher);
+export default connect(mapStateToProps,teachers)(AddTeacher);

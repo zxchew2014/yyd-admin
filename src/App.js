@@ -4,7 +4,9 @@ import styled from "styled-components";
 import LoginPage from "./components/pages/login";
 import AttendancePage from "./components/pages/teacher-attendance";
 import TeacherPage from "./components/pages/teacher";
-import AddTeacherPage from "./components/pages/create-teacher";
+import AddTeacherPage from "./components/pages/add-teacher";
+import StudentPage from "./components/pages/student";
+import AddStudentPage from "./components/pages/add-student";
 import Header from "./components/utils/header";
 import UserRoute from "./routes/user-route";
 import GuestRoute from "./routes/guest-route";
@@ -52,11 +54,25 @@ class App extends React.Component {
               component={TeacherPage}
             />
 
+              <UserRoute
+                  location={this.props.location}
+                  path="/student"
+                  exact
+                  component={StudentPage}
+              />
+
             <UserRoute
               location={this.props.location}
               path="/teacher/add"
               exact
               component={AddTeacherPage}
+          />
+
+            <UserRoute
+                location={this.props.location}
+                path="/student/add"
+                exact
+                component={AddStudentPage}
             />
           </ContentContainer>
         </BodyContainer>

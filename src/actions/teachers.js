@@ -1,14 +1,26 @@
-import { teachersRef, yydASDb } from "../configs/firebase";
+import {studentsRef, teachersRef, yydASDb} from "../configs/firebase";
 import { FETCH_TEACHERS, FETCH_TEACHERS_BY_BRANCH } from "./types";
 import { getBranch } from "./branches";
 
-export const addTeacher = (teacher, branch) => async dispatch => {
-  teachersRef
-    .child(branch)
-    .push()
-    .set(teacher)
-    .then(() => dispatch(getBranch(branch)))
-    .then(() => dispatch(fetchTeachersByBranch(branch)));
+export const addTeacher = (teacher) => async dispatch => {
+
+  const myRef = teachersRef.child(teacher.Branch).push();
+  const newKey = myRef.key;
+  teacher.Id = newKey;
+
+  const updateData = {};
+  updateData[`/Teacher_Allocation/${teacher.Branch}/${newKey}`] = teacher;
+  yydASDb.ref()
+      .update(updateData)
+      .then(() => dispatch(getBranch(teacher.Branch)))
+      .then(() => dispatch(fetchTeachersByBranch(teacher.Branch)));
+
+  // teachersRef
+  //   .child(branch)
+  //   .push()
+  //   .set(teacher)
+  //   .then(() => dispatch(getBranch(branch)))
+  //   .then(() => dispatch(fetchTeachersByBranch(branch)));
 };
 
 export const removeTeacher = (teacher, branch) => async dispatch => {
@@ -18,7 +30,6 @@ export const removeTeacher = (teacher, branch) => async dispatch => {
     .remove()
     .then(() => dispatch(getBranch(branch)))
     .then(result => {
-      console.log(result);
       dispatch(fetchTeachersByBranch(branch));
     });
 };
