@@ -54,25 +54,25 @@ class App extends React.Component {
               component={TeacherPage}
             />
 
-              <UserRoute
-                  location={this.props.location}
-                  path="/student"
-                  exact
-                  component={StudentPage}
-              />
+            <UserRoute
+              location={this.props.location}
+              path="/student"
+              exact
+              component={StudentPage}
+            />
 
             <UserRoute
               location={this.props.location}
               path="/teacher/add"
               exact
               component={AddTeacherPage}
-          />
+            />
 
             <UserRoute
-                location={this.props.location}
-                path="/student/add"
-                exact
-                component={AddStudentPage}
+              location={this.props.location}
+              path="/student/add"
+              exact
+              component={AddStudentPage}
             />
           </ContentContainer>
         </BodyContainer>

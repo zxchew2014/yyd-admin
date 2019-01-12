@@ -4,23 +4,26 @@ import AddStudentForm from "../forms/students/add-student";
 import * as branches from "../../actions/branches";
 
 class AddStudentPage extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    componentWillMount() {
-        const {fetchBranches} = this.props;
-        fetchBranches();
-    }
+  componentWillMount() {
+    const { fetchBranches } = this.props;
+    fetchBranches();
+  }
 
-    render() {
-        return (
-            <div className="add-teacher-container">
-                <AddStudentForm />
-                <hr />
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="add-teacher-container">
+        <AddStudentForm />
+        <hr />
+      </div>
+    );
+  }
 }
 
-export default connect(null,branches)(AddStudentPage);
+export default connect(
+  null,
+  branches
+)(AddStudentPage);

@@ -18,12 +18,12 @@ class AddTeacher extends React.Component {
     const { addTeacher } = this.props;
     event.preventDefault();
     addTeacher(this.state).then(
-        this.setState ({
-              Name: "",
-              Branch: "",
-              Mobile: ""
-            }
-        ));
+      this.setState({
+        Name: "",
+        Branch: "",
+        Mobile: ""
+      })
+    );
   };
 
   handleInputChange = event => {
@@ -51,7 +51,7 @@ class AddTeacher extends React.Component {
           value={Branch || ""}
           required
         >
-          <option key={Branch || "" } defaultValue={Branch || ""} />
+          <option key={Branch || ""} defaultValue={Branch || ""} />
           {BRANCH_OPTIONS}
         </select>
       </Form.Field>
@@ -76,14 +76,14 @@ class AddTeacher extends React.Component {
         />
 
         <Form.Field
-            id="form-input-control-mobile"
-            control={Input}
-            value={Mobile || ""}
-            type="number"
-            label="Mobile Number"
-            placeholder="Mobile Number"
-            name="Mobile"
-            onChange={this.handleInputChange}
+          id="form-input-control-mobile"
+          control={Input}
+          value={Mobile || ""}
+          type="number"
+          label="Mobile Number"
+          placeholder="Mobile Number"
+          name="Mobile"
+          onChange={this.handleInputChange}
         />
 
         {this.renderBranchDropDownList()}
@@ -100,7 +100,10 @@ class AddTeacher extends React.Component {
 }
 
 const mapStateToProps = ({ branches }) => ({
-    branches
-  });
+  branches
+});
 
-export default connect(mapStateToProps,teachers)(AddTeacher);
+export default connect(
+  mapStateToProps,
+  teachers
+)(AddTeacher);

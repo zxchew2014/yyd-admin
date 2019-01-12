@@ -1,19 +1,19 @@
-import {studentsRef, teachersRef, yydASDb} from "../configs/firebase";
+import { studentsRef, teachersRef, yydASDb } from "../configs/firebase";
 import { FETCH_TEACHERS, FETCH_TEACHERS_BY_BRANCH } from "./types";
 import { getBranch } from "./branches";
 
-export const addTeacher = (teacher) => async dispatch => {
-
+export const addTeacher = teacher => async dispatch => {
   const myRef = teachersRef.child(teacher.Branch).push();
   const newKey = myRef.key;
   teacher.Id = newKey;
 
   const updateData = {};
   updateData[`/Teacher_Allocation/${teacher.Branch}/${newKey}`] = teacher;
-  yydASDb.ref()
-      .update(updateData)
-      .then(() => dispatch(getBranch(teacher.Branch)))
-      .then(() => dispatch(fetchTeachersByBranch(teacher.Branch)));
+  yydASDb
+    .ref()
+    .update(updateData)
+    .then(() => dispatch(getBranch(teacher.Branch)))
+    .then(() => dispatch(fetchTeachersByBranch(teacher.Branch)));
 
   // teachersRef
   //   .child(branch)

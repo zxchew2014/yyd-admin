@@ -5,17 +5,17 @@ import TeacherList from "../lists/teachers/teacher-list";
 import * as branches from "../../actions/branches";
 
 class AddTeacherPage extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            branch: "",
-            loading: true
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      branch: "",
+      loading: true
+    };
+  }
 
   componentWillMount() {
-      const {fetchBranches} = this.props;
-      fetchBranches().then(this.setState({loading: false}));
+    const { fetchBranches } = this.props;
+    fetchBranches().then(this.setState({ loading: false }));
   }
 
   render() {
