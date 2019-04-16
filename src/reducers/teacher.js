@@ -1,6 +1,10 @@
-import {FETCH_TEACHERS, FETCH_TEACHERS_BY_BRANCH, FETCH_TEACHER} from '../actions/types';
+import {
+  FETCH_TEACHERS,
+  FETCH_TEACHERS_BY_BRANCH,
+  FETCH_TEACHER
+} from "../actions/types";
 
-export const fetchTeacherList =(state = {}, action) => {
+export const fetchTeacherList = (state = {}, action) => {
   switch (action.type) {
     case FETCH_TEACHERS_BY_BRANCH:
       return action.teachers || {};
@@ -18,4 +22,3 @@ export const fetchTeacher = (state = {}, action) => {
       return state;
   }
 };
-

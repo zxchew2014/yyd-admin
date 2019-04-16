@@ -1,4 +1,7 @@
-import { FETCH_TEACHER_ATTENDANCES ,FETCH_STUDENT_ATTENDANCES} from '../actions/types';
+import {
+  FETCH_TEACHER_ATTENDANCES,
+  FETCH_STUDENT_ATTENDANCES
+} from "../actions/types";
 
 export const fetchTeacherAttendance = (state = [], action) => {
   switch (action.type) {

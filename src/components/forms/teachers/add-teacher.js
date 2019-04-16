@@ -1,132 +1,138 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import _ from "lodash";
-import {Form, Input, Button} from "semantic-ui-react";
+import { Form, Input, Button } from "semantic-ui-react";
 import * as teachers from "../../../actions/teachers";
 
 class AddTeacher extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            Name: "",
-            Branch: "",
-            Mobile: ""
-        };
-    }
-
-    onSubmit = event => {
-        const {addTeacher} = this.props;
-        event.preventDefault();
-        addTeacher(this.state).then(
-            this.setState({
-                Name: "",
-                Branch: "",
-                Mobile: ""
-            })
-        );
+  constructor(props) {
+    super(props);
+    this.state = {
+      Name: "",
+      Branch: "",
+      Mobile: ""
     };
+  }
 
-    updateTeacher = event => {
-        const {updateTeacher} = this.props;
-        event.preventDefault();
-        updateTeacher(this.state).then(
-            this.setState({
-                Name: "",
-                Branch: "",
-                Mobile: ""
-            })
-        );
-    }
+  onSubmit = event => {
+    const { addTeacher } = this.props;
+    event.preventDefault();
+    addTeacher(this.state).then(
+      this.setState({
+        Name: "",
+        Branch: "",
+        Mobile: ""
+      })
+    );
+  };
 
-    handleInputChange = event => {
-        this.setState({[event.target.name]: event.target.value});
-    };
+  updateTeacher = event => {
+    const { updateTeacher } = this.props;
+    event.preventDefault();
+    updateTeacher(this.state).then(
+      this.setState({
+        Name: "",
+        Branch: "",
+        Mobile: ""
+      })
+    );
+  };
 
-    renderBranchDropDownList() {
-        const {branches} = this.props;
-        const {Branch} = this.state;
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-        const BRANCH_OPTIONS = _.map(branches, (value, key) => (
-            <option key={key} defaultValue={value}>
-                {value}
-            </option>
-        ));
+  renderBranchDropDownList() {
+    const { branches } = this.props;
+    const { Branch } = this.state;
 
-        const FORM_FIELD_BRANCH = () => (
-            <Form.Field>
-                <label htmlFor="branch">Branch</label>
-                <select
-                    ref="branch"
-                    name="Branch"
-                    id="branch"
-                    onChange={this.handleInputChange}
-                    value={Branch || ""}
-                    required
-                >
-                    <option key={Branch || ""} defaultValue={Branch || ""}/>
-                    {BRANCH_OPTIONS}
-                </select>
-            </Form.Field>
-        );
+    const BRANCH_OPTIONS = _.map(branches, (value, key) => (
+      <option key={key} defaultValue={value}>
+        {value}
+      </option>
+    ));
 
-        return FORM_FIELD_BRANCH();
-    }
+    const FORM_FIELD_BRANCH = () => (
+      <Form.Field>
+        <label htmlFor="branch">Branch</label>
+        <select
+          ref="branch"
+          name="Branch"
+          id="branch"
+          onChange={this.handleInputChange}
+          value={Branch || ""}
+          required
+        >
+          <option key={Branch || ""} defaultValue={Branch || ""} />
+          {BRANCH_OPTIONS}
+        </select>
+      </Form.Field>
+    );
 
-    renderAddForm = () => {
-        const {Name, Mobile} = this.state;
-        const {teacher} = this.props;
-        console.log("Add Form");
-        console.log(teacher);
-        return (
-            <Form onSubmit={this.onSubmit}>
-                <Form.Field
-                    id="form-input-control-first-name"
-                    control={Input}
-                    value={Name || ""}
-                    label="Full Name (Same as NRIC)"
-                    placeholder="Full Name"
-                    name="Name"
-                    onChange={this.handleInputChange}
-                    required
-                />
+    return FORM_FIELD_BRANCH();
+  }
 
-                <Form.Field
-                    id="form-input-control-mobile"
-                    control={Input}
-                    value={Mobile || ""}
-                    type="number"
-                    label="Mobile Number"
-                    placeholder="Mobile Number"
-                    name="Mobile"
-                    onChange={this.handleInputChange}
-                />
+  renderAddForm = () => {
+    const { Name, Mobile } = this.state;
+    const { teacher } = this.props;
+    console.log("Add Form");
+    console.log(teacher);
+    return (
+      <Form onSubmit={this.onSubmit}>
+        <Form.Field
+          id="form-input-control-first-name"
+          control={Input}
+          value={Name || ""}
+          label="Full Name (Same as NRIC)"
+          placeholder="Full Name"
+          name="Name"
+          onChange={this.handleInputChange}
+          required
+        />
 
-                {this.renderBranchDropDownList()}
+        <Form.Field
+          id="form-input-control-mobile"
+          control={Input}
+          value={Mobile || ""}
+          type="number"
+          label="Mobile Number"
+          placeholder="Mobile Number"
+          name="Mobile"
+          onChange={this.handleInputChange}
+        />
 
-                {
-                    JSON.stringify(teacher) === JSON.stringify({}) ?
-                        <Button type="submit" primary>Add Teacher</Button> :
-                        <Button type="submit" primary onClick={() => this.updateTeacher()}>Update Teacher</Button>
-                }
+        {this.renderBranchDropDownList()}
 
-            </Form>
-        );
-    };
+        {JSON.stringify(teacher) === JSON.stringify({}) ? (
+          <Button type="submit" primary>
+            Add Teacher
+          </Button>
+        ) : (
+          <Button type="submit" primary onClick={() => this.updateTeacher()}>
+            Update Teacher
+          </Button>
+        )}
+      </Form>
+    );
+  };
 
-    render() {
-        return [<div className="add-teacher-form">{this.renderAddForm()}</div>];
-    }
+  render() {
+    return [<div className="add-teacher-form">{this.renderAddForm()}</div>];
+  }
 }
 
 AddTeacher.propTypes = {
-    teacher: PropTypes.objectOf(PropTypes.object).isRequired,
-    updateTeacher : PropTypes.func.isRequired,
-    addTeacher : PropTypes.func.isRequired,
+  teacher: PropTypes.objectOf(PropTypes.object).isRequired,
+  updateTeacher: PropTypes.func.isRequired,
+  addTeacher: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({branches}) => ({
-    branches
+const mapStateToProps = ({ branches }) => ({
+  branches
 });
 
-export default connect(mapStateToProps,teachers)(AddTeacher);
+export default connect(
+  mapStateToProps,
+  teachers
+)(AddTeacher);

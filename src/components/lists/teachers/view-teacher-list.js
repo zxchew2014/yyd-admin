@@ -7,7 +7,6 @@ import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
 
-
 class ViewTeacherList extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +58,11 @@ class ViewTeacherList extends React.Component {
     ) : (
       <div className="teacher-list-container">
         {this.renderBranchDropDownList()}
-        <TeacherList id="teacher_list" branch={branch} onEdit={this.props.onEdit}/>
+        <TeacherList
+          id="teacher_list"
+          branch={branch}
+          onEdit={this.props.onEdit}
+        />
         <hr />
       </div>
     );
@@ -73,8 +76,6 @@ ViewTeacherList.propTypes = {
 const mapStateToProps = ({ branches }) => ({
   branches
 });
-
-
 
 export default connect(
   mapStateToProps,

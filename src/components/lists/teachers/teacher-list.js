@@ -39,10 +39,9 @@ class TeacherList extends React.Component {
     });
   };
 
-  editTeacher = (teacher) => {
-      this.props.onEdit(teacher);
+  editTeacher = teacher => {
+    this.props.onEdit(teacher);
   };
-
 
   render() {
     const { branch } = this.props;
@@ -68,14 +67,16 @@ class TeacherList extends React.Component {
         const teacher = branch[teacherKey];
         return (
           <Table.Row key={`${branchKey}-${teacherKey}`}>
-            <Table.Cell>{counter+=1}.</Table.Cell>
+            <Table.Cell>{(counter += 1)}.</Table.Cell>
             <Table.Cell>{teacher.Name}</Table.Cell>
             <Table.Cell>{teacher.Mobile}</Table.Cell>
             <Table.Cell>{branchKey}</Table.Cell>
             {this.props.branch !== ""
               ? [
-                  <Table.Cell selectable textAlign="center"
-                              onClick={() =>this.editTeacher(teacher)}
+                  <Table.Cell
+                    selectable
+                    textAlign="center"
+                    onClick={() => this.editTeacher(teacher)}
                   >
                     <Icon name="edit" size="large" aria-label="Edit" />
                   </Table.Cell>,
@@ -139,8 +140,8 @@ class TeacherList extends React.Component {
 }
 
 TeacherList.propTypes = {
-    onEdit: PropTypes.func.isRequired,
-    branch: PropTypes.string
+  onEdit: PropTypes.func.isRequired,
+  branch: PropTypes.string
 };
 
 const mapStateToProps = ({ teachers }) => ({

@@ -14,7 +14,6 @@ import UserRoute from "./routes/user-route";
 import GuestRoute from "./routes/guest-route";
 import SideMenu from "./components/sidemenus/index";
 
-
 const UIContainer = styled.div``;
 const BodyContainer = styled.div`
   display: flex;
@@ -51,23 +50,25 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/student/attendance"
-                exact
-                component={StudentAttendancePage}
+              location={this.props.location}
+              path="/student/attendance"
+              exact
+              component={StudentAttendancePage}
             />
 
             <UserRoute
               location={this.props.location}
               path="/teacher"
               exact
-              component={TeacherPage}/>
+              component={TeacherPage}
+            />
 
             <UserRoute
-                location={this.props.location}
-                path="/teacher/edit"
-                exact
-                component={EditTeacherPage}/>
+              location={this.props.location}
+              path="/teacher/edit"
+              exact
+              component={EditTeacherPage}
+            />
 
             <UserRoute
               location={this.props.location}

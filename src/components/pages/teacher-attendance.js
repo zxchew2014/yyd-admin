@@ -49,8 +49,11 @@ class AttendancePage extends React.Component {
 }
 
 const mapStateToProps = ({ user, attendanceTeachers }) => ({
-    user,
-    attendanceTeachers
+  user,
+  attendanceTeachers
 });
 
-export default connect(mapStateToProps, attendances)(AttendancePage);
+export default connect(
+  mapStateToProps,
+  attendances
+)(AttendancePage);

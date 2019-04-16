@@ -1,51 +1,51 @@
 import React from "react";
 // import { Icon, Table } from "semantic-ui-react";
-import {Table} from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import * as STUDENTS from "../../../actions/students";
 
 class StudentList extends React.Component {
-    constructor(props) {
-        super(props);
-        const {branch} = this.props;
-        this.state = {
-            branch: branch || "",
-            loading: true
-        };
+  constructor(props) {
+    super(props);
+    const { branch } = this.props;
+    this.state = {
+      branch: branch || "",
+      loading: true
+    };
+  }
+
+  componentDidMount() {
+    const { branch, fetchStudentsByBranch } = this.props;
+    if (branch.trim())
+      fetchStudentsByBranch(branch).then(this.setState({ loading: false }));
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { branch, fetchStudentsByBranch } = this.props;
+    if (prevProps.branch !== branch) {
+      fetchStudentsByBranch(branch).then(this.setState({ loading: false }));
     }
+  }
 
-    componentDidMount() {
-        const {branch, fetchStudentsByBranch} = this.props;
-        if (branch.trim())
-            fetchStudentsByBranch(branch).then(this.setState({loading: false}));
-    }
+  render() {
+    const { branch } = this.props;
+    // let counter = 0;
 
-    componentDidUpdate(prevProps, prevState) {
-        const {branch, fetchStudentsByBranch} = this.props;
-        if (prevProps.branch !== branch) {
-            fetchStudentsByBranch(branch).then(this.setState({loading: false}));
-        }
-    }
+    const renderHeaderRow = () => (
+      <Table.Row>
+        <Table.HeaderCell>S/N</Table.HeaderCell>
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Branch</Table.HeaderCell>
+        {branch !== "" ? (
+          <Table.HeaderCell colSpan="2" textAlign="center">
+            Actions
+          </Table.HeaderCell>
+        ) : null}
+      </Table.Row>
+    );
 
-    render() {
-        const {branch} = this.props;
-        // let counter = 0;
-
-        const renderHeaderRow = () => (
-            <Table.Row>
-                <Table.HeaderCell>S/N</Table.HeaderCell>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Branch</Table.HeaderCell>
-                {branch !== "" ? (
-                    <Table.HeaderCell colSpan="2" textAlign="center">
-                        Actions
-                    </Table.HeaderCell>
-                ) : null}
-            </Table.Row>
-        );
-
-        /* const renderStudentRows = (branch, branchKey) =>
+    /* const renderStudentRows = (branch, branchKey) =>
           Object.keys(branch).map(teacherKey => {
             const teacher = branch[teacherKey];
             return (
@@ -71,29 +71,29 @@ class StudentList extends React.Component {
             );
           }); */
 
-        const renderStudentsByBranch = branch => {
-            // const { students } = this.props;
-            return (
-                <Table unstackable key="student-by-branch">
-                    <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
-                    {/*  <Table.Body>{renderStudentRows(students, branch)}</Table.Body> */}
-                </Table>
-            );
-        };
+    const renderStudentsByBranch = branch => {
+      // const { students } = this.props;
+      return (
+        <Table unstackable key="student-by-branch">
+          <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
+          {/*  <Table.Body>{renderStudentRows(students, branch)}</Table.Body> */}
+        </Table>
+      );
+    };
 
-        return branch === "" ? null : renderStudentsByBranch(branch);
-    }
+    return branch === "" ? null : renderStudentsByBranch(branch);
+  }
 }
 
 StudentList.propTypes = {
-    branch: PropTypes.string
+  branch: PropTypes.string
 };
 
-const mapStateToProps = ({students}) => ({
-    students
+const mapStateToProps = ({ students }) => ({
+  students
 });
 
 export default connect(
-    mapStateToProps,
-    STUDENTS
+  mapStateToProps,
+  STUDENTS
 )(StudentList);

@@ -85,7 +85,7 @@ class AddStudentForm extends React.Component {
   }
 
   renderPrimaryDropDownList() {
-    const primaryLevel = ["1","2", "3", "4", "5", "6"];
+    const primaryLevel = ["1", "2", "3", "4", "5", "6"];
     const { Primary } = this.state;
 
     const PRIMARY_OPTIONS = _.map(primaryLevel, (value, key) => (
