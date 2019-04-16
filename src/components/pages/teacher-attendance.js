@@ -30,13 +30,13 @@ class AttendancePage extends React.Component {
 
   render() {
     const { startDate, endDate, loading, empty } = this.state;
-    const { attendance_teachers } = this.props;
+    const { attendanceTeachers } = this.props;
     return (
       <div>
         <h1>Select Teacher Attendance</h1>
         <RetrieveTeacherAttendanceForm submit={this.submit} />
         <hr />
-        {attendance_teachers.length > 0 ? (
+        {attendanceTeachers.length > 0 ? (
           <TeacherAttendanceList startDate={startDate} endDate={endDate} />
         ) : empty ? null : loading ? (
           <div className="loader">
@@ -48,14 +48,9 @@ class AttendancePage extends React.Component {
   }
 }
 
-function mapStateToProps({ user, attendance_teachers }) {
-  return {
+const mapStateToProps = ({ user, attendanceTeachers }) => ({
     user,
-    attendance_teachers
-  };
-}
+    attendanceTeachers
+});
 
-export default connect(
-  mapStateToProps,
-  attendances
-)(AttendancePage);
+export default connect(mapStateToProps, attendances)(AttendancePage);

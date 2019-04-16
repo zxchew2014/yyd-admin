@@ -19,7 +19,7 @@ class TeacherList extends React.Component {
   componentDidMount() {
     const { branch, fetchAllTeachers, fetchTeachersByBranch } = this.props;
 
-    if (branch.trim() === "")
+    if (branch === "")
       fetchAllTeachers().then(this.setState({ loading: false }));
     else fetchTeachersByBranch(branch).then(this.setState({ loading: false }));
   }
@@ -39,15 +39,21 @@ class TeacherList extends React.Component {
     });
   };
 
+  editTeacher = (teacher) => {
+      this.props.onEdit(teacher);
+  };
+
+
   render() {
     const { branch } = this.props;
     const { loading } = this.state;
-    let counter = 1;
+    let counter = 0;
 
     const renderHeaderRow = () => (
       <Table.Row>
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Contact No.</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
         {branch !== "" ? (
           <Table.HeaderCell colSpan="2" textAlign="center">
@@ -62,12 +68,15 @@ class TeacherList extends React.Component {
         const teacher = branch[teacherKey];
         return (
           <Table.Row key={`${branchKey}-${teacherKey}`}>
-            <Table.Cell>{counter++}.</Table.Cell>
+            <Table.Cell>{counter+=1}.</Table.Cell>
             <Table.Cell>{teacher.Name}</Table.Cell>
+            <Table.Cell>{teacher.Mobile}</Table.Cell>
             <Table.Cell>{branchKey}</Table.Cell>
             {this.props.branch !== ""
               ? [
-                  <Table.Cell selectable textAlign="center">
+                  <Table.Cell selectable textAlign="center"
+                              onClick={() =>this.editTeacher(teacher)}
+                  >
                     <Icon name="edit" size="large" aria-label="Edit" />
                   </Table.Cell>,
                   <Table.Cell
@@ -130,7 +139,8 @@ class TeacherList extends React.Component {
 }
 
 TeacherList.propTypes = {
-  branch: PropTypes.string
+    onEdit: PropTypes.func.isRequired,
+    branch: PropTypes.string
 };
 
 const mapStateToProps = ({ teachers }) => ({

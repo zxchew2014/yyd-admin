@@ -1,9 +1,18 @@
-import { FETCH_TEACHER_ATTENDANCES } from '../actions/types';
+import { FETCH_TEACHER_ATTENDANCES ,FETCH_STUDENT_ATTENDANCES} from '../actions/types';
 
 export const fetchTeacherAttendance = (state = [], action) => {
   switch (action.type) {
     case FETCH_TEACHER_ATTENDANCES:
-      return action.attendance_teachers;
+      return action.attendanceTeachers;
+    default:
+      return state;
+  }
+};
+
+export const fetchStudentAttendance = (state = [], action) => {
+  switch (action.type) {
+    case FETCH_STUDENT_ATTENDANCES:
+      return action.attendanceStudents;
     default:
       return state;
   }

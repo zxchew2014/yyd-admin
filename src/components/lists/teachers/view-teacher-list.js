@@ -3,8 +3,10 @@ import { Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { ScaleLoader } from "react-spinners";
 import _ from "lodash";
+import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
+
 
 class ViewTeacherList extends React.Component {
   constructor(props) {
@@ -57,16 +59,22 @@ class ViewTeacherList extends React.Component {
     ) : (
       <div className="teacher-list-container">
         {this.renderBranchDropDownList()}
-        <TeacherList id="teacher_list" branch={branch} />
+        <TeacherList id="teacher_list" branch={branch} onEdit={this.props.onEdit}/>
         <hr />
       </div>
     );
   }
 }
 
+ViewTeacherList.propTypes = {
+  onEdit: PropTypes.func.isRequired
+};
+
 const mapStateToProps = ({ branches }) => ({
   branches
 });
+
+
 
 export default connect(
   mapStateToProps,

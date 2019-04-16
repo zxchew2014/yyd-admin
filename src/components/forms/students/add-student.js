@@ -85,7 +85,7 @@ class AddStudentForm extends React.Component {
   }
 
   renderPrimaryDropDownList() {
-    const primaryLevel = ["2", "3", "4", "5", "6"];
+    const primaryLevel = ["1","2", "3", "4", "5", "6"];
     const { Primary } = this.state;
 
     const PRIMARY_OPTIONS = _.map(primaryLevel, (value, key) => (
@@ -112,32 +112,6 @@ class AddStudentForm extends React.Component {
     );
 
     return FORM_FIELD_PRIMARY();
-  }
-
-  renderClassDropDownList() {
-    const { Class } = this.state;
-    const FORM_FIELD_CLASS = () => (
-      <Form.Field>
-        <label htmlFor="classNo">Class (Optional)</label>
-        <select
-          ref="classNo"
-          name="classNo"
-          id="classNo"
-          onChange={this.handleClassInputChange}
-          value={Class || ""}
-        >
-          <option key={Class || ""} defaultValue={Class || ""} />
-          <option key="1" value="1">
-            Class 1
-          </option>
-          <option key="2" value="2">
-            Class 2
-          </option>
-        </select>
-      </Form.Field>
-    );
-
-    return FORM_FIELD_CLASS();
   }
 
   renderBranchDropDownList() {
@@ -187,7 +161,6 @@ class AddStudentForm extends React.Component {
         {this.renderBranchDropDownList()}
         {Branch === "Punggol" ? this.renderBatchDropDownList() : null}
         {this.renderPrimaryDropDownList()}
-        {this.renderClassDropDownList()}
         <Button type="submit" primary>
           Add Student
         </Button>

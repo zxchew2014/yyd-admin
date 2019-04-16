@@ -3,7 +3,6 @@ import { FETCH_STUDENTS_BY_BRANCH } from "./types";
 
 export const addStudent = student => async dispatch => {
   const branch = student.Branch;
-  const name = student.Name;
   const myRef = studentsRef.child(branch).push();
   const newKey = myRef.key;
   student.Id = newKey;

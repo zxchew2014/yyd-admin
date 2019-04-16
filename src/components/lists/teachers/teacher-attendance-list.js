@@ -7,9 +7,9 @@ import AttendanceList from "./attendance-list";
 
 class TeacherAttendanceList extends React.Component {
   render() {
-    const { startDate, endDate, attendance_teachers } = this.props;
+    const { startDate, endDate, attendanceTeachers } = this.props;
 
-    if (attendance_teachers.length === 0) {
+    if (attendanceTeachers.length === 0) {
       return [
         <Message warning>
           <Message.Header>
@@ -20,7 +20,7 @@ class TeacherAttendanceList extends React.Component {
       ];
     }
 
-    if (attendance_teachers.length > 0) {
+    if (attendanceTeachers.length > 0) {
       return [
         <AttendanceList startDate={startDate} endDate={endDate} />,
         <hr />
@@ -36,8 +36,8 @@ TeacherAttendanceList.propTypes = {
   endDate: PropTypes.string
 };
 
-const mapStateToProps = ({ attendance_teachers }) => ({
-  attendance_teachers
+const mapStateToProps = ({ attendanceTeachers }) => ({
+  attendanceTeachers
 });
 
 export default connect(

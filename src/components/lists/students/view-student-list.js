@@ -47,7 +47,7 @@ class ViewStudentList extends React.Component {
   }
 
   render() {
-    const { branch, loading } = this.state;
+    const { branch } = this.state;
 
     return (
       <div className="teacher-list-container">
