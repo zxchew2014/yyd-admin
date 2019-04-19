@@ -130,4 +130,7 @@ const mapStateToProps = ({ branches }) => ({
   branches
 });
 
-export default connect(mapStateToProps, teachers)(AddTeacher);
+export default connect(
+  mapStateToProps,
+  teachers
+)(AddTeacher);

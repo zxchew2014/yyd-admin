@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Route, Redirect} from "react-router-dom";
 
-const UserRoute = ({user, component: Component, ...rest}) => {
-    return (
+const UserRoute = ({user, component: Component, ...rest}) => (
         <Route
             {...rest}
             render={props =>
@@ -16,7 +15,6 @@ const UserRoute = ({user, component: Component, ...rest}) => {
             }
         />
     );
-};
 
 UserRoute.propTypes = {
     component: PropTypes.func.isRequired,

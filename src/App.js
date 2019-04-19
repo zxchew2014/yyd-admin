@@ -44,10 +44,10 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/verify_email"
-                exact
-                component={VerifyEmailPage}
+              location={this.props.location}
+              path="/verify_email"
+              exact
+              component={VerifyEmailPage}
             />
 
             <UserRoute

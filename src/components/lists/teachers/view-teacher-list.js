@@ -6,7 +6,7 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
-import {COLOUR_BLACK} from "../../../utils/common";
+import { COLOUR_BLACK } from "../../../utils/common";
 
 class ViewTeacherList extends React.Component {
   constructor(props) {

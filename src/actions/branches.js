@@ -1,8 +1,8 @@
-import { branchesRef } from '../configs/firebase';
-import { FETCH_BRANCHES, GET_BRANCH } from './types';
-import {VALUE_KEY} from "../utils/common";
+import { branchesRef } from "../configs/firebase";
+import { FETCH_BRANCHES, GET_BRANCH } from "./types";
+import { VALUE_KEY } from "../utils/common";
 
-export const getBranch = (branch = '') => ({
+export const getBranch = (branch = "") => ({
   type: GET_BRANCH,
   branch
 });

@@ -6,7 +6,7 @@ import {
 export const fetchTeacherAttendance = (state = null, action) => {
   switch (action.type) {
     case FETCH_TEACHER_ATTENDANCES:
-      return action.attendanceTeachers || [] ;
+      return action.attendanceTeachers || [];
     default:
       return state;
   }

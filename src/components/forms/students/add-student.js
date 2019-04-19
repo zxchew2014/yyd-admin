@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import _ from "lodash";
 import * as students from "../../../actions/students";
-import {ALL_PRIMARY_LEVEL, BRANCH_PUNGGOL, BATCH_1, BATCH_2} from "../../../utils/common";
+import {
+  ALL_PRIMARY_LEVEL,
+  BRANCH_PUNGGOL,
+  BATCH_1,
+  BATCH_2
+} from "../../../utils/common";
 
 class AddStudentForm extends React.Component {
   constructor(props) {
