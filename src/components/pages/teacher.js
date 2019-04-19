@@ -26,10 +26,9 @@ TeacherPage.propTypes = {
   }).isRequired
 };
 
-const mapStateToProps = state => ({
-  user: state.user
+const mapStateToProps = ({user}) => ({
+  user,
 });
-
 export default connect(
   mapStateToProps,
   TEACHERS

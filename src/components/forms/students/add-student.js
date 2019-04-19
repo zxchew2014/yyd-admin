@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import _ from "lodash";
 import * as students from "../../../actions/students";
+import {ALL_PRIMARY_LEVEL, BRANCH_PUNGGOL, BATCH_1, BATCH_2} from "../../../utils/common";
 
 class AddStudentForm extends React.Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class AddStudentForm extends React.Component {
   };
 
   handleBranchInputChange = event => {
-    event.target.value === "Punggol"
+    event.target.value === BRANCH_PUNGGOL
       ? this.setState({ Branch: event.target.value, Batch: "" })
       : [
           this.setState({ Branch: event.target.value }),
@@ -71,10 +72,10 @@ class AddStudentForm extends React.Component {
           required
         >
           <option key={Batch || ""} defaultValue={Batch || ""} />
-          <option key="1" value="1">
+          <option key={BATCH_1} value={BATCH_1}>
             Batch 1
           </option>
-          <option key="2" value="2">
+          <option key={BATCH_2} value={BATCH_2}>
             Batch 2
           </option>
         </select>
@@ -85,7 +86,7 @@ class AddStudentForm extends React.Component {
   }
 
   renderPrimaryDropDownList() {
-    const primaryLevel = ["1", "2", "3", "4", "5", "6"];
+    const primaryLevel = ALL_PRIMARY_LEVEL;
     const { Primary } = this.state;
 
     const PRIMARY_OPTIONS = _.map(primaryLevel, (value, key) => (
@@ -159,7 +160,7 @@ class AddStudentForm extends React.Component {
           required
         />
         {this.renderBranchDropDownList()}
-        {Branch === "Punggol" ? this.renderBatchDropDownList() : null}
+        {Branch === BRANCH_PUNGGOL ? this.renderBatchDropDownList() : null}
         {this.renderPrimaryDropDownList()}
         <Button type="submit" primary>
           Add Student

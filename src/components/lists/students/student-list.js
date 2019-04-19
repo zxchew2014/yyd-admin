@@ -1,5 +1,4 @@
 import React from "react";
-// import { Icon, Table } from "semantic-ui-react";
 import { Table } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";

@@ -9,6 +9,7 @@ import EditTeacherPage from "./components/pages/edit-teacher";
 import AddTeacherPage from "./components/pages/add-teacher";
 import StudentPage from "./components/pages/student";
 import AddStudentPage from "./components/pages/add-student";
+import VerifyEmailPage from "./components/pages/verify-email";
 import Header from "./components/utils/header";
 import UserRoute from "./routes/user-route";
 import GuestRoute from "./routes/guest-route";
@@ -40,6 +41,13 @@ class App extends React.Component {
               path="/"
               exact
               component={LoginPage}
+            />
+
+            <UserRoute
+                location={this.props.location}
+                path="/verify_email"
+                exact
+                component={VerifyEmailPage}
             />
 
             <UserRoute

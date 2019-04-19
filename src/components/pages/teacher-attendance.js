@@ -1,59 +1,65 @@
 import React from "react";
-import { connect } from "react-redux";
-import { ScaleLoader } from "react-spinners";
+import {connect} from "react-redux";
+import {ScaleLoader} from "react-spinners";
 import RetrieveTeacherAttendanceForm from "../forms/attendance/teacher-attendance";
 import TeacherAttendanceList from "../lists/teachers/teacher-attendance-list";
 import * as attendances from "../../actions/attendances";
+import {Message} from "semantic-ui-react";
 
 class AttendancePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      startDate: "",
-      endDate: "",
-      loading: true,
-      empty: true
+    constructor(props) {
+        super(props);
+        this.state = {
+            startDate: "",
+            endDate: "",
+        };
+    }
+
+    submit = data => {
+        const {fetchTeacherAttendanceClockOut} = this.props;
+        fetchTeacherAttendanceClockOut(data).then(() =>
+            this.setState({
+                endDate: data.endDate,
+                startDate: data.startDate
+            })
+        );
     };
-  }
 
-  submit = data => {
-    const { fetchTeacherAttendanceClockOut } = this.props;
-    fetchTeacherAttendanceClockOut(data).then(() =>
-      this.setState({
-        endDate: data.endDate,
-        startDate: data.startDate,
-        loading: false,
-        empty: false
-      })
-    );
-  };
+    render() {
+        const {startDate, endDate} = this.state;
+        const {attendanceTeachers} = this.props;
+        return (
+            <div>
+                <h1>Select Teacher Attendance</h1>
+                <RetrieveTeacherAttendanceForm submit={this.submit}/>
+                <hr/>
 
-  render() {
-    const { startDate, endDate, loading, empty } = this.state;
-    const { attendanceTeachers } = this.props;
-    return (
-      <div>
-        <h1>Select Teacher Attendance</h1>
-        <RetrieveTeacherAttendanceForm submit={this.submit} />
-        <hr />
-        {attendanceTeachers.length > 0 ? (
-          <TeacherAttendanceList startDate={startDate} endDate={endDate} />
-        ) : empty ? null : loading ? (
-          <div className="loader">
-            <ScaleLoader loading={loading} color="black" />
-          </div>
-        ) : null}
-      </div>
-    );
-  }
+                {attendanceTeachers !== null ?
+                    attendanceTeachers.length > 0 ?
+                        (
+                            <TeacherAttendanceList startDate={startDate} endDate={endDate}/>
+                        ) : (
+                            <Message warning>
+                                <Message.Header>
+                                    No attendance was found during{" "}
+                                    {startDate === endDate ? startDate : `${startDate} - ${endDate}`}.
+                                </Message.Header>
+                            </Message>
+                        )
+                    : null
+                }
+                <br/>
+            </div>
+        );
+    }
 }
 
-const mapStateToProps = ({ user, attendanceTeachers }) => ({
-  user,
-  attendanceTeachers
+const mapStateToProps = ({user, attendanceTeachers}) => ({
+    user,
+    attendanceTeachers
 });
 
 export default connect(
-  mapStateToProps,
-  attendances
+    mapStateToProps,
+    attendances
 )(AttendancePage);

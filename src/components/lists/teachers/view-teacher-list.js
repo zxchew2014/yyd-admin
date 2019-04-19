@@ -6,6 +6,7 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
+import {COLOUR_BLACK} from "../../../utils/common";
 
 class ViewTeacherList extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class ViewTeacherList extends React.Component {
 
     return loading ? (
       <div>
-        <ScaleLoader loading={loading} color="#000000" />
+        <ScaleLoader loading={loading} color={COLOUR_BLACK} />
       </div>
     ) : (
       <div className="teacher-list-container">

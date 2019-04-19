@@ -76,8 +76,6 @@ class AddTeacher extends React.Component {
   renderAddForm = () => {
     const { Name, Mobile } = this.state;
     const { teacher } = this.props;
-    console.log("Add Form");
-    console.log(teacher);
     return (
       <Form onSubmit={this.onSubmit}>
         <Form.Field
@@ -132,7 +130,4 @@ const mapStateToProps = ({ branches }) => ({
   branches
 });
 
-export default connect(
-  mapStateToProps,
-  teachers
-)(AddTeacher);
+export default connect(mapStateToProps, teachers)(AddTeacher);

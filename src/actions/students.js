@@ -1,5 +1,6 @@
 import { studentsRef, yydASDb } from "../configs/firebase";
 import { FETCH_STUDENTS_BY_BRANCH } from "./types";
+import {VALUE_KEY, URL_STUDENTS} from "../utils/common";
 
 export const addStudent = student => async dispatch => {
   const branch = student.Branch;
@@ -8,7 +9,7 @@ export const addStudent = student => async dispatch => {
   student.Id = newKey;
 
   const updateData = {};
-  updateData[`/New_Students/${branch}/${newKey}`] = student;
+  updateData[`${URL_STUDENTS}/${branch}/${newKey}`] = student;
   yydASDb
     .ref()
     .update(updateData)
@@ -16,9 +17,9 @@ export const addStudent = student => async dispatch => {
 };
 
 export const fetchStudentsByBranch = branch => async dispatch => {
-  const studentByBranchRef = yydASDb.ref(`New_Students/${branch}`).orderByKey();
+  const studentByBranchRef = yydASDb.ref(`${URL_STUDENTS}/${branch}`).orderByKey();
 
-  studentByBranchRef.on("value", data => {
+  studentByBranchRef.on(VALUE_KEY, data => {
     dispatch({
       type: FETCH_STUDENTS_BY_BRANCH,
       students: data.val()
