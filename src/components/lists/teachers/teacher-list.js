@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import * as TEACHERS from "../../../actions/teachers";
 
 class TeacherList extends React.Component {
-
   componentDidMount() {
     const { branch, fetchAllTeachers, fetchTeachersByBranch } = this.props;
 
@@ -62,10 +61,7 @@ class TeacherList extends React.Component {
             <Table.Cell>{branchKey}</Table.Cell>
             {this.props.branch !== ""
               ? [
-                  <Table.Cell
-                    selectable
-                    textAlign="center"
-                  >
+                  <Table.Cell selectable textAlign="center">
                     {/* <Icon name="edit" size="large" aria-label="Edit" /> */}
                   </Table.Cell>,
                   <Table.Cell
