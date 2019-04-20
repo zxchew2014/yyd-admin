@@ -185,6 +185,7 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
           clockInAttendance.clockIn,
           DATETME_DDMMYYYSLASH_HHMMSS
         ).format(DATEFORMAT_DDSLASHMMSLASHYYYY);
+        // eslint-disable-next-line array-callback-return
         Object.keys(clockOutArray).some(clockOutIndex => {
           const clockOutDate = moment(
             clockOutArray[clockOutIndex].clockOut,
@@ -223,6 +224,7 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
           clockOutAttendance.clockOut,
           DATETME_DDMMYYYSLASH_HHMMSS
         ).format(DATEFORMAT_DDSLASHMMSLASHYYYY);
+        // eslint-disable-next-line array-callback-return
         Object.keys(clockInArray).some(clockInIndex => {
           const clockInDate = moment(
             clockInArray[clockInIndex].clockIn,
@@ -283,6 +285,7 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
           clockInAttendance.timestamp,
           DATETME_DDMMYYYSLASH_HHMMSS
         ).format(DATEFORMAT_DDSLASHMMSLASHYYYY);
+        // eslint-disable-next-line array-callback-return
         Object.keys(clockOutArray).some(clockOutIndex => {
           const clockOutDate = moment(
             clockOutArray[clockOutIndex].timestamp,
@@ -317,6 +320,8 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
           clockOutAttendance.timestamp,
           DATETME_DDMMYYYSLASH_HHMMSS
         ).format(DATEFORMAT_DDSLASHMMSLASHYYYY);
+
+        // eslint-disable-next-line array-callback-return
         Object.keys(clockInArray).some(clockInIndex => {
           const clockInDate = moment(
             clockInArray[clockInIndex].timestamp,

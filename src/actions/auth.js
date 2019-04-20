@@ -18,7 +18,7 @@ export const login = () => async dispatch => {
   if (accountVerified) {
     dispatch(userLoggedIn(user));
   } else {
-    await user.sendEmailVerification().catch(error => {
+      user.sendEmailVerification().catch(error => {
       console.log(error);
     });
     dispatch(userLoggedIn(user));
