@@ -20,7 +20,11 @@ const store = createStore(
 if (localStorage.user) {
   yydASAuth.onAuthStateChanged(user => {
     if (user) {
-      store.dispatch(userLoggedIn(user));
+        if(user.emailVerified)
+        {
+            store.dispatch(userLoggedIn(user));
+        }
+
     }
   });
 }
