@@ -61,9 +61,9 @@ class TeacherList extends React.Component {
       </Table.Row>
     );
 
-    const renderTeacherRows = (branch, branchKey) =>
-      Object.keys(branch).map(teacherKey => {
-        const teacher = branch[teacherKey];
+    const renderTeacherRows = (branchName, branchKey) =>
+      Object.keys(branchName).map(teacherKey => {
+        const teacher = branchName[teacherKey];
         return (
           <Table.Row key={`${branchKey}-${teacherKey}`}>
             <Table.Cell>{(counter += 1)}.</Table.Cell>
@@ -98,31 +98,31 @@ class TeacherList extends React.Component {
       return teachers !== null ? (
         <Table unstackable key="all-teacher">
           {Object.keys(teachers).map(branchKey => {
-            const branch = teachers[branchKey];
+            const branchName = teachers[branchKey];
             counter = 0;
             return [
               <Table.Header key={branchKey} fullWidth>
                 <Table.Row key={branchKey}>
                   <Table.HeaderCell colSpan="4">
-                    {branchKey} - {_.size(branch)} teachers
+                    {branchKey} - {_.size(branchName)} teachers
                   </Table.HeaderCell>
                 </Table.Row>
                 {renderHeaderRow()}
               </Table.Header>,
-              <Table.Body>{renderTeacherRows(branch, branchKey)}</Table.Body>
+              <Table.Body>{renderTeacherRows(branchName, branchKey)}</Table.Body>
             ];
           })}
         </Table>
       ) : null;
     };
 
-    const renderTeachersByBranch = branch => {
+    const renderTeachersByBranch = branchName => {
       const { teachers } = this.props;
       return (
         <Table unstackable key="teacher-by-branch">
           <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
           {teachers !== null ? (
-            <Table.Body>{renderTeacherRows(teachers, branch)}</Table.Body>
+            <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>
           ) : null}
         </Table>
       );

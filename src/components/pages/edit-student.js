@@ -13,7 +13,4 @@ class EditStudentPage extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  {}
-)(EditStudentPage);
+export default connect(null, {})(EditStudentPage);

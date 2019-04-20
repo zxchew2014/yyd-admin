@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TeacherList from "../lists/teachers/view-teacher-list";
-import * as TEACHERS from "../../actions/teachers";
+import * as teachers from "../../actions/teachers";
 
 class TeacherPage extends React.Component {
   onEdit = data => {
@@ -26,10 +26,5 @@ TeacherPage.propTypes = {
   }).isRequired
 };
 
-const mapStateToProps = ({ user }) => ({
-  user
-});
-export default connect(
-  mapStateToProps,
-  TEACHERS
-)(TeacherPage);
+
+export default connect(null, teachers)(TeacherPage);

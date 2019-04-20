@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ScaleLoader } from "react-spinners";
+import { Message } from "semantic-ui-react";
 import RetrieveTeacherAttendanceForm from "../forms/attendance/teacher-attendance";
 import TeacherAttendanceList from "../lists/teachers/teacher-attendance-list";
 import * as attendances from "../../actions/attendances";
-import { Message } from "semantic-ui-react";
 
 class AttendancePage extends React.Component {
   constructor(props) {
@@ -54,8 +53,7 @@ class AttendancePage extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user, attendanceTeachers }) => ({
-  user,
+const mapStateToProps = ({ attendanceTeachers }) => ({
   attendanceTeachers
 });
 

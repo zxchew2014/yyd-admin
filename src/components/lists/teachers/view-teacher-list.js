@@ -1,25 +1,22 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { ScaleLoader } from "react-spinners";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
-import { COLOUR_BLACK } from "../../../utils/common";
 
 class ViewTeacherList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      branch: "",
-      loading: true
+      branch: ""
     };
   }
 
   componentWillMount() {
     const { fetchBranches } = this.props;
-    fetchBranches().then(this.setState({ loading: false }));
+    fetchBranches();
   }
 
   renderBranchDropDownList() {
@@ -50,13 +47,9 @@ class ViewTeacherList extends React.Component {
   }
 
   render() {
-    const { branch, loading } = this.state;
+    const { branch } = this.state;
 
-    return loading ? (
-      <div>
-        <ScaleLoader loading={loading} color={COLOUR_BLACK} />
-      </div>
-    ) : (
+    return (
       <div className="teacher-list-container">
         {this.renderBranchDropDownList()}
         <TeacherList

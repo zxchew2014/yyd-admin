@@ -19,7 +19,4 @@ class AddStudentPage extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  branches
-)(AddStudentPage);
+export default connect(null, branches)(AddStudentPage);

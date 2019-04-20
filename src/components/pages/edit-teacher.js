@@ -12,11 +12,4 @@ class EditTeacherPage extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  user
-});
-
-export default connect(
-  mapStateToProps,
-  {}
-)(EditTeacherPage);
+export default connect(null, {})(EditTeacherPage);
