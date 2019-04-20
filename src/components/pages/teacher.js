@@ -26,5 +26,7 @@ TeacherPage.propTypes = {
   }).isRequired
 };
 
-
-export default connect(null, teachers)(TeacherPage);
+export default connect(
+  null,
+  teachers
+)(TeacherPage);

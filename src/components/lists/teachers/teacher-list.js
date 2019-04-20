@@ -109,7 +109,9 @@ class TeacherList extends React.Component {
                 </Table.Row>
                 {renderHeaderRow()}
               </Table.Header>,
-              <Table.Body>{renderTeacherRows(branchName, branchKey)}</Table.Body>
+              <Table.Body>
+                {renderTeacherRows(branchName, branchKey)}
+              </Table.Body>
             ];
           })}
         </Table>
