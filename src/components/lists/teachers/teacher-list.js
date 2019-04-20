@@ -6,13 +6,6 @@ import PropTypes from "prop-types";
 import * as TEACHERS from "../../../actions/teachers";
 
 class TeacherList extends React.Component {
-  constructor(props) {
-    super(props);
-    const { branch } = this.props;
-    this.state = {
-      branch: branch || ""
-    };
-  }
 
   componentDidMount() {
     const { branch, fetchAllTeachers, fetchTeachersByBranch } = this.props;
@@ -34,9 +27,6 @@ class TeacherList extends React.Component {
   removeTeacher = (teacher, branchName) => {
     const { removeTeacher } = this.props;
     removeTeacher(teacher, branchName);
-    this.setState({
-      branch: ""
-    });
   };
 
   editTeacher = teacher => {
@@ -75,9 +65,8 @@ class TeacherList extends React.Component {
                   <Table.Cell
                     selectable
                     textAlign="center"
-                    onClick={() => this.editTeacher(teacher)}
                   >
-                    <Icon name="edit" size="large" aria-label="Edit" />
+                    {/* <Icon name="edit" size="large" aria-label="Edit" /> */}
                   </Table.Cell>,
                   <Table.Cell
                     selectable
