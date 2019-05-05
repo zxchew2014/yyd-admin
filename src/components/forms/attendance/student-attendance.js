@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import _ from "lodash";
 import InlineError from "../../utils/inline-error";
-import * as branches from "../../../actions/branches";
+import * as branchAPI from "../../../actions/branches";
 import {
   DATE_UNITOFTIME_MONTH,
   DATEFORMAT_DAY_MMM_DD_YYYY,
@@ -93,7 +93,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
   };
 
   render() {
-    const { errors, loading, data } = this.state;
+    const { errors, data } = this.state;
     const { branch, batch, endDate, startDate } = data;
     const { branches } = this.props;
 
@@ -177,7 +177,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
     );
 
     return [
-      <Form onSubmit={this.onSubmit} loading={loading}>
+      <Form onSubmit={this.onSubmit}>
         {FORM_FIELD_BRANCH()}
         {branch === BRANCH_PUNGGOL ? FORM_FIELD_BATCH() : null}
         {FORM_FIELD_START_DATE()}
@@ -200,5 +200,5 @@ const mapStateToProps = ({ branches }) => ({
 
 export default connect(
   mapStateToProps,
-  branches
+    branchAPI
 )(RetrieveStudentAttendanceForm);
