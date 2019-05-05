@@ -200,5 +200,5 @@ const mapStateToProps = ({ branches }) => ({
 
 export default connect(
   mapStateToProps,
-    branchAPI
+  branchAPI
 )(RetrieveStudentAttendanceForm);
