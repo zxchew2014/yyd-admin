@@ -75,7 +75,6 @@ class AddTeacher extends React.Component {
 
   renderAddForm = () => {
     const { Name, Mobile } = this.state;
-    const { teacher } = this.props;
     return (
       <Form onSubmit={this.onSubmit}>
         <Form.Field

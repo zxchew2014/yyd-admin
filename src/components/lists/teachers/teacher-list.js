@@ -126,12 +126,8 @@ TeacherList.propTypes = {
   branch: PropTypes.string
 };
 
-const mapStateToProps = ({ teachers, branch }) => ({
+const mapStateToProps = ({ teachers }) => ({
   teachers,
-  branch
 });
 
-export default connect(
-  mapStateToProps,
-  TEACHERS
-)(TeacherList);
+export default connect(mapStateToProps, TEACHERS)(TeacherList);
