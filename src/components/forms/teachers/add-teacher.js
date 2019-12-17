@@ -101,16 +101,9 @@ class AddTeacher extends React.Component {
         />
 
         {this.renderBranchDropDownList()}
-
-        {JSON.stringify(teacher) === JSON.stringify({}) ? (
           <Button type="submit" primary>
-            Add Teacher
+              Add Teacher
           </Button>
-        ) : (
-          <Button type="submit" primary onClick={() => this.updateTeacher()}>
-            Update Teacher
-          </Button>
-        )}
       </Form>
     );
   };
