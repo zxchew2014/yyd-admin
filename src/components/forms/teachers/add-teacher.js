@@ -101,9 +101,9 @@ class AddTeacher extends React.Component {
         />
 
         {this.renderBranchDropDownList()}
-          <Button type="submit" primary>
-              Add Teacher
-          </Button>
+        <Button type="submit" primary>
+          Add Teacher
+        </Button>
       </Form>
     );
   };
@@ -123,7 +123,4 @@ const mapStateToProps = ({ branches }) => ({
   branches
 });
 
-export default connect(
-  mapStateToProps,
-  teachers
-)(AddTeacher);
+export default connect(mapStateToProps, teachers)(AddTeacher);
