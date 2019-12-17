@@ -9,5 +9,5 @@ Install depend
 Setup Firebase
 `firebase init`
 
-Deploy to Firebase 
+Deploy to Firebase
 `firebase depoly`
