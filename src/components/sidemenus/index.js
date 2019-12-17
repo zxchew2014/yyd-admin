@@ -105,7 +105,4 @@ const mapStateToProps = ({ user }) => ({
   user
 });
 
-export default connect(
-  mapStateToProps,
-  auths
-)(SideMenu);
+export default connect(mapStateToProps, auths)(SideMenu);
