@@ -9,6 +9,7 @@ import {
   BATCH_1,
   BATCH_2
 } from "../../../utils/common";
+import PropTypes from "prop-types";
 
 class AddStudentForm extends React.Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class AddStudentForm extends React.Component {
         delete this.state.Batch,
         delete this.state.Class
       );
+      this.props.navToStudentPage();
   };
 
   handleNameInputChange = event => {
@@ -183,6 +185,10 @@ class AddStudentForm extends React.Component {
     ];
   }
 }
+
+AddStudentForm.propTypes = {
+    navToStudentPage: PropTypes.func.isRequired
+};
 
 const mapStateToProps = ({ branches }) => ({ branches });
 

@@ -17,9 +17,9 @@ export const addStudent = student => async dispatch => {
     .then(() => dispatch(fetchStudentsByBranch(branch)));
 };
 
-export const updateStudent = (student, id) => async dispatch => {
+export const updateStudent = student => async dispatch => {
   const updateData = {};
-  updateData[`${URL_STUDENTS}/${student.Branch}/${id}`] = student;
+  updateData[`${URL_STUDENTS}/${student.Branch}/${student.Id}`] = student;
   yydASDb
     .ref()
     .update(updateData)

@@ -21,17 +21,14 @@ class EditStudent extends React.Component {
       Name: student.Name,
       Branch: student.Branch,
       Primary: student.Primary,
-      Batch: student.batch || ""
+      Batch: student.Batch || ""
     };
   }
 
   onSubmit = event => {
     const { updateStudent } = this.props;
     event.preventDefault();
-    updateStudent(this.state).then(
-      delete this.state.Batch,
-      delete this.state.Class
-    );
+    updateStudent(this.state);
     this.props.navToStudentPage();
   };
 
@@ -72,9 +69,8 @@ class EditStudent extends React.Component {
           id="batch"
           onChange={this.handleBatchInputChange}
           value={Batch || ""}
-          required
         >
-          <option key={Batch || ""} defaultValue={Batch || ""} />
+          <option key="" value="" />
           <option key={BATCH_1} value={BATCH_1}>
             Batch 1
           </option>
@@ -166,7 +162,7 @@ class EditStudent extends React.Component {
         {Branch === BRANCH_PUNGGOL ? this.renderBatchDropDownList() : null}
         {this.renderPrimaryDropDownList()}
         <Button type="submit" primary>
-          Add Student
+          Update Student
         </Button>
       </Form>
     );

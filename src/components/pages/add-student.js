@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import AddStudentForm from "../forms/students/add-student";
 import * as branches from "../../actions/branches";
+import PropTypes from "prop-types";
 
 class AddStudentPage extends React.Component {
   componentWillMount() {
@@ -9,17 +10,25 @@ class AddStudentPage extends React.Component {
     fetchBranches();
   }
 
+  navToStudentPage = () => {
+    const { history } = this.props;
+    history.push(`/student`);
+  };
+
   render() {
     return (
-      <div className="add-teacher-container">
-        <AddStudentForm />
+      <div className="add-student-container">
+        <AddStudentForm navToStudentPage={this.navToStudentPage}/>
         <hr />
       </div>
     );
   }
 }
 
-export default connect(
-  null,
-  branches
-)(AddStudentPage);
+AddStudentPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
+};
+
+export default connect(null, branches)(AddStudentPage);
