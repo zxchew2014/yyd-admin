@@ -1,5 +1,5 @@
 import { studentsRef, yydASDb } from "../configs/firebase";
-import { FETCH_STUDENTS_BY_BRANCH } from "./types";
+import { FETCH_STUDENTS_BY_BRANCH, FETCH_STUDENT } from "./types";
 import { VALUE_KEY, URL_STUDENTS, BRANCH_PUNGGOL } from "../utils/common";
 import { getBranch } from "./branches";
 
@@ -15,6 +15,21 @@ export const addStudent = student => async dispatch => {
     .ref()
     .update(updateData)
     .then(() => dispatch(fetchStudentsByBranch(branch)));
+};
+
+export const updateStudent = (student, id) => async dispatch => {
+  const updateData = {};
+  updateData[`${URL_STUDENTS}/${student.Branch}/${id}`] = student;
+  yydASDb
+    .ref()
+    .update(updateData)
+    .then(() => dispatch(fetchStudentsByBranch(student.Branch)))
+    .then(() =>
+      dispatch({
+        type: FETCH_STUDENT,
+        student: null
+      })
+    );
 };
 
 export const removeStudent = (studentKey, branch, batch) => async dispatch => {
@@ -73,5 +88,17 @@ export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
         students: newStudentList
       });
     }
+  });
+};
+
+export const fetchStudent = student => async dispatch => {
+  const studentRef = yydASDb.ref(
+    `${URL_STUDENTS}/${student.Branch}/${student.Id}`
+  );
+  studentRef.on(VALUE_KEY, data => {
+    dispatch({
+      type: FETCH_STUDENT,
+      student: data.val()
+    });
   });
 };

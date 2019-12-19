@@ -38,9 +38,9 @@ class TeacherList extends React.Component {
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Contact No.</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
-          <Table.HeaderCell colSpan="2" textAlign="center">
-              Actions
-          </Table.HeaderCell>
+        <Table.HeaderCell colSpan="2" textAlign="center">
+          Actions
+        </Table.HeaderCell>
         {/*{branch !== "" ? (
           <Table.HeaderCell colSpan="2" textAlign="center">
             Actions
@@ -58,23 +58,21 @@ class TeacherList extends React.Component {
             <Table.Cell>{teacher.Name}</Table.Cell>
             <Table.Cell>{teacher.Mobile}</Table.Cell>
             <Table.Cell>{teacher.Branch}</Table.Cell>
-              <Table.Cell
-                  selectable
-                  onClick={() => this.props.onEdit(teacher)}
-                  textAlign="center"
-              >
-                  <Icon name="edit" size="large" aria-label="Edit" />
-              </Table.Cell>
-              <Table.Cell
-                  selectable
-                  textAlign="center"
-                  onClick={() =>
-                      this.removeTeacher(teacher.Id, teacher.Branch)
-                  }
-              >
-                  <Icon name="user delete" size="large" aria-label="Remove" />
-              </Table.Cell>
-           {/* {this.props.branch !== ""
+            <Table.Cell
+              selectable
+              onClick={() => this.props.onEdit(teacher)}
+              textAlign="center"
+            >
+              <Icon name="edit" size="large" aria-label="Edit" />
+            </Table.Cell>
+            <Table.Cell
+              selectable
+              textAlign="center"
+              onClick={() => this.removeTeacher(teacher.Id, teacher.Branch)}
+            >
+              <Icon name="user delete" size="large" aria-label="Remove" />
+            </Table.Cell>
+            {/* {this.props.branch !== ""
               ? [
                   <Table.Cell
                     selectable

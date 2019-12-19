@@ -34,7 +34,7 @@ class AddTeacher extends React.Component {
       <option key={key} defaultValue={value}>
         {value}
       </option>
-    )); 
+    ));
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field>

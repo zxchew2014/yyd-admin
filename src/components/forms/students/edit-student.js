@@ -9,33 +9,30 @@ import {
   BATCH_1,
   BATCH_2
 } from "../../../utils/common";
+import PropTypes from "prop-types";
 
-class AddStudentForm extends React.Component {
+class EditStudent extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
+    const { student } = this.props;
     this.state = {
-      Name: "",
-      Branch: "",
-      Primary: ""
+      Id: student.Id || "",
+      Name: student.Name,
+      Branch: student.Branch,
+      Primary: student.Primary,
+      Batch: student.batch || ""
     };
   }
 
   onSubmit = event => {
-    const { addStudent } = this.props;
+    const { updateStudent } = this.props;
     event.preventDefault();
-    addStudent(this.state)
-      .then(
-        this.setState({
-          Name: "",
-          Branch: "",
-          Primary: ""
-        })
-      )
-      .then(
-        delete this.state.Id,
-        delete this.state.Batch,
-        delete this.state.Class
-      );
+    updateStudent(this.state).then(
+      delete this.state.Batch,
+      delete this.state.Class
+    );
+    this.props.navToStudentPage();
   };
 
   handleNameInputChange = event => {
@@ -75,8 +72,9 @@ class AddStudentForm extends React.Component {
           id="batch"
           onChange={this.handleBatchInputChange}
           value={Batch || ""}
+          required
         >
-          <option key={""} value={""} />
+          <option key={Batch || ""} defaultValue={Batch || ""} />
           <option key={BATCH_1} value={BATCH_1}>
             Batch 1
           </option>
@@ -150,7 +148,7 @@ class AddStudentForm extends React.Component {
     return FORM_FIELD_BRANCH();
   }
 
-  renderAddForm = () => {
+  renderEditForm = () => {
     const { Name, Branch } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
@@ -177,13 +175,19 @@ class AddStudentForm extends React.Component {
   render() {
     return [
       <div className="add-student-form">
-        {this.renderAddForm()}
+        {this.renderEditForm()}
         {JSON.stringify(this.state)}
       </div>
     ];
   }
 }
 
-const mapStateToProps = ({ branches }) => ({ branches });
+EditStudent.propTypes = {
+  navToStudentPage: PropTypes.func.isRequired,
+  student: PropTypes.objectOf(PropTypes.object),
+  updateStudent: PropTypes.func.isRequired
+};
 
-export default connect(mapStateToProps, students)(AddStudentForm);
+const mapStateToProps = ({ branches, student }) => ({ branches, student });
+
+export default connect(mapStateToProps, students)(EditStudent);

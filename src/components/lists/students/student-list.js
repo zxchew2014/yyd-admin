@@ -3,7 +3,7 @@ import { Table, Icon } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import * as STUDENTS from "../../../actions/students";
-import { BATCH_1, BATCH_2 } from "../../../utils/common";
+import { BATCH_1, BATCH_2, BRANCH_PUNGGOL } from "../../../utils/common";
 
 class StudentList extends React.Component {
   componentDidMount() {
@@ -69,17 +69,21 @@ class StudentList extends React.Component {
             <Table.Cell>{(counter += 1)}.</Table.Cell>
             <Table.Cell>{student.Name}</Table.Cell>
             <Table.Cell>{student.Primary}</Table.Cell>
-            <Table.Cell>{branchKey}</Table.Cell>
+            <Table.Cell>{student.Branch}</Table.Cell>
             {branch !== ""
               ? [
-                  <Table.Cell selectable textAlign="center">
-                    {/* <Icon name="edit" size="large" aria-label="Edit"/> */}
+                  <Table.Cell
+                    selectable
+                    onClick={() => this.props.onEdit(student, student.Id)}
+                    textAlign="center"
+                  >
+                    <Icon name="edit" size="large" aria-label="Edit" />
                   </Table.Cell>,
                   <Table.Cell
                     selectable
                     textAlign="center"
                     onClick={() =>
-                      this.deleteStudent(student.Id, branchKey, null)
+                      this.deleteStudent(student.Id, student.Branch, null)
                     }
                   >
                     <Icon name="user delete" size="large" aria-label="Remove" />
@@ -101,18 +105,26 @@ class StudentList extends React.Component {
               <Table.Cell>{(counter += 1)}.</Table.Cell>
               <Table.Cell>{student.Name}</Table.Cell>
               <Table.Cell>{student.Primary}</Table.Cell>
-              <Table.Cell>{branchKey}</Table.Cell>
+              <Table.Cell>{student.Branch}</Table.Cell>
               <Table.Cell>{student.Batch}</Table.Cell>
               {branch !== ""
                 ? [
-                    <Table.Cell selectable textAlign="center">
-                      {/* <Icon name="edit" size="large" aria-label="Edit"/> */}
+                    <Table.Cell
+                      selectable
+                      onClick={() => this.props.onEdit(student, student.Id)}
+                      textAlign="center"
+                    >
+                      <Icon name="edit" size="large" aria-label="Edit" />
                     </Table.Cell>,
                     <Table.Cell
                       selectable
                       textAlign="center"
                       onClick={() =>
-                        this.deleteStudent(student.Id, branchKey, student.Batch)
+                        this.deleteStudent(
+                          student.Id,
+                          student.Branch,
+                          student.Batch
+                        )
                       }
                     >
                       <Icon
@@ -157,8 +169,12 @@ class StudentList extends React.Component {
     };
 
     if (branch !== "") {
-      if (batch === BATCH_1 || batch === BATCH_2) {
-        return renderStudentsByBranchBatch(branch);
+      if (branch === BRANCH_PUNGGOL) {
+        if (batch === "") {
+          return renderStudentsByBranch(branch);
+        } else if (batch === BATCH_1 || batch === BATCH_2) {
+          return renderStudentsByBranchBatch(branch);
+        }
       }
       return renderStudentsByBranch(branch);
     }
@@ -167,6 +183,7 @@ class StudentList extends React.Component {
 }
 
 StudentList.propTypes = {
+  onEdit: PropTypes.func.isRequired,
   branch: PropTypes.string,
   batch: PropTypes.string
 };
@@ -175,7 +192,4 @@ const mapStateToProps = ({ students }) => ({
   students
 });
 
-export default connect(
-  mapStateToProps,
-  STUDENTS
-)(StudentList);
+export default connect(mapStateToProps, STUDENTS)(StudentList);

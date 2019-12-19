@@ -3,7 +3,7 @@ import user from "./user";
 import { getBranch, fetchBranchList } from "./branch";
 import { fetchTeacherAttendance, fetchStudentAttendance } from "./attendance";
 import { fetchTeacher, fetchTeacherList } from "./teacher";
-import students from "./student";
+import { fetchStudent, fetchStudentList } from "./student";
 
 export default combineReducers({
   user,
@@ -13,5 +13,6 @@ export default combineReducers({
   attendanceStudents: fetchStudentAttendance,
   teacher: fetchTeacher,
   teachers: fetchTeacherList,
-  students
+  student: fetchStudent,
+  students: fetchStudentList
 });

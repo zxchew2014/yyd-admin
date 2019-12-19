@@ -5,6 +5,7 @@ import _ from "lodash";
 import * as BRANCHES from "../../../actions/branches";
 import StudentList from "./student-list";
 import { BATCH_1, BATCH_2, BRANCH_PUNGGOL } from "../../../utils/common";
+import PropTypes from "prop-types";
 
 class ViewStudentList extends React.Component {
   constructor(props) {
@@ -100,12 +101,17 @@ class ViewStudentList extends React.Component {
         {this.renderBranchDropDownList()}
         {// eslint-disable-next-line no-nested-ternary
         branch !== BRANCH_PUNGGOL ? (
-          <StudentList id="student_list" branch={branch} />
-        ) : batch ? (
+          <StudentList
+            id="student_list"
+            branch={branch}
+            onEdit={this.props.onEdit}
+          />
+        ) : batch || batch === "" ? (
           <StudentList
             id="student_list_punggol"
             branch={branch}
             batch={batch}
+            onEdit={this.props.onEdit}
           />
         ) : null}
         <hr />
@@ -114,11 +120,12 @@ class ViewStudentList extends React.Component {
   }
 }
 
+ViewStudentList.propTypes = {
+  onEdit: PropTypes.func.isRequired
+};
+
 const mapStateToProps = ({ branches }) => ({
   branches
 });
 
-export default connect(
-  mapStateToProps,
-  BRANCHES
-)(ViewStudentList);
+export default connect(mapStateToProps, BRANCHES)(ViewStudentList);

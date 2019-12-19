@@ -101,10 +101,10 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/student/edit"
-                exact
-                component={EditStudentPage}
+              location={this.props.location}
+              path="/student/edit"
+              exact
+              component={EditStudentPage}
             />
           </ContentContainer>
         </BodyContainer>
