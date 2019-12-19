@@ -17,8 +17,8 @@ const UserRoute = ({ user, component: Component, ...rest }) => (
 );
 
 UserRoute.propTypes = {
-  component: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
+  component: PropTypes.object.isRequired,
+  user: PropTypes.object
 };
 
 const mapStateToProps = ({ user }) => ({

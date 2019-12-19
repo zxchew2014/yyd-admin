@@ -28,15 +28,11 @@ class TeacherList extends React.Component {
     removeTeacher(teacher, branchName);
   };
 
-  editTeacher = teacher => {
-    this.props.onEdit(teacher);
-  };
-
   render() {
     const { branch } = this.props;
     let counter = 0;
 
-    const renderHeaderRow = () => (
+    const renderHeaderRow = branchName => (
       <Table.Row>
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
@@ -58,16 +54,21 @@ class TeacherList extends React.Component {
             <Table.Cell>{(counter += 1)}.</Table.Cell>
             <Table.Cell>{teacher.Name}</Table.Cell>
             <Table.Cell>{teacher.Mobile}</Table.Cell>
-            <Table.Cell>{branchKey}</Table.Cell>
+            <Table.Cell>{teacher.Branch}</Table.Cell>
             {this.props.branch !== ""
               ? [
-                  <Table.Cell selectable textAlign="center">
-                    {/* <Icon name="edit" size="large" aria-label="Edit" /> */}
+                  <Table.Cell selectable
+                              onClick={() => this.props.onEdit(teacher)}
+                              textAlign="center">
+
+                    <Icon name="edit" size="large" aria-label="Edit" />
                   </Table.Cell>,
                   <Table.Cell
                     selectable
                     textAlign="center"
-                    onClick={() => this.removeTeacher(teacherKey, branchKey)}
+                    onClick={() =>
+                      this.removeTeacher(teacherKey, teacher.Branch)
+                    }
                   >
                     <Icon name="user delete" size="large" aria-label="Remove" />
                   </Table.Cell>
@@ -107,7 +108,7 @@ class TeacherList extends React.Component {
       const { teachers } = this.props;
       return (
         <Table unstackable key="teacher-by-branch">
-          <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
+          <Table.Header fullWidth>{renderHeaderRow(branchName)}</Table.Header>
           {teachers !== null ? (
             <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>
           ) : null}
@@ -122,12 +123,12 @@ class TeacherList extends React.Component {
 }
 
 TeacherList.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  branch: PropTypes.string
+    onEdit: PropTypes.func.isRequired,
+    branch: PropTypes.string
 };
 
 const mapStateToProps = ({ teachers }) => ({
-  teachers,
+  teachers
 });
 
 export default connect(mapStateToProps, TEACHERS)(TeacherList);

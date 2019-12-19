@@ -16,7 +16,7 @@ class LoginForm extends React.Component {
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     // Sets the `signedIn` state property to `true` once signed in.
     callbacks: {
-      signInSuccess: () => {
+      signInSuccessWithAuthResult: () => {
         this.props.submit();
         return false; // Avoid redirects after sign-in.
       }

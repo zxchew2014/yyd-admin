@@ -1,16 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import AddTeacherForm from "../forms/teachers/add-teacher";
-import TeacherList from "../lists/teachers/teacher-list";
 import * as branches from "../../actions/branches";
+import PropTypes from "prop-types";
 
 class AddTeacherPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      branch: ""
-    };
-  }
+
+  navToTeacherPage = () => {
+    const { history } = this.props;
+    history.push(`/teacher`);
+  };
 
   componentWillMount() {
     const { fetchBranches } = this.props;
@@ -18,18 +17,18 @@ class AddTeacherPage extends React.Component {
   }
 
   render() {
-    const { branch } = this.props;
     return (
       <div className="add-teacher-container">
-        <AddTeacherForm />
-        {branch !== "" ? <TeacherList branch={branch} /> : null}
-        <hr />
+        <AddTeacherForm navToTeacherPage={this.navToTeacherPage}/>
       </div>
     );
   }
 }
 
-export default connect(
-  null,
-  branches
-)(AddTeacherPage);
+AddTeacherPage.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
+};
+
+export default connect(null, branches)(AddTeacherPage);

@@ -18,25 +18,8 @@ class AddTeacher extends React.Component {
   onSubmit = event => {
     const { addTeacher } = this.props;
     event.preventDefault();
-    addTeacher(this.state).then(
-      this.setState({
-        Name: "",
-        Branch: "",
-        Mobile: ""
-      })
-    );
-  };
-
-  updateTeacher = event => {
-    const { updateTeacher } = this.props;
-    event.preventDefault();
-    updateTeacher(this.state).then(
-      this.setState({
-        Name: "",
-        Branch: "",
-        Mobile: ""
-      })
-    );
+    addTeacher(this.state);
+    this.props.navToTeacherPage();
   };
 
   handleInputChange = event => {
@@ -97,6 +80,7 @@ class AddTeacher extends React.Component {
           placeholder="Mobile Number"
           name="Mobile"
           onChange={this.handleInputChange}
+          required
         />
 
         {this.renderBranchDropDownList()}
@@ -113,8 +97,8 @@ class AddTeacher extends React.Component {
 }
 
 AddTeacher.propTypes = {
+  navToTeacherPage: PropTypes.func.isRequired,
   teacher: PropTypes.objectOf(PropTypes.object).isRequired,
-  updateTeacher: PropTypes.func.isRequired,
   addTeacher: PropTypes.func.isRequired
 };
 

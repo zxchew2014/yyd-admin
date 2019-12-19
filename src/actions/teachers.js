@@ -12,13 +12,19 @@ export const addTeacher = teacher => async dispatch => {
   const newKey = myRef.key;
   teacher.Id = newKey;
 
-  const updateData = {};
-  updateData[`${URL_TEACHERS}/${teacher.Branch}/${newKey}`] = teacher;
+  const insertData = {};
+  insertData[`${URL_TEACHERS}/${teacher.Branch}/${newKey}`] = teacher;
   yydASDb
     .ref()
-    .update(updateData)
+    .update(insertData)
     .then(() => dispatch(getBranch(teacher.Branch)))
-    .then(() => dispatch(fetchTeachersByBranch(teacher.Branch)));
+    .then(() => dispatch(fetchAllTeachers()))
+    .then(() =>
+      dispatch({
+        type: FETCH_TEACHER,
+        teacher: null
+      })
+    );
 };
 
 export const updateTeacher = teacher => async dispatch => {
@@ -28,7 +34,13 @@ export const updateTeacher = teacher => async dispatch => {
     .ref()
     .update(updateData)
     .then(() => dispatch(getBranch(teacher.Branch)))
-    .then(() => dispatch(fetchTeachersByBranch(teacher.Branch)));
+    .then(() => dispatch(fetchAllTeachers()))
+    .then(() =>
+      dispatch({
+        type: FETCH_TEACHER,
+        teacher: null
+      })
+    );
 };
 
 export const removeTeacher = (teacher, branch) => async dispatch => {
