@@ -5,7 +5,6 @@ import * as branches from "../../actions/branches";
 import PropTypes from "prop-types";
 
 class AddTeacherPage extends React.Component {
-
   navToTeacherPage = () => {
     const { history } = this.props;
     history.push(`/teacher`);
@@ -19,7 +18,7 @@ class AddTeacherPage extends React.Component {
   render() {
     return (
       <div className="add-teacher-container">
-        <AddTeacherForm navToTeacherPage={this.navToTeacherPage}/>
+        <AddTeacherForm navToTeacherPage={this.navToTeacherPage} />
       </div>
     );
   }

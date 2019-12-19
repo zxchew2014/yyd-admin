@@ -57,10 +57,11 @@ class TeacherList extends React.Component {
             <Table.Cell>{teacher.Branch}</Table.Cell>
             {this.props.branch !== ""
               ? [
-                  <Table.Cell selectable
-                              onClick={() => this.props.onEdit(teacher)}
-                              textAlign="center">
-
+                  <Table.Cell
+                    selectable
+                    onClick={() => this.props.onEdit(teacher)}
+                    textAlign="center"
+                  >
                     <Icon name="edit" size="large" aria-label="Edit" />
                   </Table.Cell>,
                   <Table.Cell
@@ -123,8 +124,8 @@ class TeacherList extends React.Component {
 }
 
 TeacherList.propTypes = {
-    onEdit: PropTypes.func.isRequired,
-    branch: PropTypes.string
+  onEdit: PropTypes.func.isRequired,
+  branch: PropTypes.string
 };
 
 const mapStateToProps = ({ teachers }) => ({
