@@ -15,10 +15,9 @@ export const fetchTeacherList = (state = null, action) => {
   }
 };
 export const fetchTeacher = (state = null, action) => {
-  switch (action.type) {
-    case FETCH_TEACHER:
-      return action.teacher;
-    default:
-      return state;
+  if (action.type === FETCH_TEACHER) {
+    return action.teacher;
+  } else {
+    return state;
   }
 };

@@ -50,7 +50,7 @@ export const removeTeacher = (teacher, branch) => async dispatch => {
     .remove()
     .then(() => dispatch(getBranch(branch)))
     .then(result => {
-      dispatch(fetchTeachersByBranch(branch));
+      dispatch(fetchAllTeachers());
     });
 };
 

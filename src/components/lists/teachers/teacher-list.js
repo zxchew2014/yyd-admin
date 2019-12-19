@@ -38,11 +38,14 @@ class TeacherList extends React.Component {
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Contact No.</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
-        {branch !== "" ? (
+          <Table.HeaderCell colSpan="2" textAlign="center">
+              Actions
+          </Table.HeaderCell>
+        {/*{branch !== "" ? (
           <Table.HeaderCell colSpan="2" textAlign="center">
             Actions
           </Table.HeaderCell>
-        ) : null}
+        ) : null}*/}
       </Table.Row>
     );
 
@@ -55,7 +58,23 @@ class TeacherList extends React.Component {
             <Table.Cell>{teacher.Name}</Table.Cell>
             <Table.Cell>{teacher.Mobile}</Table.Cell>
             <Table.Cell>{teacher.Branch}</Table.Cell>
-            {this.props.branch !== ""
+              <Table.Cell
+                  selectable
+                  onClick={() => this.props.onEdit(teacher)}
+                  textAlign="center"
+              >
+                  <Icon name="edit" size="large" aria-label="Edit" />
+              </Table.Cell>
+              <Table.Cell
+                  selectable
+                  textAlign="center"
+                  onClick={() =>
+                      this.removeTeacher(teacher.Id, teacher.Branch)
+                  }
+              >
+                  <Icon name="user delete" size="large" aria-label="Remove" />
+              </Table.Cell>
+           {/* {this.props.branch !== ""
               ? [
                   <Table.Cell
                     selectable
@@ -68,13 +87,13 @@ class TeacherList extends React.Component {
                     selectable
                     textAlign="center"
                     onClick={() =>
-                      this.removeTeacher(teacherKey, teacher.Branch)
+                      this.removeTeacher(teacher.Id, teacher.Branch)
                     }
                   >
                     <Icon name="user delete" size="large" aria-label="Remove" />
                   </Table.Cell>
                 ]
-              : null}
+              : null}*/}
           </Table.Row>
         );
       });
@@ -90,7 +109,7 @@ class TeacherList extends React.Component {
             return [
               <Table.Header key={branchKey} fullWidth>
                 <Table.Row key={branchKey}>
-                  <Table.HeaderCell colSpan="4">
+                  <Table.HeaderCell colSpan="6">
                     {branchKey} - {_.size(branchName)} teachers
                   </Table.HeaderCell>
                 </Table.Row>
