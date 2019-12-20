@@ -18,13 +18,7 @@ export const addTeacher = teacher => async dispatch => {
     .ref()
     .update(insertData)
     .then(() => dispatch(getBranch(teacher.Branch)))
-    .then(() => dispatch(fetchAllTeachers()))
-    .then(() =>
-      dispatch({
-        type: FETCH_TEACHER,
-        teacher: null
-      })
-    );
+    .then(() => dispatch(fetchAllTeachers()));
 };
 
 export const updateTeacher = teacher => async dispatch => {
@@ -51,7 +45,13 @@ export const removeTeacher = (teacher, branch) => async dispatch => {
     .then(() => dispatch(getBranch(branch)))
     .then(result => {
       dispatch(fetchAllTeachers());
-    });
+    })
+    .then(() =>
+      dispatch({
+        type: FETCH_TEACHER,
+        teacher: null
+      })
+    );
 };
 
 export const fetchAllTeachers = () => async dispatch => {

@@ -129,7 +129,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
           id="batch"
           onChange={this.handleBatchInputChange}
           value={batch || ""}
-          required
+
         >
           <option key={batch || ""} defaultValue={batch || ""} />
           <option key={BATCH_1} value={BATCH_1}>

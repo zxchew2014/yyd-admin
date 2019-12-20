@@ -14,6 +14,7 @@ export const addStudent = student => async dispatch => {
   yydASDb
     .ref()
     .update(updateData)
+    .then(() => dispatch(getBranch(branch)))
     .then(() => dispatch(fetchStudentsByBranch(branch)));
 };
 
@@ -23,6 +24,7 @@ export const updateStudent = student => async dispatch => {
   yydASDb
     .ref()
     .update(updateData)
+    .then(() => dispatch(getBranch(student.Branch)))
     .then(() => dispatch(fetchStudentsByBranch(student.Branch)))
     .then(() =>
       dispatch({
@@ -40,7 +42,13 @@ export const removeStudent = (studentKey, branch, batch) => async dispatch => {
     .then(() => dispatch(getBranch(branch)))
     .then(result => {
       dispatch(fetchStudentsByBranch(branch, batch));
-    });
+    })
+    .then(() =>
+      dispatch({
+        type: FETCH_STUDENT,
+        student: null
+      })
+    );
 };
 
 export const fetchStudentsByBranch = (branch, batch) => async dispatch => {

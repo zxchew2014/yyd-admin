@@ -14,10 +14,9 @@ import PropTypes from "prop-types";
 class EditStudent extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     const { student } = this.props;
     this.state = {
-      Id: student.Id || "",
+      Id: student.Id,
       Name: student.Name,
       Branch: student.Branch,
       Primary: student.Primary,
@@ -26,8 +25,22 @@ class EditStudent extends React.Component {
   }
 
   onSubmit = event => {
-    const { updateStudent } = this.props;
+    const { updateStudent ,removeStudent, addStudent, student} = this.props;
     event.preventDefault();
+    if (student.Branch === this.state.Branch) {
+      updateStudent(this.state);
+    } else {
+      if(student.Batch)
+      {
+        removeStudent(student.Id, student.Branch, student.Batch);
+      }
+      else{
+        removeStudent(student.Id, student.Branch, "");
+      }
+
+      addStudent(this.state);
+    }
+
     updateStudent(this.state);
     this.props.navToStudentPage();
   };

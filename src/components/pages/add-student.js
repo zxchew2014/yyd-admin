@@ -18,7 +18,7 @@ class AddStudentPage extends React.Component {
   render() {
     return (
       <div className="add-student-container">
-        <AddStudentForm navToStudentPage={this.navToStudentPage}/>
+        <AddStudentForm navToStudentPage={this.navToStudentPage} />
         <hr />
       </div>
     );

@@ -9,6 +9,7 @@ class StudentList extends React.Component {
   componentDidMount() {
     const { branch, batch, fetchStudentsByBranch } = this.props;
     if (branch !== "") {
+      console.log(this.props);
       fetchStudentsByBranch(branch, batch);
     }
   }
