@@ -102,16 +102,20 @@ class ViewStudentList extends React.Component {
         {// eslint-disable-next-line no-nested-ternary
         branch !== BRANCH_PUNGGOL ? (
           <StudentList
-            id="student_list"
+            key="student-list"
+            id="student-list"
             branch={branch}
             onEdit={this.props.onEdit}
+            onDelete={this.props.onDelete}
           />
         ) : batch || batch === "" ? (
           <StudentList
-            id="student_list_punggol"
+            key="student-list-punggol"
+            id="student-list-punggol"
             branch={branch}
             batch={batch}
             onEdit={this.props.onEdit}
+            onDelete={this.props.onDelete}
           />
         ) : null}
         <hr />
@@ -121,7 +125,8 @@ class ViewStudentList extends React.Component {
 }
 
 ViewStudentList.propTypes = {
-  onEdit: PropTypes.func.isRequired
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({

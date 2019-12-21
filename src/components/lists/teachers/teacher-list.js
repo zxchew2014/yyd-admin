@@ -106,7 +106,7 @@ class TeacherList extends React.Component {
             counter = 0;
             return [
               <Table.Header key={branchKey} fullWidth>
-                <Table.Row key={branchKey}>
+                <Table.Row>
                   <Table.HeaderCell colSpan="6">
                     {branchKey} - {_.size(branchName)} teachers
                   </Table.HeaderCell>

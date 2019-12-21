@@ -18,7 +18,7 @@ class AddTeacherPage extends React.Component {
   render() {
     return (
       <div className="add-teacher-container">
-        <AddTeacherForm navToTeacherPage={this.navToTeacherPage} />
+        <AddTeacherForm key="add-teacher-form" navToTeacherPage={this.navToTeacherPage} />
       </div>
     );
   }

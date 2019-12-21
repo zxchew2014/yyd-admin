@@ -25,16 +25,14 @@ class EditStudent extends React.Component {
   }
 
   onSubmit = event => {
-    const { updateStudent ,removeStudent, addStudent, student} = this.props;
+    const { updateStudent, removeStudent, addStudent, student } = this.props;
     event.preventDefault();
     if (student.Branch === this.state.Branch) {
       updateStudent(this.state);
     } else {
-      if(student.Batch)
-      {
+      if (student.Batch) {
         removeStudent(student.Id, student.Branch, student.Batch);
-      }
-      else{
+      } else {
         removeStudent(student.Id, student.Branch, "");
       }
 
@@ -183,9 +181,8 @@ class EditStudent extends React.Component {
 
   render() {
     return [
-      <div className="add-student-form">
+      <div className="edit-student-form">
         {this.renderEditForm()}
-        {JSON.stringify(this.state)}
       </div>
     ];
   }
@@ -193,8 +190,7 @@ class EditStudent extends React.Component {
 
 EditStudent.propTypes = {
   navToStudentPage: PropTypes.func.isRequired,
-  student: PropTypes.objectOf(PropTypes.object),
-  updateStudent: PropTypes.func.isRequired
+  navBack: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches, student }) => ({ branches, student });

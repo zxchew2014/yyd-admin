@@ -9,7 +9,6 @@ class StudentList extends React.Component {
   componentDidMount() {
     const { branch, batch, fetchStudentsByBranch } = this.props;
     if (branch !== "") {
-      console.log(this.props);
       fetchStudentsByBranch(branch, batch);
     }
   }
@@ -34,7 +33,7 @@ class StudentList extends React.Component {
     let counter = 0;
 
     const renderHeaderRow = branchName => (
-      <Table.Row>
+      <Table.Row key="student-list_header">
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Primary</Table.HeaderCell>
@@ -48,7 +47,7 @@ class StudentList extends React.Component {
     );
 
     const renderHeaderWithBatchRow = branchName => (
-      <Table.Row>
+      <Table.Row key="student-list_header-batch">
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Primary</Table.HeaderCell>
@@ -74,18 +73,19 @@ class StudentList extends React.Component {
             {branch !== ""
               ? [
                   <Table.Cell
+                    key="row-student-edit"
                     selectable
-                    onClick={() => this.props.onEdit(student, student.Id)}
+                    onClick={() => this.props.onEdit(student)}
                     textAlign="center"
                   >
                     <Icon name="edit" size="large" aria-label="Edit" />
                   </Table.Cell>,
                   <Table.Cell
+                    key="row-student-remove"
                     selectable
                     textAlign="center"
-                    onClick={() =>
-                      this.deleteStudent(student.Id, student.Branch, null)
-                    }
+                    onClick={() => this.props.onDelete(student)}
+                    //this.deleteStudent(student.Id, student.Branch, null)
                   >
                     <Icon name="user delete" size="large" aria-label="Remove" />
                   </Table.Cell>
@@ -111,21 +111,20 @@ class StudentList extends React.Component {
               {branch !== ""
                 ? [
                     <Table.Cell
+                      key="row-student-batch-edit"
                       selectable
-                      onClick={() => this.props.onEdit(student, student.Id)}
+                      onClick={() => this.props.onEdit(student)}
                       textAlign="center"
                     >
                       <Icon name="edit" size="large" aria-label="Edit" />
                     </Table.Cell>,
                     <Table.Cell
+                      key="row-student-batch-remove"
                       selectable
                       textAlign="center"
-                      onClick={() =>
-                        this.deleteStudent(
-                          student.Id,
-                          student.Branch,
-                          student.Batch
-                        )
+                      onClick={
+                        () => this.props.onDelete(student)
+                        //this.deleteStudent(student.Id,student.Branch,student.Batch
                       }
                     >
                       <Icon
@@ -185,6 +184,7 @@ class StudentList extends React.Component {
 
 StudentList.propTypes = {
   onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   branch: PropTypes.string,
   batch: PropTypes.string
 };

@@ -177,11 +177,7 @@ class AddStudentForm extends React.Component {
   };
 
   render() {
-    return [
-      <div className="add-student-form">
-        {this.renderAddForm()}
-      </div>
-    ];
+    return [<div className="add-student-form">{this.renderAddForm()}</div>];
   }
 }
 

@@ -5,16 +5,22 @@ import PropTypes from "prop-types";
 import * as students from "../../actions/students";
 
 class StudentPage extends React.Component {
-  onEdit = (data, id) => {
+  onEdit = (data) => {
     const { history, fetchStudent } = this.props;
     fetchStudent(data);
     history.push(`/student/edit`);
   };
 
+  onDelete = (data) => {
+    const { history, fetchStudent } = this.props;
+    fetchStudent(data);
+    history.push(`/student/remove`);
+  };
+
   render() {
     return (
       <div className="retrieve-student">
-        <ViewStudentList onEdit={this.onEdit} />
+        <ViewStudentList onEdit={this.onEdit} onDelete={this.onDelete} />
       </div>
     );
   }

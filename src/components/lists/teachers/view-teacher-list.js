@@ -53,6 +53,7 @@ class ViewTeacherList extends React.Component {
       <div className="teacher-list-container">
         {this.renderBranchDropDownList()}
         <TeacherList
+          key="teacher-list"
           id="teacher_list"
           branch={branch}
           onEdit={this.props.onEdit}
@@ -71,7 +72,4 @@ const mapStateToProps = ({ branches }) => ({
   branches
 });
 
-export default connect(
-  mapStateToProps,
-  BRANCHES
-)(ViewTeacherList);
+export default connect(mapStateToProps, BRANCHES)(ViewTeacherList);
