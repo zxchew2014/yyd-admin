@@ -33,9 +33,7 @@ class RemoveStudent extends React.Component {
     const { Name, Primary, Branch, Batch } = this.state;
     return [
       <Message warning key="student-remove-message">
-        <Message.Header>
-          Are you sure??
-        </Message.Header>
+        <Message.Header>Are you sure??</Message.Header>
         <p>Student {Name || ""} detail will be remove once confirm below.</p>
       </Message>,
 

@@ -180,11 +180,7 @@ class EditStudent extends React.Component {
   };
 
   render() {
-    return [
-      <div className="edit-student-form">
-        {this.renderEditForm()}
-      </div>
-    ];
+    return [<div className="edit-student-form">{this.renderEditForm()}</div>];
   }
 }
 

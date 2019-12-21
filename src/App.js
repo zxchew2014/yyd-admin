@@ -109,10 +109,10 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/student/remove"
-                exact
-                component={RemoveStudentPage}
+              location={this.props.location}
+              path="/student/remove"
+              exact
+              component={RemoveStudentPage}
             />
           </ContentContainer>
         </BodyContainer>
