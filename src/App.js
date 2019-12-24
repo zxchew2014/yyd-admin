@@ -82,10 +82,10 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/teacher/remove"
-                exact
-                component={RemoveTeacherPage}
+              location={this.props.location}
+              path="/teacher/remove"
+              exact
+              component={RemoveTeacherPage}
             />
 
             <UserRoute
