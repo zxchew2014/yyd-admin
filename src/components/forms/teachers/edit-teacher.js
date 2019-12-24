@@ -24,7 +24,7 @@ class EditTeacher extends React.Component {
     if (teacher.Branch === this.state.Branch) {
       updateTeacher(this.state);
     } else {
-      removeTeacher(teacher.Id, teacher.Branch);
+      removeTeacher(teacher);
       addTeacher(this.state);
     }
     this.props.navToTeacherPage();
@@ -57,6 +57,9 @@ class EditTeacher extends React.Component {
         >
           <option key={Branch || ""} defaultValue={Branch || ""} />
           {BRANCH_OPTIONS}
+          <option key="Relief" value="Relief">
+            Relief Teacher - that is not belong to any branch
+          </option>
         </select>
       </Form.Field>
     );

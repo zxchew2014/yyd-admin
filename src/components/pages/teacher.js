@@ -11,10 +11,16 @@ class TeacherPage extends React.Component {
     history.push(`/teacher/edit`);
   };
 
+  onDelete = data => {
+    const { history, fetchTeacher } = this.props;
+    fetchTeacher(data);
+    history.push(`/teacher/remove`);
+  };
+
   render() {
     return (
       <div className="retrieve-teacher">
-        <TeacherList onEdit={this.onEdit} />
+        <TeacherList onEdit={this.onEdit} onDelete={this.onDelete} />
       </div>
     );
   }

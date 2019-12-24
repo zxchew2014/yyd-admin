@@ -16,6 +16,7 @@ import GuestRoute from "./routes/guest-route";
 import SideMenu from "./components/sidemenus/index";
 import EditStudentPage from "./components/pages/edit-student";
 import RemoveStudentPage from "./components/pages/delete-student";
+import RemoveTeacherPage from "./components/pages/delete-teacher";
 
 const UIContainer = styled.div``;
 const BodyContainer = styled.div`
@@ -78,6 +79,13 @@ class App extends React.Component {
               path="/teacher/edit"
               exact
               component={EditTeacherPage}
+            />
+
+            <UserRoute
+                location={this.props.location}
+                path="/teacher/remove"
+                exact
+                component={RemoveTeacherPage}
             />
 
             <UserRoute

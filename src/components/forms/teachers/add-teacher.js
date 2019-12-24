@@ -49,6 +49,9 @@ class AddTeacher extends React.Component {
         >
           <option key={Branch || ""} defaultValue={Branch || ""} />
           {BRANCH_OPTIONS}
+          <option key="Relief" value="Relief">
+            Relief Teacher - that is not belong to any branch
+          </option>
         </select>
       </Form.Field>
     );

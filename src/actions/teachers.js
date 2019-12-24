@@ -37,12 +37,12 @@ export const updateTeacher = teacher => async dispatch => {
     );
 };
 
-export const removeTeacher = (teacher, branch) => async dispatch => {
+export const removeTeacher = teacher => async dispatch => {
   teachersRef
-    .child(branch)
-    .child(teacher)
+    .child(teacher.Branch)
+    .child(teacher.Id)
     .remove()
-    .then(() => dispatch(getBranch(branch)))
+    .then(() => dispatch(getBranch(teacher.Branch)))
     .then(result => {
       dispatch(fetchAllTeachers());
     })

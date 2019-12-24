@@ -39,6 +39,9 @@ class ViewTeacherList extends React.Component {
         >
           <option key="" defaultValue="" />
           {BRANCH_OPTIONS}
+          <option key="Relief" value="Relief">
+            Relief Teacher - That is not belong to any branch
+          </option>
         </select>
       </Form.Field>
     );
@@ -57,6 +60,7 @@ class ViewTeacherList extends React.Component {
           id="teacher_list"
           branch={branch}
           onEdit={this.props.onEdit}
+          onDelete={this.props.onDelete}
         />
         <hr />
       </div>
@@ -65,7 +69,8 @@ class ViewTeacherList extends React.Component {
 }
 
 ViewTeacherList.propTypes = {
-  onEdit: PropTypes.func.isRequired
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({

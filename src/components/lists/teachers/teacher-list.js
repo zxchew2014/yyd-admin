@@ -41,11 +41,6 @@ class TeacherList extends React.Component {
         <Table.HeaderCell colSpan="2" textAlign="center">
           Actions
         </Table.HeaderCell>
-        {/*{branch !== "" ? (
-          <Table.HeaderCell colSpan="2" textAlign="center">
-            Actions
-          </Table.HeaderCell>
-        ) : null}*/}
       </Table.Row>
     );
 
@@ -68,7 +63,7 @@ class TeacherList extends React.Component {
             <Table.Cell
               selectable
               textAlign="center"
-              onClick={() => this.removeTeacher(teacher.Id, teacher.Branch)}
+              onClick={() => this.props.onDelete(teacher)}
             >
               <Icon name="user delete" size="large" aria-label="Remove" />
             </Table.Cell>
@@ -142,6 +137,7 @@ class TeacherList extends React.Component {
 
 TeacherList.propTypes = {
   onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
   branch: PropTypes.string
 };
 
