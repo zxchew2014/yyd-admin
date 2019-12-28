@@ -49,7 +49,8 @@ class StudentAttendancePage extends React.Component {
                 No attendance was found during{" "}
                 {startDate === endDate
                   ? startDate
-                  : `${startDate} - ${endDate}`}.
+                  : `${startDate} - ${endDate}`}
+                .
               </Message.Header>
             </Message>
           )
@@ -64,7 +65,4 @@ const mapStateToProps = ({ attendanceStudents }) => ({
   attendanceStudents
 });
 
-export default connect(
-  mapStateToProps,
-  attendances
-)(StudentAttendancePage);
+export default connect(mapStateToProps, attendances)(StudentAttendancePage);

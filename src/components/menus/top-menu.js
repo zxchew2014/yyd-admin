@@ -49,11 +49,11 @@ class TopMenu extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
 
-              <Menu.Item index="1" position="right">
-                  <Link to="/" onClick={() => logout()}>
+            <Menu.Item index="1" position="right">
+              <Link to="/" onClick={() => logout()}>
                 Logout
-                  </Link>
-              </Menu.Item>
+              </Link>
+            </Menu.Item>
           </Menu>
         </div>
       );

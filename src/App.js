@@ -36,8 +36,8 @@ class App extends React.Component {
     return (
       <UIContainer className="ui container">
         <Header />
-        <TopMenu/>
-        <br/>
+        <TopMenu />
+        <br />
         <BodyContainer>
           <ContentContainer className="content-container">
             <GuestRoute
