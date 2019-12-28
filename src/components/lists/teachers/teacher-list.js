@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Table, Icon } from "semantic-ui-react";
+import { Table, Icon, Button } from "semantic-ui-react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import * as TEACHERS from "../../../actions/teachers";
@@ -38,8 +38,16 @@ class TeacherList extends React.Component {
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Contact No.</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
-        <Table.HeaderCell colSpan="2" textAlign="center">
-          Actions
+        <Table.HeaderCell textAlign="right">
+          <Button
+            icon
+            labelPosition="left"
+            size="small"
+            color="green"
+            onClick={() => this.props.onCreate()}
+          >
+            <Icon name="add user" /> Add Teacher
+          </Button>
         </Table.HeaderCell>
       </Table.Row>
     );
@@ -53,40 +61,26 @@ class TeacherList extends React.Component {
             <Table.Cell>{teacher.Name}</Table.Cell>
             <Table.Cell>{teacher.Mobile}</Table.Cell>
             <Table.Cell>{teacher.Branch}</Table.Cell>
-            <Table.Cell
-              selectable
-              onClick={() => this.props.onEdit(teacher)}
-              textAlign="center"
-            >
-              <Icon name="edit" size="large" aria-label="Edit" />
+            <Table.Cell textAlign="right">
+              <Button
+                icon
+                labelPosition="left"
+                size="small"
+                color="green"
+                onClick={() => this.props.onEdit(teacher)}
+              >
+                <Icon name="edit" /> Edit Teacher
+              </Button>
+              <Button
+                icon
+                labelPosition="left"
+                size="small"
+                color="red"
+                onClick={() => this.props.onDelete(teacher)}
+              >
+                <Icon name="user delete" /> Remove Teacher
+              </Button>
             </Table.Cell>
-            <Table.Cell
-              selectable
-              textAlign="center"
-              onClick={() => this.props.onDelete(teacher)}
-            >
-              <Icon name="user delete" size="large" aria-label="Remove" />
-            </Table.Cell>
-            {/* {this.props.branch !== ""
-              ? [
-                  <Table.Cell
-                    selectable
-                    onClick={() => this.props.onEdit(teacher)}
-                    textAlign="center"
-                  >
-                    <Icon name="edit" size="large" aria-label="Edit" />
-                  </Table.Cell>,
-                  <Table.Cell
-                    selectable
-                    textAlign="center"
-                    onClick={() =>
-                      this.removeTeacher(teacher.Id, teacher.Branch)
-                    }
-                  >
-                    <Icon name="user delete" size="large" aria-label="Remove" />
-                  </Table.Cell>
-                ]
-              : null}*/}
           </Table.Row>
         );
       });
@@ -95,15 +89,18 @@ class TeacherList extends React.Component {
       const { teachers } = this.props;
 
       return teachers !== null ? (
-        <Table unstackable key="all-teacher">
+        <Table stackable key="all-teacher">
           {Object.keys(teachers).map(branchKey => {
             const branchName = teachers[branchKey];
             counter = 0;
+            const noOfTeacher = _.size(branchName);
+
             return [
               <Table.Header key={branchKey} fullWidth>
                 <Table.Row>
                   <Table.HeaderCell colSpan="6">
-                    {branchKey} - {_.size(branchName)} teachers
+                    {branchKey} - {noOfTeacher}{" "}
+                    {noOfTeacher <= 1 ? "teacher" : "teachers"}
                   </Table.HeaderCell>
                 </Table.Row>
                 {renderHeaderRow()}
@@ -120,7 +117,7 @@ class TeacherList extends React.Component {
     const renderTeachersByBranch = branchName => {
       const { teachers } = this.props;
       return (
-        <Table unstackable key="teacher-by-branch">
+        <Table stackable key="teacher-by-branch">
           <Table.Header fullWidth>{renderHeaderRow(branchName)}</Table.Header>
           {teachers !== null ? (
             <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>
@@ -138,6 +135,7 @@ class TeacherList extends React.Component {
 TeacherList.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired,
   branch: PropTypes.string
 };
 

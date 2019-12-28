@@ -23,7 +23,7 @@ class BranchList extends React.Component {
             <Table.Cell>{(counter += 1)}</Table.Cell>
             <Table.Cell>{branch.Branch_Name}</Table.Cell>
             <Table.Cell>{active ? "Active" : "Not Active"}</Table.Cell>
-            <Table.Cell textAlign="center">
+            <Table.Cell textAlign="right">
               {active ? (
                 <Button
                   key="btn-set-not-active"

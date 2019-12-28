@@ -53,6 +53,7 @@ class ViewTeacherList extends React.Component {
           branch={branch}
           onEdit={this.props.onEdit}
           onDelete={this.props.onDelete}
+          onCreate={this.props.onCreate}
         />
         <hr />
       </div>
@@ -62,7 +63,8 @@ class ViewTeacherList extends React.Component {
 
 ViewTeacherList.propTypes = {
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({

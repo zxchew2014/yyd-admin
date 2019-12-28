@@ -17,10 +17,19 @@ class TeacherPage extends React.Component {
     history.push(`/teacher/remove`);
   };
 
+  onCreate = () => {
+    const { history } = this.props;
+    history.push(`/teacher/add`);
+  };
+
   render() {
     return (
       <div className="retrieve-teacher">
-        <TeacherList onEdit={this.onEdit} onDelete={this.onDelete} />
+        <TeacherList
+          onEdit={this.onEdit}
+          onDelete={this.onDelete}
+          onCreate={this.onCreate}
+        />
       </div>
     );
   }
