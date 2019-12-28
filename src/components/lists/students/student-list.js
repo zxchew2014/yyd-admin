@@ -177,17 +177,17 @@ class StudentList extends React.Component {
       return renderStudentsByBranch(branch);
     }
     return [
-        <br/>,
-        <Button
-            floated="right"
-            icon
-            labelPosition="left"
-            size="small"
-            color="green"
-            onClick={() => this.props.onCreate()}
-        >
-            <Icon name="add user" /> Add Student
-        </Button>
+      <br />,
+      <Button
+        floated="right"
+        icon
+        labelPosition="left"
+        size="small"
+        color="green"
+        onClick={() => this.props.onCreate()}
+      >
+        <Icon name="add user" /> Add Student
+      </Button>
     ];
   }
 }
