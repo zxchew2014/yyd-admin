@@ -2,34 +2,31 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import LoginPage from "./components/pages/login";
-import AttendancePage from "./components/pages/teacher-attendance";
-import StudentAttendancePage from "./components/pages/student-attendance";
-import TeacherPage from "./components/pages/teacher";
-import EditTeacherPage from "./components/pages/edit-teacher";
-import AddTeacherPage from "./components/pages/add-teacher";
-import StudentPage from "./components/pages/student";
-import AddStudentPage from "./components/pages/add-student";
+import AttendancePage from "./components/pages/teachers/retrieve";
+import StudentAttendancePage from "./components/pages/students/retrieve";
+import TeacherPage from "./components/pages/teachers";
+import EditTeacherPage from "./components/pages/teachers/update";
+import AddTeacherPage from "./components/pages/teachers/create";
+import StudentPage from "./components/pages/students";
+import AddStudentPage from "./components/pages/students/create";
 import VerifyEmailPage from "./components/pages/verify-email";
 import Header from "./components/utils/header";
 import UserRoute from "./routes/user-route";
 import GuestRoute from "./routes/guest-route";
-import SideMenu from "./components/sidemenus/index";
-import EditStudentPage from "./components/pages/edit-student";
-import RemoveStudentPage from "./components/pages/delete-student";
-import RemoveTeacherPage from "./components/pages/delete-teacher";
-import BranchPage from "./components/pages/branches/index";
+import EditStudentPage from "./components/pages/students/update";
+import RemoveStudentPage from "./components/pages/students/delete";
+import RemoveTeacherPage from "./components/pages/teachers/delete";
+import BranchPage from "./components/pages/branches";
 import AddBranchPage from "./components/pages/branches/create";
 import UpdateBranchPage from "./components/pages/branches/update";
+import TopMenu from "./components/menus/top-menu";
 
 const UIContainer = styled.div``;
 const BodyContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
-  .menu-container {
-    flex: 0 1 20%;
-  }
   .content-container {
-    flex: 0 1 80%;
+    flex: 0 1 100%;
   }
 `;
 const ContentContainer = styled.div``;
@@ -39,8 +36,9 @@ class App extends React.Component {
     return (
       <UIContainer className="ui container">
         <Header />
+        <TopMenu/>
+        <br/>
         <BodyContainer>
-          <SideMenu />
           <ContentContainer className="content-container">
             <GuestRoute
               location={this.props.location}

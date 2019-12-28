@@ -69,15 +69,12 @@ class BranchList extends React.Component {
 
     return (
       <div className="branch-list-container">
-        <Table basic="very" striped>
+        <Table basic="very" striped unstackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>S/N</Table.HeaderCell>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
               <Table.HeaderCell>Active</Table.HeaderCell>
-              <Table.HeaderCell colSpan="2" textAlign="center">
-                Actions
-              </Table.HeaderCell>
               <Table.HeaderCell>
                 <Button
                   floated="right"

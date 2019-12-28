@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Message } from "semantic-ui-react";
-import RetrieveStudentAttendanceForm from "../forms/attendance/student-attendance";
-import * as attendances from "../../actions/attendances";
-import StudentAttendanceList from "../lists/students/student-attendance-list";
+import RetrieveStudentAttendanceForm from "../../forms/attendance/student-attendance";
+import * as attendances from "../../../actions/attendances";
+import StudentAttendanceList from "../../lists/students/student-attendance-list";
 
 class StudentAttendancePage extends React.Component {
   constructor(props) {

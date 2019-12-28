@@ -1,5 +1,5 @@
 import React from "react";
-import DeleteTeacherForm from "../forms/teachers/delete-teacher";
+import DeleteTeacherForm from "../../forms/teachers/delete-teacher";
 import PropTypes from "prop-types";
 
 class RemoveTeacherPage extends React.Component {

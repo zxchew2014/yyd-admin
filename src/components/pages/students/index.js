@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import ViewStudentList from "../lists/students/view-student-list";
+import ViewStudentList from "../../lists/students/view-student-list";
 import PropTypes from "prop-types";
-import * as students from "../../actions/students";
+import * as students from "../../../actions/students";
 
 class StudentPage extends React.Component {
   onEdit = data => {

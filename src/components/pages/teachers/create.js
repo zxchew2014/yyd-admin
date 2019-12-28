@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import AddTeacherForm from "../forms/teachers/add-teacher";
-import * as branches from "../../actions/branches";
+import AddTeacherForm from "../../forms/teachers/add-teacher";
+import * as branches from "../../../actions/branches";
 import PropTypes from "prop-types";
 
 class AddTeacherPage extends React.Component {

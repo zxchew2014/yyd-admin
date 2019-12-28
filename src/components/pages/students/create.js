@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import AddStudentForm from "../forms/students/add-student";
-import * as branches from "../../actions/branches";
+import AddStudentForm from "../../forms/students/add-student";
+import * as branches from "../../../actions/branches";
 import PropTypes from "prop-types";
 
 class AddStudentPage extends React.Component {

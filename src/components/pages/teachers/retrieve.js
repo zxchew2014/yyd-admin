@@ -1,10 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Message} from "semantic-ui-react";
-import RetrieveTeacherAttendanceForm from "../forms/attendance/teacher-attendance";
-import TeacherAttendanceList from "../lists/teachers/teacher-attendance-list";
-import TeacherAttendanceListByBranch from "../lists/teachers/teacher-attendance-list-by-branch";
-import * as attendances from "../../actions/attendances";
+import RetrieveTeacherAttendanceForm from "../../forms/attendance/teacher-attendance";
+import TeacherAttendanceList from "../../lists/teachers/teacher-attendance-list";
+import TeacherAttendanceListByBranch from "../../lists/teachers/teacher-attendance-list-by-branch";
+import * as attendances from "../../../actions/attendances";
 
 class AttendancePage extends React.Component {
     constructor(props) {

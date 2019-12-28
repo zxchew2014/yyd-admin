@@ -1,14 +1,16 @@
 import React from "react";
-import DeleteStudentForm from "../forms/students/delete-student";
+import { connect } from "react-redux";
+import EditStudentForm from "../../forms/students/edit-student";
+import * as branches from "../../../actions/branches";
 import PropTypes from "prop-types";
 
-class RemoveStudentPage extends React.Component {
-  navToPreviousPage = () => {
+class EditStudentPage extends React.Component {
+  navToStudentPage = () => {
     const { history } = this.props;
     history.push(`/student`);
   };
 
-  navToStudentPage = () => {
+  navBack = () => {
     const { history } = this.props;
     history.push(`/student`);
   };
@@ -18,23 +20,22 @@ class RemoveStudentPage extends React.Component {
     if (student === null) {
       history.push(`/student`);
     }
-
     return (
-      <div className="delete-student-container">
-        <DeleteStudentForm
-          key="delete-student-form"
-          navToPreviousPage={this.navToPreviousPage}
+      <div className="edit-student-container">
+        <EditStudentForm
           navToStudentPage={this.navToStudentPage}
+          navBack={this.navBack}
         />
+        <hr />
       </div>
     );
   }
 }
 
-RemoveStudentPage.propTypes = {
+EditStudentPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
   }).isRequired
 };
 
-export default RemoveStudentPage;
+export default connect(null, branches)(EditStudentPage);

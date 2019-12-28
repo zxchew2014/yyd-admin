@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import TeacherList from "../lists/teachers/view-teacher-list";
-import * as teachers from "../../actions/teachers";
+import TeacherList from "../../lists/teachers/view-teacher-list";
+import * as teachers from "../../../actions/teachers";
 
 class TeacherPage extends React.Component {
   onEdit = data => {
