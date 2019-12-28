@@ -10,7 +10,7 @@ import {
   BATCH_2
 } from "../../../utils/common";
 import PropTypes from "prop-types";
-import {DDL_BRANCH_OPTIONS} from "../../utils/dropdownlist";
+import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
 class AddStudentForm extends React.Component {
   constructor(props) {

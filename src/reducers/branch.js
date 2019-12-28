@@ -1,4 +1,4 @@
-import { FETCH_BRANCHES, GET_BRANCH } from '../actions/types';
+import { FETCH_BRANCHES, GET_BRANCH } from "../actions/types";
 
 export const getBranch = (state = "", action) => {
   if (action.type === GET_BRANCH) {

@@ -5,7 +5,7 @@ import * as BRANCHES from "../../../actions/branches";
 import StudentList from "./student-list";
 import { BATCH_1, BATCH_2, BRANCH_PUNGGOL } from "../../../utils/common";
 import PropTypes from "prop-types";
-import {DDL_BRANCH_OPTIONS} from "../../utils/dropdownlist";
+import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
 class ViewStudentList extends React.Component {
   constructor(props) {

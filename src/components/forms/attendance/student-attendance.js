@@ -94,9 +94,9 @@ class RetrieveStudentAttendanceForm extends React.Component {
     const BRANCH_OPTIONS = Object.keys(branches).map(key => {
       const branch = branches[key];
       return (
-          <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
-            {branch.Branch_Name}
-          </option>
+        <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
+          {branch.Branch_Name}
+        </option>
       );
     });
 

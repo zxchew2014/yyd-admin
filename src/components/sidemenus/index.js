@@ -89,7 +89,6 @@ class SideMenu extends React.Component {
               </Menu.Item>
             </Menu.Menu>
           </Menu.Item>
-
         </Menu>
       </div>
     ) : null;

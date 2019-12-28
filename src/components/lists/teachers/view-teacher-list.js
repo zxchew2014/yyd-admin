@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
-import {DDL_BRANCH_OPTIONS} from "../../utils/dropdownlist";
+import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
 class ViewTeacherList extends React.Component {
   constructor(props) {

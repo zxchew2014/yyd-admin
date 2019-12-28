@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import * as teachers from "../../../actions/teachers";
-import {DDL_BRANCH_OPTIONS} from "../../utils/dropdownlist";
+import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
 class AddTeacher extends React.Component {
   constructor(props) {

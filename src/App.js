@@ -78,10 +78,10 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/teacher/add"
-                exact
-                component={AddTeacherPage}
+              location={this.props.location}
+              path="/teacher/add"
+              exact
+              component={AddTeacherPage}
             />
 
             <UserRoute
@@ -127,26 +127,25 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/branch"
-                exact
-                component={BranchPage}
+              location={this.props.location}
+              path="/branch"
+              exact
+              component={BranchPage}
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/branch/add"
-                exact
-                component={AddBranchPage}
+              location={this.props.location}
+              path="/branch/add"
+              exact
+              component={AddBranchPage}
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/branch/update"
-                exact
-                component={UpdateBranchPage}
+              location={this.props.location}
+              path="/branch/update"
+              exact
+              component={UpdateBranchPage}
             />
-
           </ContentContainer>
         </BodyContainer>
       </UIContainer>

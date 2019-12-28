@@ -29,7 +29,7 @@ class UpdateBranchPage extends React.Component {
 UpdateBranchPage.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired
-  }).isRequired,
+  }).isRequired
 };
 
 export default UpdateBranchPage;
