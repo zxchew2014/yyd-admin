@@ -143,7 +143,7 @@ class StudentList extends React.Component {
     const renderStudentsByBranch = branchName => {
       const { students } = this.props;
       return (
-        <Table stackable key="student-by-branch">
+        <Table basic="very" striped stackable key="student-by-branch">
           <Table.Header fullWidth>{renderHeaderRow(branchName)}</Table.Header>
           {students !== null && (
             <Table.Body>{renderStudentRows(students, branchName)}</Table.Body>
@@ -155,7 +155,7 @@ class StudentList extends React.Component {
     const renderStudentsByBranchBatch = branchName => {
       const { students } = this.props;
       return (
-        <Table stackable key="student-by-branch-batch">
+        <Table basic="very" striped stackable key="student-by-branch-batch">
           <Table.Header fullWidth>{renderHeaderWithBatchRow()}</Table.Header>
           {students !== null && (
             <Table.Body>
