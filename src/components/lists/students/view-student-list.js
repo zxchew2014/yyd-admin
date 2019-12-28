@@ -89,14 +89,14 @@ class ViewStudentList extends React.Component {
     return (
       <div className="student-list-container">
         {this.renderBranchDropDownList()}
-        {// eslint-disable-next-line no-nested-ternary
-        branch !== BRANCH_PUNGGOL ? (
+        {branch !== BRANCH_PUNGGOL ? (
           <StudentList
             key="student-list"
             id="student-list"
             branch={branch}
             onEdit={this.props.onEdit}
             onDelete={this.props.onDelete}
+            onCreate={this.props.onCreate}
           />
         ) : batch || batch === "" ? (
           <StudentList
@@ -106,9 +106,9 @@ class ViewStudentList extends React.Component {
             batch={batch}
             onEdit={this.props.onEdit}
             onDelete={this.props.onDelete}
+            onCreate={this.props.onCreate}
           />
         ) : null}
-        <hr />
       </div>
     );
   }
@@ -116,7 +116,8 @@ class ViewStudentList extends React.Component {
 
 ViewStudentList.propTypes = {
   onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({

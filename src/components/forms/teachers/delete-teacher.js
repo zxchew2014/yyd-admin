@@ -28,7 +28,7 @@ class RemoveTeacher extends React.Component {
     return [
       <Message warning key="teacher-remove-message">
         <Message.Header>Are you sure??</Message.Header>
-        <p>Teacher {Name || ""} detail will be remove once confirm below.</p>
+        <p>Teacher {Name || ""}'s detail will be remove once confirm below.</p>
       </Message>,
 
       <Table basic="very" celled collapsing key="teacher-remove-table">

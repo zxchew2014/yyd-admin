@@ -34,7 +34,7 @@ class RemoveStudent extends React.Component {
     return [
       <Message warning key="student-remove-message">
         <Message.Header>Are you sure??</Message.Header>
-        <p>Student {Name || ""} detail will be remove once confirm below.</p>
+        <p>Student {Name || ""}'s detail will be remove once confirm below.</p>
       </Message>,
 
       <Table basic="very" celled collapsing key="student-remove-table">

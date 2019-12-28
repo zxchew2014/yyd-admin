@@ -32,7 +32,7 @@ class TeacherList extends React.Component {
     const { branch } = this.props;
     let counter = 0;
 
-    const renderHeaderRow = branchName => (
+    const renderHeaderRow = () => (
       <Table.Row>
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
@@ -118,7 +118,7 @@ class TeacherList extends React.Component {
       const { teachers } = this.props;
       return (
         <Table stackable key="teacher-by-branch">
-          <Table.Header fullWidth>{renderHeaderRow(branchName)}</Table.Header>
+          <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
           {teachers !== null ? (
             <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>
           ) : null}
