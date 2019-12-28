@@ -1,10 +1,10 @@
 import React from "react";
 import { Form } from "semantic-ui-react";
 import { connect } from "react-redux";
-import _ from "lodash";
 import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
+import {DDL_BRANCH_OPTIONS} from "../../utils/dropdownlist";
 
 class ViewTeacherList extends React.Component {
   constructor(props) {
@@ -14,18 +14,10 @@ class ViewTeacherList extends React.Component {
     };
   }
 
-  componentWillMount() {
-    const { fetchBranches } = this.props;
-    fetchBranches();
-  }
-
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const BRANCH_OPTIONS = _.map(branches, (value, key) => (
-      <option key={key} defaultValue={value}>
-        {value}
-      </option>
-    ));
+
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field>

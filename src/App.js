@@ -17,6 +17,9 @@ import SideMenu from "./components/sidemenus/index";
 import EditStudentPage from "./components/pages/edit-student";
 import RemoveStudentPage from "./components/pages/delete-student";
 import RemoveTeacherPage from "./components/pages/delete-teacher";
+import BranchPage from "./components/pages/branches/index";
+import AddBranchPage from "./components/pages/branches/create";
+import UpdateBranchPage from "./components/pages/branches/update";
 
 const UIContainer = styled.div``;
 const BodyContainer = styled.div`
@@ -75,6 +78,13 @@ class App extends React.Component {
             />
 
             <UserRoute
+                location={this.props.location}
+                path="/teacher/add"
+                exact
+                component={AddTeacherPage}
+            />
+
+            <UserRoute
               location={this.props.location}
               path="/teacher/edit"
               exact
@@ -97,13 +107,6 @@ class App extends React.Component {
 
             <UserRoute
               location={this.props.location}
-              path="/teacher/add"
-              exact
-              component={AddTeacherPage}
-            />
-
-            <UserRoute
-              location={this.props.location}
               path="/student/add"
               exact
               component={AddStudentPage}
@@ -122,6 +125,28 @@ class App extends React.Component {
               exact
               component={RemoveStudentPage}
             />
+
+            <UserRoute
+                location={this.props.location}
+                path="/branch"
+                exact
+                component={BranchPage}
+            />
+
+            <UserRoute
+                location={this.props.location}
+                path="/branch/add"
+                exact
+                component={AddBranchPage}
+            />
+
+            <UserRoute
+                location={this.props.location}
+                path="/branch/update"
+                exact
+                component={UpdateBranchPage}
+            />
+
           </ContentContainer>
         </BodyContainer>
       </UIContainer>

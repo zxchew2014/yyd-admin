@@ -5,11 +5,6 @@ import * as branches from "../../actions/branches";
 import PropTypes from "prop-types";
 
 class AddStudentPage extends React.Component {
-  componentWillMount() {
-    const { fetchBranches } = this.props;
-    fetchBranches();
-  }
-
   navToStudentPage = () => {
     const { history } = this.props;
     history.push(`/student`);

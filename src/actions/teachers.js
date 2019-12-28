@@ -5,7 +5,7 @@ import {
   FETCH_TEACHER
 } from "./types";
 import { getBranch } from "./branches";
-import { VALUE_KEY, URL_TEACHERS } from "../utils/common";
+import { VALUE_KEY, URL_TEACHERS} from "../utils/common";
 
 export const addTeacher = teacher => async dispatch => {
   const myRef = teachersRef.child(teacher.Branch).push();

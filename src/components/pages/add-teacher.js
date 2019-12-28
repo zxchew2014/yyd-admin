@@ -10,11 +10,6 @@ class AddTeacherPage extends React.Component {
     history.push(`/teacher`);
   };
 
-  componentWillMount() {
-    const { fetchBranches } = this.props;
-    fetchBranches();
-  }
-
   render() {
     return (
       <div className="add-teacher-container">

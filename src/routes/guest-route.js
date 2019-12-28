@@ -11,7 +11,7 @@ const GuestRoute = ({ user, component: Component, ...rest }) => (
         [<Component {...props} />]
       ) : user.emailVerified ? (
         <Redirect
-          to={{ pathname: "/teacher", state: { from: props.location } }}
+          to={{ pathname: "/branch", state: { from: props.location } }}
         />
       ) : (
         <Redirect

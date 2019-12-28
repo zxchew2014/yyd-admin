@@ -2,7 +2,6 @@ import React from "react";
 import { Button, Form } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import _ from "lodash";
 import InlineError from "../../utils/inline-error";
 import * as branchAPI from "../../../actions/branches";
 import {
@@ -30,11 +29,6 @@ class RetrieveStudentAttendanceForm extends React.Component {
     },
     errors: {}
   };
-
-  componentWillMount() {
-    const { fetchBranches } = this.props;
-    fetchBranches();
-  }
 
   onChangeDate = event => {
     this.setState({
@@ -97,11 +91,14 @@ class RetrieveStudentAttendanceForm extends React.Component {
     const { branch, batch, endDate, startDate } = data;
     const { branches } = this.props;
 
-    const BRANCH_OPTIONS = _.map(branches, (value, key) => (
-      <option key={key} defaultValue={value}>
-        {value}
-      </option>
-    ));
+    const BRANCH_OPTIONS = Object.keys(branches).map(key => {
+      const branch = branches[key];
+      return (
+          <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
+            {branch.Branch_Name}
+          </option>
+      );
+    });
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field>

@@ -10,6 +10,7 @@ import {
   BATCH_2
 } from "../../../utils/common";
 import PropTypes from "prop-types";
+import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
 class EditStudent extends React.Component {
   constructor(props) {
@@ -129,11 +130,7 @@ class EditStudent extends React.Component {
     const { branches } = this.props;
     const { Branch } = this.state;
 
-    const BRANCH_OPTIONS = _.map(branches, (value, key) => (
-      <option key={key} defaultValue={value}>
-        {value}
-      </option>
-    ));
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field>

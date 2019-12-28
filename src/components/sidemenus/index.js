@@ -33,6 +33,17 @@ class SideMenu extends React.Component {
             </Menu.Header>
           </Menu.Item>
 
+          <Menu.Item>
+            <Menu.Header>
+              <Link to="/branch">Branch</Link>
+            </Menu.Header>
+            <Menu.Menu>
+              <Menu.Item name="Add Branch">
+                <Link to="/branch/add">Add Branch</Link>
+              </Menu.Item>
+            </Menu.Menu>
+          </Menu.Item>
+
           {/* <Menu.Item>
             <Menu.Header>
               <Link to="/">Home</Link>
@@ -52,49 +63,33 @@ class SideMenu extends React.Component {
            */}
 
           <Menu.Item>
-            <Menu.Header onClick={this.handleItemClick}>
+            <Menu.Header>
               <Link to="/teacher">Teachers</Link>
             </Menu.Header>
             <Menu.Menu>
-              <Menu.Item name="Add_Teacher" onClick={this.handleItemClick}>
+              <Menu.Item name="Add_Teacher">
                 <Link to="/teacher/add">Add Teacher</Link>
               </Menu.Item>
-              <Menu.Item
-                name="Generate_Teacher_Attendance"
-                onClick={this.handleItemClick}
-              >
+              <Menu.Item name="Generate_Teacher_Attendance">
                 <Link to="/teacher/attendance">Generate Attendance</Link>
               </Menu.Item>
             </Menu.Menu>
           </Menu.Item>
 
           <Menu.Item>
-            <Menu.Header onClick={this.handleItemClick}>
+            <Menu.Header>
               <Link to="/student">Students</Link>
             </Menu.Header>
             <Menu.Menu>
-              <Menu.Item name="Add Student" onClick={this.handleItemClick}>
+              <Menu.Item name="Add Student">
                 <Link to="/student/add">Add Student</Link>
               </Menu.Item>
-              <Menu.Item
-                name="Generate_Student_Attendance"
-                onClick={this.handleItemClick}
-              >
+              <Menu.Item name="Generate_Student_Attendance">
                 <Link to="/student/attendance">Generate Attendance</Link>
               </Menu.Item>
             </Menu.Menu>
           </Menu.Item>
 
-          {/* <Menu.Item>
-            <Menu.Header onClick={this.handleItemClick}>
-              <Link to="/student">View All Branches</Link>
-            </Menu.Header>
-            <Menu.Menu>
-              <Menu.Item name="Add Branch" onClick={this.handleItemClick}>
-                <Link to="/branch/add">Add Branch</Link>
-              </Menu.Item>
-            </Menu.Menu>
-          </Menu.Item>*/}
         </Menu>
       </div>
     ) : null;

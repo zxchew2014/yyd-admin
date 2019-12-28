@@ -26,6 +26,7 @@ export const VALUE_KEY = "value";
 
 export const URL_STUDENTS = "/New_Students";
 export const URL_TEACHERS = "/Teacher_Allocation";
+export const URL_BRANCHES = "/Branches";
 
 export const ENDATE_ERROR_MESSAGE = "End Date is smaller than Start Date";
 export const STARTDATE_ERROR_MESSAGE = "Start Date is greater than End Date";

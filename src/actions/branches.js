@@ -1,6 +1,6 @@
-import { branchesRef } from "../configs/firebase";
+import { branchesRef, yydASDb } from "../configs/firebase";
 import { FETCH_BRANCHES, GET_BRANCH } from "./types";
-import { VALUE_KEY } from "../utils/common";
+import { VALUE_KEY, URL_BRANCHES } from "../utils/common";
 
 export const getBranch = (branch = "") => ({
   type: GET_BRANCH,
@@ -8,11 +8,49 @@ export const getBranch = (branch = "") => ({
 });
 
 export const addBranch = branch => async dispatch => {
-  branchesRef.push().set(branch);
+  const myRef = branchesRef.push();
+  const newKey = myRef.key;
+  branch.Id = newKey;
+
+  const insertData = {};
+  insertData[`${URL_BRANCHES}/${newKey}`] = branch;
+  yydASDb.ref().update(insertData);
+};
+
+export const updateBranch = branch => async dispatch => {
+  const updateData = {};
+  updateData[`${URL_BRANCHES}/${branch.Id}`] = branch;
+  yydASDb
+    .ref()
+    .update(updateData)
+    .then(() =>
+      dispatch({
+        type: GET_BRANCH,
+        branch: null
+      })
+    );
+};
+
+export const fetchBranch = branch => async dispatch => {
+  const branchesRef = yydASDb.ref(`${URL_BRANCHES}/${branch.Id}`);
+  branchesRef.on(VALUE_KEY, data => {
+    dispatch({
+      type: GET_BRANCH,
+      branch: data.val()
+    });
+  });
 };
 
 export const removeBranch = branch => async dispatch => {
-  branchesRef.child(branch).remove();
+  branchesRef
+    .child(branch.Id)
+    .remove()
+    .then(() =>
+      dispatch({
+        type: GET_BRANCH,
+        branch: null
+      })
+    );
 };
 
 export const fetchBranches = () => async dispatch => {
@@ -28,6 +66,15 @@ export const fetchBranches = () => async dispatch => {
     dispatch({
       type: FETCH_BRANCHES,
       branches: list
+    });
+  });
+};
+
+export const fetchBranchList = () => async dispatch => {
+  branchesRef.on(VALUE_KEY, data => {
+    dispatch({
+      type: FETCH_BRANCHES,
+      branches: data.val()
     });
   });
 };

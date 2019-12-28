@@ -1,9 +1,9 @@
 import React from "react";
-import _ from "lodash";
 import { Button, Form, Input } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as teachers from "../../../actions/teachers";
+import {DDL_BRANCH_OPTIONS} from "../../utils/dropdownlist";
 
 class EditTeacher extends React.Component {
   constructor(props) {
@@ -38,11 +38,7 @@ class EditTeacher extends React.Component {
     const { branches } = this.props;
     const { Branch } = this.state;
 
-    const BRANCH_OPTIONS = _.map(branches, (value, key) => (
-      <option key={key} defaultValue={value}>
-        {value}
-      </option>
-    ));
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field>
