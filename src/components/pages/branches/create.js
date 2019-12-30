@@ -5,7 +5,7 @@ import * as branches from "../../../actions/branches";
 import AddBranchForm from "../../forms/branches/add-branch";
 
 class AddBranchPage extends React.Component {
-  navToBranchPage = () => {
+  onNext = () => {
     const { history } = this.props;
     history.push(`/branch`);
   };
@@ -15,7 +15,7 @@ class AddBranchPage extends React.Component {
       <div className="add-branch-container">
         <AddBranchForm
           key="add-branch-form"
-          navToBranchPage={this.navToBranchPage}
+          onNext={this.onNext}
         />
       </div>
     );

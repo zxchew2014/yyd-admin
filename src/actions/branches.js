@@ -1,6 +1,8 @@
 import { branchesRef, yydASDb } from "../configs/firebase";
 import { FETCH_BRANCHES, GET_BRANCH } from "./types";
 import { VALUE_KEY, URL_BRANCHES } from "../utils/common";
+import { removeStudentsByBranch } from "./students";
+import { removeTeachersByBranch } from "./teachers";
 
 export const getBranch = (branch = "") => ({
   type: GET_BRANCH,
@@ -23,6 +25,8 @@ export const updateBranch = branch => async dispatch => {
   yydASDb
     .ref()
     .update(updateData)
+    .then(() => dispatch(removeStudentsByBranch(branch)))
+    .then(() => dispatch(removeTeachersByBranch(branch)))
     .then(() =>
       dispatch({
         type: GET_BRANCH,

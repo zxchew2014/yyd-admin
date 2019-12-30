@@ -1,10 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import UpdateBranchForm from "../../forms/branches/update-branch";
+import { connect } from "react-redux";
+import * as branches from "../../../actions/branches";
 
 class UpdateBranchPage extends React.Component {
-  navToBranchPage = () => {
-    const { history } = this.props;
+  onBack = () => {
+    const { history, getBranch } = this.props;
+    getBranch();
+    history.push(`/branch`);
+  };
+
+  onSubmit = branch => {
+    const { updateBranch, history } = this.props;
+    branch.Active = false;
+    updateBranch(branch);
     history.push(`/branch`);
   };
 
@@ -18,8 +28,9 @@ class UpdateBranchPage extends React.Component {
     return (
       <div className="delete-branch-container">
         <UpdateBranchForm
-          key="delete-branch-form"
-          navToBranchPage={this.navToBranchPage}
+          key="update-branch-form"
+          onBack={this.onBack}
+          onSubmit={this.onSubmit}
         />
       </div>
     );
@@ -32,4 +43,4 @@ UpdateBranchPage.propTypes = {
   }).isRequired
 };
 
-export default UpdateBranchPage;
+export default connect(null, branches)(UpdateBranchPage);

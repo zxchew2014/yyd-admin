@@ -1,7 +1,8 @@
 import {
   FETCH_TEACHERS,
   FETCH_TEACHERS_BY_BRANCH,
-  FETCH_TEACHER
+  FETCH_TEACHER,
+  REMOVE_TEACHERS_BY_BRANCH
 } from "../actions/types";
 
 export const fetchTeacherList = (state = null, action) => {
@@ -9,6 +10,8 @@ export const fetchTeacherList = (state = null, action) => {
     case FETCH_TEACHERS_BY_BRANCH:
       return action.teachers;
     case FETCH_TEACHERS:
+      return action.teachers;
+    case REMOVE_TEACHERS_BY_BRANCH:
       return action.teachers;
     default:
       return state;

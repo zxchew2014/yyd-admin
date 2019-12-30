@@ -1,5 +1,9 @@
 import { studentsRef, yydASDb } from "../configs/firebase";
-import { FETCH_STUDENTS_BY_BRANCH, FETCH_STUDENT } from "./types";
+import {
+  FETCH_STUDENTS_BY_BRANCH,
+  FETCH_STUDENT,
+  REMOVE_STUDENTS_BY_BRANCH
+} from "./types";
 import { VALUE_KEY, URL_STUDENTS, BRANCH_PUNGGOL } from "../utils/common";
 import { getBranch } from "./branches";
 
@@ -51,6 +55,17 @@ export const removeStudent = (studentKey, branch, batch) => async dispatch => {
     );
 };
 
+export const removeStudentsByBranch = branch => async dispatch => {
+  studentsRef
+    .child(branch.Branch_Name)
+    .remove()
+    .then(() =>
+      dispatch({
+        type: REMOVE_STUDENTS_BY_BRANCH,
+        students: null
+      })
+    );
+};
 export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
   const studentByBranchRef = yydASDb
     .ref(`${URL_STUDENTS}/${branch}`)
@@ -58,6 +73,13 @@ export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
 
   studentByBranchRef.on(VALUE_KEY, data => {
     const studentList = data.val();
+
+    if (studentList === null) {
+      dispatch({
+        type: FETCH_STUDENTS_BY_BRANCH,
+        students: null
+      });
+    }
 
     if (branch === BRANCH_PUNGGOL) {
       if (batch !== null || batch !== "") {
@@ -80,21 +102,28 @@ export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
         });
       }
     } else {
-      const newStudentList = [];
-      Object.keys(studentList).forEach(key => {
-        const student = studentList[key];
-        student.Id = key;
-        newStudentList.push(student);
-      });
+      if (studentList === null) {
+        dispatch({
+          type: FETCH_STUDENTS_BY_BRANCH,
+          students: null
+        });
+      } else {
+        const newStudentList = [];
+        Object.keys(studentList).forEach(key => {
+          const student = studentList[key];
+          student.Id = key;
+          newStudentList.push(student);
+        });
 
-      newStudentList.sort(
-        (a, b) => parseInt(a.Primary, 10) - parseInt(b.Primary, 10)
-      );
+        newStudentList.sort(
+          (a, b) => parseInt(a.Primary, 10) - parseInt(b.Primary, 10)
+        );
 
-      dispatch({
-        type: FETCH_STUDENTS_BY_BRANCH,
-        students: newStudentList
-      });
+        dispatch({
+          type: FETCH_STUDENTS_BY_BRANCH,
+          students: newStudentList
+        });
+      }
     }
   });
 };

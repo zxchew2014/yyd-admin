@@ -29,7 +29,7 @@ class TeacherList extends React.Component {
   };
 
   render() {
-    const { branch } = this.props;
+    const { branch, btnDisable = false } = this.props;
     let counter = 0;
 
     const renderHeaderRow = () => (
@@ -38,17 +38,19 @@ class TeacherList extends React.Component {
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Contact No.</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
-        <Table.HeaderCell textAlign="right">
-          <Button
-            icon
-            labelPosition="left"
-            size="small"
-            color="green"
-            onClick={() => this.props.onCreate()}
-          >
-            <Icon name="add user" /> Add Teacher
-          </Button>
-        </Table.HeaderCell>
+        {btnDisable ? null : (
+          <Table.HeaderCell textAlign="right">
+            <Button
+              icon
+              labelPosition="left"
+              size="small"
+              color="green"
+              onClick={() => this.props.onCreate()}
+            >
+              <Icon name="add user" /> Add Teacher
+            </Button>
+          </Table.HeaderCell>
+        )}
       </Table.Row>
     );
 
@@ -61,26 +63,28 @@ class TeacherList extends React.Component {
             <Table.Cell>{teacher.Name}</Table.Cell>
             <Table.Cell>{teacher.Mobile}</Table.Cell>
             <Table.Cell>{teacher.Branch}</Table.Cell>
-            <Table.Cell textAlign="right">
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="green"
-                onClick={() => this.props.onEdit(teacher)}
-              >
-                <Icon name="edit" /> Edit Teacher
-              </Button>
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="red"
-                onClick={() => this.props.onDelete(teacher)}
-              >
-                <Icon name="user delete" /> Remove Teacher
-              </Button>
-            </Table.Cell>
+            {btnDisable ? null : (
+              <Table.Cell textAlign="right">
+                <Button
+                  icon
+                  labelPosition="left"
+                  size="small"
+                  color="green"
+                  onClick={() => this.props.onEdit(teacher)}
+                >
+                  <Icon name="edit" /> Edit Teacher
+                </Button>
+                <Button
+                  icon
+                  labelPosition="left"
+                  size="small"
+                  color="red"
+                  onClick={() => this.props.onDelete(teacher)}
+                >
+                  <Icon name="user delete" /> Remove Teacher
+                </Button>
+              </Table.Cell>
+            )}
           </Table.Row>
         );
       });
@@ -133,10 +137,11 @@ class TeacherList extends React.Component {
 }
 
 TeacherList.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onCreate: PropTypes.func.isRequired,
-  branch: PropTypes.string
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  onCreate: PropTypes.func,
+  branch: PropTypes.string,
+  btnDisable: PropTypes.bool
 };
 
 const mapStateToProps = ({ teachers }) => ({

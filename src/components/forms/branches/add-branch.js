@@ -44,7 +44,7 @@ class AddBranch extends React.Component {
       }
     }
 
-    this.props.navToBranchPage();
+    this.props.onNext();
   };
 
   handleInputChange = event => {
@@ -79,7 +79,7 @@ class AddBranch extends React.Component {
 }
 
 AddBranch.propTypes = {
-  navToBranchPage: PropTypes.func.isRequired
+  onNext: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({

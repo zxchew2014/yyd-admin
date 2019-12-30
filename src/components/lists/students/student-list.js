@@ -23,7 +23,7 @@ class StudentList extends React.Component {
   }
 
   render() {
-    const { branch, batch } = this.props;
+    const { branch, batch, btnDisable = false } = this.props;
 
     let counter = 0;
 
@@ -33,18 +33,19 @@ class StudentList extends React.Component {
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Primary</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
-
-        <Table.HeaderCell textAlign="right">
-          <Button
-            icon
-            labelPosition="left"
-            size="small"
-            color="green"
-            onClick={() => this.props.onCreate()}
-          >
-            <Icon name="add user" /> Add Student
-          </Button>
-        </Table.HeaderCell>
+        {btnDisable ? null : (
+          <Table.HeaderCell textAlign="right">
+            <Button
+              icon
+              labelPosition="left"
+              size="small"
+              color="green"
+              onClick={() => this.props.onCreate()}
+            >
+              <Icon name="add user" /> Add Student
+            </Button>
+          </Table.HeaderCell>
+        )}
       </Table.Row>
     );
 
@@ -55,17 +56,19 @@ class StudentList extends React.Component {
         <Table.HeaderCell>Primary</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
         <Table.HeaderCell>Batch</Table.HeaderCell>
-        <Table.HeaderCell textAlign="right">
-          <Button
-            icon
-            labelPosition="left"
-            size="small"
-            color="green"
-            onClick={() => this.props.onCreate()}
-          >
-            <Icon name="add user" /> Add Student
-          </Button>
-        </Table.HeaderCell>
+        {btnDisable ? null : (
+          <Table.HeaderCell textAlign="right">
+            <Button
+              icon
+              labelPosition="left"
+              size="small"
+              color="green"
+              onClick={() => this.props.onCreate()}
+            >
+              <Icon name="add user" /> Add Student
+            </Button>
+          </Table.HeaderCell>
+        )}
       </Table.Row>
     );
 
@@ -78,26 +81,28 @@ class StudentList extends React.Component {
             <Table.Cell>{student.Name}</Table.Cell>
             <Table.Cell>Primary {student.Primary}</Table.Cell>
             <Table.Cell>{student.Branch}</Table.Cell>
-            <Table.Cell textAlign="right">
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="green"
-                onClick={() => this.props.onEdit(student)}
-              >
-                <Icon name="edit" /> Edit Student
-              </Button>
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="red"
-                onClick={() => this.props.onDelete(student)}
-              >
-                <Icon name="user delete" /> Remove Student
-              </Button>
-            </Table.Cell>
+            {btnDisable ? null : (
+              <Table.Cell textAlign="right">
+                <Button
+                  icon
+                  labelPosition="left"
+                  size="small"
+                  color="green"
+                  onClick={() => this.props.onEdit(student)}
+                >
+                  <Icon name="edit" /> Edit Student
+                </Button>
+                <Button
+                  icon
+                  labelPosition="left"
+                  size="small"
+                  color="red"
+                  onClick={() => this.props.onDelete(student)}
+                >
+                  <Icon name="user delete" /> Remove Student
+                </Button>
+              </Table.Cell>
+            )}
           </Table.Row>
         );
       });
@@ -115,26 +120,28 @@ class StudentList extends React.Component {
               <Table.Cell>Primary {student.Primary}</Table.Cell>
               <Table.Cell>{student.Branch}</Table.Cell>
               <Table.Cell>{student.Batch}</Table.Cell>
-              <Table.Cell textAlign="right">
-                <Button
-                  icon
-                  labelPosition="left"
-                  size="small"
-                  color="green"
-                  onClick={() => this.props.onEdit(student)}
-                >
-                  <Icon name="edit" /> Edit Teacher
-                </Button>
-                <Button
-                  icon
-                  labelPosition="left"
-                  size="small"
-                  color="red"
-                  onClick={() => this.props.onDelete(student)}
-                >
-                  <Icon name="user delete" /> Remove Teacher
-                </Button>
-              </Table.Cell>
+              {btnDisable ? null : (
+                <Table.Cell textAlign="right">
+                  <Button
+                    icon
+                    labelPosition="left"
+                    size="small"
+                    color="green"
+                    onClick={() => this.props.onEdit(student)}
+                  >
+                    <Icon name="edit" /> Edit Teacher
+                  </Button>
+                  <Button
+                    icon
+                    labelPosition="left"
+                    size="small"
+                    color="red"
+                    onClick={() => this.props.onDelete(student)}
+                  >
+                    <Icon name="user delete" /> Remove Teacher
+                  </Button>
+                </Table.Cell>
+              )}
             </Table.Row>
           );
         }
@@ -176,6 +183,7 @@ class StudentList extends React.Component {
       }
       return renderStudentsByBranch(branch);
     }
+
     return [
       <br />,
       <Button
@@ -193,11 +201,12 @@ class StudentList extends React.Component {
 }
 
 StudentList.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onCreate: PropTypes.func.isRequired,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  onCreate: PropTypes.func,
   branch: PropTypes.string,
-  batch: PropTypes.string
+  batch: PropTypes.string,
+  btnDisable: PropTypes.bool
 };
 
 const mapStateToProps = ({ students }) => ({

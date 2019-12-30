@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import * as branches from "../../../actions/branches";
-import { Button, Form, Message, Table } from "semantic-ui-react";
+import { Button, Header, Icon, Message, Table } from "semantic-ui-react";
+import StudentList from "../../lists/students/student-list";
+import TeacherList from "../../lists/teachers/teacher-list";
 
 class UpdateBranch extends React.Component {
   constructor(props) {
@@ -15,18 +16,12 @@ class UpdateBranch extends React.Component {
     };
   }
 
-  onSubmit = event => {
-    const { updateBranch, branch } = this.props;
-    event.preventDefault();
-    branch.Active = false;
-    updateBranch(branch);
-    this.props.navToBranchPage();
-  };
-
   renderNotActiveForm = () => {
+    const { branch } = this.props;
     const { Branch_Name } = this.state;
+
     return [
-      <Message warning key="branch-remove-message">
+      <Message error key="branch-remove-message">
         <Message.Header>Are you sure??</Message.Header>
         <p>
           Branch {Branch_Name || ""} will set to "Not Active" once confirm
@@ -46,34 +41,47 @@ class UpdateBranch extends React.Component {
         </p>
       </Message>,
 
-      <Table basic="very" celled collapsing key="branch-remove-table">
+      <Header as="h3" key="branch-header">
+        <Icon name="home" />
+        <Header.Content>Branch Detail</Header.Content>
+      </Header>,
+
+      <Table basic="very" celled stackable key="branch-remove-table">
         <Table.Body>
           <Table.Row>
-            <Table.Cell>Branch Name</Table.Cell>
+            <Table.HeaderCell>Branch Name</Table.HeaderCell>
             <Table.Cell>{Branch_Name || ""}</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>,
 
-      <Form key="teacher-remove-form">
-        <div className="ui buttons">
-          <Button
-            className="ui button"
-            id="cancel"
-            onClick={this.props.navToBranchPage}
-          >
-            Cancel
-          </Button>
-          <div className="or" />
-          <Button
-            className="ui negative button"
-            type="submit"
-            onClick={this.onSubmit}
-          >
-            Confirm to Remove
-          </Button>
-        </div>
-      </Form>
+      <Header as="h3" key="students-header">
+        <Icon name="users" />
+        <Header.Content>Student List</Header.Content>
+      </Header>,
+      <StudentList key="student-list" branch={Branch_Name} btnDisable={true} />,
+      <Header as="h3" key="teachers-header">
+        <Icon name="users" />
+        <Header.Content>Teacher List</Header.Content>
+      </Header>,
+      <TeacherList key="teacher-list" branch={Branch_Name} btnDisable={true} />,
+
+      <div className="ui buttons">
+        <Button
+          className="ui button"
+          id="cancel"
+          onClick={() => this.props.onBack()}
+        >
+          Cancel
+        </Button>
+        <div className="or" />
+        <Button
+          className="ui negative button"
+          onClick={() => this.props.onSubmit(branch)}
+        >
+          Confirm
+        </Button>
+      </div>
     ];
   };
 
@@ -85,10 +93,10 @@ class UpdateBranch extends React.Component {
 }
 
 UpdateBranch.propTypes = {
-  navToBranchPage: PropTypes.func.isRequired,
-  updateBranch: PropTypes.func
+  onBack: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branch }) => ({ branch });
 
-export default connect(mapStateToProps, branches)(UpdateBranch);
+export default connect(mapStateToProps, {})(UpdateBranch);
