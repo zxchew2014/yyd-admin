@@ -1,8 +1,9 @@
 import { teachersRef, yydASDb } from "../configs/firebase";
 import {
-    FETCH_TEACHERS,
-    FETCH_TEACHERS_BY_BRANCH,
-    FETCH_TEACHER, REMOVE_TEACHERS_BY_BRANCH
+  FETCH_TEACHERS,
+  FETCH_TEACHERS_BY_BRANCH,
+  FETCH_TEACHER,
+  REMOVE_TEACHERS_BY_BRANCH
 } from "./types";
 import { getBranch } from "./branches";
 import { VALUE_KEY, URL_TEACHERS } from "../utils/common";
@@ -56,14 +57,14 @@ export const removeTeacher = teacher => async dispatch => {
 
 export const removeTeachersByBranch = branch => async dispatch => {
   teachersRef
-      .child(branch.Branch_Name)
-      .remove()
-      .then(() =>
-          dispatch({
-            type: REMOVE_TEACHERS_BY_BRANCH,
-            teachers: null
-          })
-      );
+    .child(branch.Branch_Name)
+    .remove()
+    .then(() =>
+      dispatch({
+        type: REMOVE_TEACHERS_BY_BRANCH,
+        teachers: null
+      })
+    );
 };
 
 export const fetchAllTeachers = () => async dispatch => {
