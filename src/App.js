@@ -20,6 +20,8 @@ import BranchPage from "./components/pages/branches";
 import AddBranchPage from "./components/pages/branches/create";
 import UpdateBranchPage from "./components/pages/branches/update";
 import TopMenu from "./components/menus/top-menu";
+import AdminPage from "./components/pages/admin";
+import AddAdminPage from "./components/pages/admin/create";
 
 const UIContainer = styled.div``;
 const BodyContainer = styled.div`
@@ -143,6 +145,20 @@ class App extends React.Component {
               path="/branch/update"
               exact
               component={UpdateBranchPage}
+            />
+
+            <UserRoute
+                location={this.props.location}
+                path="/admin"
+                exact
+                component={AdminPage}
+            />
+
+            <UserRoute
+                location={this.props.location}
+                path="/admin/add"
+                exact
+                component={AddAdminPage}
             />
           </ContentContainer>
         </BodyContainer>

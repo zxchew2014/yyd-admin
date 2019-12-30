@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
-import { Button, Icon, Table } from "semantic-ui-react";
+import {Button, Icon, Label, Table} from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 class BranchList extends React.Component {
@@ -13,16 +13,25 @@ class BranchList extends React.Component {
   render() {
     const renderBranchRow = () => {
       const { branches } = this.props;
-      let counter = 0;
+
       return Object.keys(branches).map(key => {
         const branch = branches[key];
         const active = branch.Active;
 
         return (
           <Table.Row key={key}>
-            <Table.Cell>{(counter += 1)}</Table.Cell>
-            <Table.Cell>{branch.Branch_Name}</Table.Cell>
-            <Table.Cell>{active ? "Active" : "Not Active"}</Table.Cell>
+            <Table.Cell>
+              {branch.Branch_Name} {"  "}
+              {active ? (
+                  <Label basic color="green" size="mini" circular>
+                    Active
+                  </Label>
+              ) : (
+                  <Label basic color="orange" size="mini" circular>
+                    Not Active
+                  </Label>
+              )}
+            </Table.Cell>
             <Table.Cell textAlign="right">
               {active ? (
                 <Button
@@ -72,9 +81,7 @@ class BranchList extends React.Component {
         <Table basic="very" striped unstackable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>S/N</Table.HeaderCell>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
-              <Table.HeaderCell>Active</Table.HeaderCell>
               <Table.HeaderCell>
                 <Button
                   floated="right"

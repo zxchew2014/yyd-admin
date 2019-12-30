@@ -35,5 +35,6 @@ export const subjectsRef = yydASDb.ref("Subjects");
 export const statesRef = yydASDb.ref("States");
 export const attendancesRef = yydASDb.ref("Attendances");
 export const studentsRef = yydASDb.ref("New_Students");
+export const adminsRef = yydASDb.ref("Admins");
 
 export default firebase;

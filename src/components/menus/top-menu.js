@@ -12,6 +12,16 @@ class TopMenu extends React.Component {
       return (
         <div className="menu-container">
           <Menu stackable>
+            <Dropdown item pointing text="Admin">
+              <Dropdown.Menu>
+                <Link to="/admin">
+                  <Dropdown.Item>View All Admin</Dropdown.Item>
+                </Link>
+                <Link to="/admin/add">
+                  <Dropdown.Item>Add Admin</Dropdown.Item>
+                </Link>
+              </Dropdown.Menu>
+            </Dropdown>
             <Dropdown item pointing text="Branch">
               <Dropdown.Menu>
                 <Link to="/branch">
