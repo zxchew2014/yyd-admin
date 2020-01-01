@@ -129,7 +129,7 @@ class StudentList extends React.Component {
                     color="green"
                     onClick={() => this.props.onEdit(student)}
                   >
-                    <Icon name="edit" /> Edit Teacher
+                    <Icon name="edit" /> Edit Student
                   </Button>
                   <Button
                     icon
@@ -138,7 +138,7 @@ class StudentList extends React.Component {
                     color="red"
                     onClick={() => this.props.onDelete(student)}
                   >
-                    <Icon name="user delete" /> Remove Teacher
+                    <Icon name="user delete" /> Remove Student
                   </Button>
                 </Table.Cell>
               )}
