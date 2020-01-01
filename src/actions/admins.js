@@ -1,5 +1,5 @@
-import {adminsRef, yydASDb} from "../configs/firebase";
-import {URL_ADMINS, VALUE_KEY} from "../utils/common";
+import { adminsRef, yydASDb } from "../configs/firebase";
+import { URL_ADMINS, VALUE_KEY } from "../utils/common";
 import {
   ADMIN_LOGGED_OUT,
   FETCH_ADMIN,
@@ -43,10 +43,10 @@ export const fetchEditAdmin = currentAdmin => async dispatch => {
 
 export const fetchAdmin = user => async dispatch => {
   const adminRef = yydASDb
-      .ref(`${URL_ADMINS}`)
-      .orderByChild("emailAddress")
-      .equalTo(user.email)
-      .limitToFirst(1);
+    .ref(`${URL_ADMINS}`)
+    .orderByChild("emailAddress")
+    .equalTo(user.email)
+    .limitToFirst(1);
   adminRef.on(VALUE_KEY, data => {
     if (data.exists()) {
       const result = data.val();
@@ -70,14 +70,14 @@ export const updateAdmin = admin => async dispatch => {
   const updateData = {};
   updateData[`${URL_ADMINS}/${admin.Id}`] = admin;
   yydASDb
-      .ref()
-      .update(updateData)
-      .then(() =>
-          dispatch({
-            type: FETCH_EDIT_ADMIN,
-            editAdmin: null
-          })
-      );
+    .ref()
+    .update(updateData)
+    .then(() =>
+      dispatch({
+        type: FETCH_EDIT_ADMIN,
+        editAdmin: null
+      })
+    );
 };
 
 export const removeAdmin = admin => async dispatch => {
