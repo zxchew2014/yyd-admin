@@ -12,6 +12,7 @@ import { userLoggedIn } from "./actions/auth";
 import rootReducer from "./reducers/rootReducer";
 
 import App from "./App";
+import {fetchAdmin} from "./actions/admins";
 
 const store = createStore(
   rootReducer,
@@ -22,6 +23,7 @@ if (localStorage.user) {
     if (user) {
       if (user.emailVerified) {
         store.dispatch(userLoggedIn(user));
+        store.dispatch(fetchAdmin(user));
       }
     }
   });

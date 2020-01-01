@@ -23,22 +23,10 @@ class AddStudentForm extends React.Component {
   }
 
   onSubmit = event => {
-    const { addStudent } = this.props;
-    event.preventDefault();
-    addStudent(this.state)
-      .then(
-        this.setState({
-          Name: "",
-          Branch: "",
-          Primary: ""
-        })
-      )
-      .then(
-        delete this.state.Id,
-        delete this.state.Batch,
-        delete this.state.Class
-      );
-    this.props.navToStudentPage();
+      const {addStudent} = this.props;
+      event.preventDefault();
+      addStudent(this.state);
+      this.props.onNext();
   };
 
   handleNameInputChange = event => {
@@ -179,7 +167,7 @@ class AddStudentForm extends React.Component {
 }
 
 AddStudentForm.propTypes = {
-  navToStudentPage: PropTypes.func.isRequired
+    onNext: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({ branches });

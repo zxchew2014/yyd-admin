@@ -22,6 +22,7 @@ import UpdateBranchPage from "./components/pages/branches/update";
 import TopMenu from "./components/menus/top-menu";
 import AdminPage from "./components/pages/admin";
 import AddAdminPage from "./components/pages/admin/create";
+import EditAdminPage from "./components/pages/admin/update";
 
 const UIContainer = styled.div``;
 const BodyContainer = styled.div`
@@ -154,12 +155,20 @@ class App extends React.Component {
                 component={AdminPage}
             />
 
-            <UserRoute
-                location={this.props.location}
-                path="/admin/add"
-                exact
-                component={AddAdminPage}
-            />
+              <UserRoute
+                  location={this.props.location}
+                  path="/admin/add"
+                  exact
+                  component={AddAdminPage}
+              />
+
+              <UserRoute
+                  location={this.props.location}
+                  path="/admin/edit"
+                  exact
+                  component={EditAdminPage}
+              />
+
           </ContentContainer>
         </BodyContainer>
       </UIContainer>

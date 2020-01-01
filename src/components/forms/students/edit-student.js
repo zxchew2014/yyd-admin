@@ -17,11 +17,7 @@ class EditStudent extends React.Component {
     super(props);
     const { student } = this.props;
     this.state = {
-      Id: student.Id,
-      Name: student.Name,
-      Branch: student.Branch,
-      Primary: student.Primary,
-      Batch: student.Batch || ""
+      ...student
     };
   }
 
@@ -40,8 +36,8 @@ class EditStudent extends React.Component {
       addStudent(this.state);
     }
 
-    updateStudent(this.state);
-    this.props.navToStudentPage();
+      updateStudent(this.state);
+      this.props.onBack();
   };
 
   handleNameInputChange = event => {
@@ -182,8 +178,7 @@ class EditStudent extends React.Component {
 }
 
 EditStudent.propTypes = {
-  navToStudentPage: PropTypes.func.isRequired,
-  navBack: PropTypes.func.isRequired
+    onBack: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches, student }) => ({ branches, student });

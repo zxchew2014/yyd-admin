@@ -5,17 +5,17 @@ import * as branches from "../../../actions/branches";
 import PropTypes from "prop-types";
 
 class AddStudentPage extends React.Component {
-  navToStudentPage = () => {
-    const { history } = this.props;
-    history.push(`/student`);
+  onNext = () => {
+      const {history} = this.props;
+      history.push(`/student`);
   };
 
   render() {
     return (
       <div className="add-student-container">
         <AddStudentForm
-          key="add-student-form"
-          navToStudentPage={this.navToStudentPage}
+            key="add-student-form"
+            onNext={this.onNext}
         />
         <hr />
       </div>

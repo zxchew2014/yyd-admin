@@ -1,41 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
 import EditStudentForm from "../../forms/students/edit-student";
-import * as branches from "../../../actions/branches";
 import PropTypes from "prop-types";
 
 class EditStudentPage extends React.Component {
-  navToStudentPage = () => {
-    const { history } = this.props;
-    history.push(`/student`);
-  };
-
-  navBack = () => {
-    const { history } = this.props;
-    history.push(`/student`);
+  onBack = () => {
+      const {history} = this.props;
+      history.push(`/student`);
   };
 
   render() {
-    const { student, history } = this.props;
-    if (student === null) {
-      history.push(`/student`);
-    }
     return (
       <div className="edit-student-container">
-        <EditStudentForm
-          navToStudentPage={this.navToStudentPage}
-          navBack={this.navBack}
-        />
-        <hr />
+          <EditStudentForm onBack={this.onBack}/>
+          <hr/>
       </div>
     );
   }
 }
 
 EditStudentPage.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    }).isRequired
 };
 
-export default connect(null, branches)(EditStudentPage);
+const mapStateToProps = ({student}) => ({
+    student
+});
+
+export default connect(mapStateToProps, {})(EditStudentPage);

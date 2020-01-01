@@ -10,9 +10,7 @@ class UpdateBranch extends React.Component {
     super(props);
     const { branch } = this.props;
     this.state = {
-      Id: branch.Id,
-      Branch_Name: branch.Branch_Name,
-      Active: branch.Active
+      ...branch
     };
   }
 

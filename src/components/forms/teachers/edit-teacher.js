@@ -10,10 +10,7 @@ class EditTeacher extends React.Component {
     super(props);
     const { teacher } = this.props;
     this.state = {
-      Id: teacher.Id,
-      Name: teacher.Name,
-      Branch: teacher.Branch,
-      Mobile: teacher.Mobile
+      ...teacher
     };
   }
 
