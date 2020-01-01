@@ -1,6 +1,8 @@
 import React from "react";
 
 export const DDL_BRANCH_OPTIONS = branches => {
+
+    if(branches === null ) return null;
   return (
     // eslint-disable-next-line
     Object.keys(branches).map(key => {

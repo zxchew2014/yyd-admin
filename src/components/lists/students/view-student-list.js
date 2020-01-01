@@ -16,6 +16,11 @@ class ViewStudentList extends React.Component {
     };
   }
 
+  componentWillMount() {
+    const { fetchBranchList } = this.props;
+    fetchBranchList();
+  }
+
   handleBranchInputChange = event => {
     this.setState({
       [event.target.name]: event.target.value,

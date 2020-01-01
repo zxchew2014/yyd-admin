@@ -14,6 +14,11 @@ class ViewTeacherList extends React.Component {
     };
   }
 
+  componentWillMount() {
+    const { fetchBranchList } = this.props;
+    fetchBranchList();
+  }
+
   renderBranchDropDownList() {
     const { branches } = this.props;
 

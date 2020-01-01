@@ -35,6 +35,7 @@ const BodyContainer = styled.div`
 const ContentContainer = styled.div``;
 
 class App extends React.Component {
+
   render() {
     return (
       <UIContainer className="ui container">
@@ -180,5 +181,6 @@ App.propTypes = {
     pathname: PropTypes.string.isRequired
   }).isRequired
 };
+
 
 export default App;

@@ -14,6 +14,8 @@ class BranchList extends React.Component {
     const renderBranchRow = () => {
       const { branches } = this.props;
 
+      if(branches === null) return null;
+
       return Object.keys(branches).map(key => {
         const branch = branches[key];
         const active = branch.Active;

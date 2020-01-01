@@ -8,7 +8,7 @@ export const getBranch = (state = "", action) => {
   }
 };
 
-export const fetchBranchList = (state = {}, action) => {
+export const fetchBranchList = (state = null, action) => {
   if (action.type === FETCH_BRANCHES) {
     return action.branches;
   } else {
