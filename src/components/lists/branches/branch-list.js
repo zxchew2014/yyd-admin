@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
-import {Button, Icon, Label, Table} from "semantic-ui-react";
+import { Button, Icon, Label, Table } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 class BranchList extends React.Component {
@@ -14,7 +14,7 @@ class BranchList extends React.Component {
     const renderBranchRow = () => {
       const { branches } = this.props;
 
-      if(branches === null) return null;
+      if (branches === null) return null;
 
       return Object.keys(branches).map(key => {
         const branch = branches[key];
@@ -25,13 +25,13 @@ class BranchList extends React.Component {
             <Table.Cell>
               {branch.Branch_Name} {"  "}
               {active ? (
-                  <Label basic color="green" size="mini" circular>
-                    Active
-                  </Label>
+                <Label basic color="green" size="mini" circular>
+                  Active
+                </Label>
               ) : (
-                  <Label basic color="orange" size="mini" circular>
-                    Not Active
-                  </Label>
+                <Label basic color="orange" size="mini" circular>
+                  Not Active
+                </Label>
               )}
             </Table.Cell>
             <Table.Cell textAlign="right">
