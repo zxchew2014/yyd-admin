@@ -142,32 +142,32 @@ class App extends React.Component {
             />
 
             <UserRoute
-                location={this.props.location}
-                path="/branch/update"
-                exact
-                component={UpdateBranchPage}
+              location={this.props.location}
+              path="/branch/update"
+              exact
+              component={UpdateBranchPage}
             />
 
-              <UserRoute
-                  location={this.props.location}
-                  path="/admin"
-                  exact
-                  component={AdminPage}
-              />
+            <UserRoute
+              location={this.props.location}
+              path="/admin"
+              exact
+              component={AdminPage}
+            />
 
-              <UserRoute
-                  location={this.props.location}
-                  path="/admin/add"
-                  exact
-                  component={AddAdminPage}
-              />
+            <UserRoute
+              location={this.props.location}
+              path="/admin/add"
+              exact
+              component={AddAdminPage}
+            />
 
-              <UserRoute
-                  location={this.props.location}
-                  path="/admin/edit"
-                  exact
-                  component={EditAdminPage}
-              />
+            <UserRoute
+              location={this.props.location}
+              path="/admin/edit"
+              exact
+              component={EditAdminPage}
+            />
           </ContentContainer>
         </BodyContainer>
       </UIContainer>

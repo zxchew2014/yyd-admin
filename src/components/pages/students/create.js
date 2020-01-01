@@ -6,15 +6,15 @@ import PropTypes from "prop-types";
 
 class AddStudentPage extends React.Component {
   onNext = () => {
-      const {history} = this.props;
-      history.push(`/student`);
+    const { history } = this.props;
+    history.push(`/student`);
   };
 
   render() {
     return (
       <div className="add-student-container">
-          <AddStudentForm key="add-student-form" onNext={this.onNext}/>
-          <hr/>
+        <AddStudentForm key="add-student-form" onNext={this.onNext} />
+        <hr />
       </div>
     );
   }

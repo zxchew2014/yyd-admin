@@ -27,17 +27,17 @@ class EditStudent extends React.Component {
     if (student.Branch === this.state.Branch) {
       updateStudent(this.state);
     } else {
-        if (student.Batch) {
-            removeStudent(student.Id, student.Branch, student.Batch);
-        } else {
-            removeStudent(student.Id, student.Branch, "");
-        }
+      if (student.Batch) {
+        removeStudent(student.Id, student.Branch, student.Batch);
+      } else {
+        removeStudent(student.Id, student.Branch, "");
+      }
 
-        addStudent(this.state);
+      addStudent(this.state);
     }
 
-      updateStudent(this.state);
-      this.props.onBack();
+    updateStudent(this.state);
+    this.props.onBack();
   };
 
   handleNameInputChange = event => {
@@ -178,7 +178,7 @@ class EditStudent extends React.Component {
 }
 
 EditStudent.propTypes = {
-    onBack: PropTypes.func.isRequired
+  onBack: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches, student }) => ({ branches, student });
