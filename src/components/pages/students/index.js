@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ViewStudentList from "../../lists/students/view-student-list";
 import PropTypes from "prop-types";
 import * as students from "../../../actions/students";
+import ResistMessage from "../../utils/resist-message";
 
 class StudentPage extends React.Component {
   onEdit = data => {
@@ -23,6 +24,11 @@ class StudentPage extends React.Component {
   };
 
   render() {
+    const { admin } = this.props;
+    if (admin === null) {
+      return <ResistMessage />;
+    }
+
     return (
       <div className="retrieve-student">
         <ViewStudentList
@@ -41,4 +47,8 @@ StudentPage.propTypes = {
   }).isRequired
 };
 
-export default connect(null, students)(StudentPage);
+const mapStateToProps = ({ admin }) => ({
+  admin
+});
+
+export default connect(mapStateToProps, students)(StudentPage);
