@@ -10,64 +10,63 @@ class TopMenu extends React.Component {
     fetchAdmin(user);
 
     if (user !== null && user.emailVerified) {
-      if(admin !== null) {
+      if (admin !== null) {
         return (
-            <div className="menu-container">
-              <Menu stackable>
-                {admin !== null && admin.isSuperAdmin
-                    ? [
-                      <Dropdown item pointing text="Admin" key="admin">
-                        <Dropdown.Menu>
-                          <Link to="/admin">
-                            <Dropdown.Item>View All Admin</Dropdown.Item>
-                          </Link>
-                          <Link to="/admin/add">
-                            <Dropdown.Item>Add Admin</Dropdown.Item>
-                          </Link>
-                        </Dropdown.Menu>
-                      </Dropdown>,
-                      <Dropdown item pointing text="Branch" key="branch">
-                        <Dropdown.Menu>
-                          <Link to="/branch">
-                            <Dropdown.Item>View All Branch</Dropdown.Item>
-                          </Link>
-                          <Link to="/branch/add">
-                            <Dropdown.Item>Add Branch</Dropdown.Item>
-                          </Link>
-                        </Dropdown.Menu>
-                      </Dropdown>,
-                      <Dropdown item text="Teacher" key="teacher">
-                        <Dropdown.Menu>
-                          <Link to="/teacher">
-                            <Dropdown.Item>View Teachers</Dropdown.Item>
-                          </Link>
-                          <Link to="/teacher/add">
-                            <Dropdown.Item>Add Teacher</Dropdown.Item>
-                          </Link>
-                          <Link to="/teacher/attendance">
-                            <Dropdown.Item>View Attendance</Dropdown.Item>
-                          </Link>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    ]
-                    : null}
+          <div className="menu-container">
+            <Menu stackable>
+              {admin !== null && admin.isSuperAdmin
+                ? [
+                    <Dropdown item pointing text="Admin" key="admin">
+                      <Dropdown.Menu>
+                        <Link to="/admin">
+                          <Dropdown.Item>View All Admin</Dropdown.Item>
+                        </Link>
+                        <Link to="/admin/add">
+                          <Dropdown.Item>Add Admin</Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    </Dropdown>,
+                    <Dropdown item pointing text="Branch" key="branch">
+                      <Dropdown.Menu>
+                        <Link to="/branch">
+                          <Dropdown.Item>View All Branch</Dropdown.Item>
+                        </Link>
+                        <Link to="/branch/add">
+                          <Dropdown.Item>Add Branch</Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    </Dropdown>,
+                    <Dropdown item text="Teacher" key="teacher">
+                      <Dropdown.Menu>
+                        <Link to="/teacher">
+                          <Dropdown.Item>View Teachers</Dropdown.Item>
+                        </Link>
+                        <Link to="/teacher/add">
+                          <Dropdown.Item>Add Teacher</Dropdown.Item>
+                        </Link>
+                        <Link to="/teacher/attendance">
+                          <Dropdown.Item>View Attendance</Dropdown.Item>
+                        </Link>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  ]
+                : null}
 
-
-                <Dropdown item text="Student" key="student">
-                  <Dropdown.Menu>
-                    <Link to="/student">
-                      <Dropdown.Item>View Students</Dropdown.Item>
-                    </Link>
-                    <Link to="/student/add">
-                      <Dropdown.Item>Add Student</Dropdown.Item>
-                    </Link>
-                    <Link to="/student/attendance">
-                      <Dropdown.Item>View Attendance</Dropdown.Item>
-                    </Link>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Menu>
-            </div>
+              <Dropdown item text="Student" key="student">
+                <Dropdown.Menu>
+                  <Link to="/student">
+                    <Dropdown.Item>View Students</Dropdown.Item>
+                  </Link>
+                  <Link to="/student/add">
+                    <Dropdown.Item>Add Student</Dropdown.Item>
+                  </Link>
+                  <Link to="/student/attendance">
+                    <Dropdown.Item>View Attendance</Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu>
+          </div>
         );
       }
     }
