@@ -15,6 +15,7 @@ export const addAdmin = admin => async dispatch => {
   const myRef = adminsRef.push();
   const newKey = myRef.key;
   admin.Id = newKey;
+  admin.emailAddress = admin.emailAddress.toLowerCase();
 
   const insertData = {};
   insertData[`${URL_ADMINS}/${newKey}`] = admin;

@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as admin_actions from "../../../actions/admins";
 import {Button, Form, Input} from "semantic-ui-react";
 
+
 class AddAdmin extends React.Component {
   constructor(props) {
     super(props);
