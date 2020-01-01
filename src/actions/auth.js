@@ -1,5 +1,5 @@
-import { yydASAuth } from "../configs/firebase";
-import { USER_LOGGED_IN, USER_LOGGED_OUT } from "./types";
+import {yydASAuth} from "../configs/firebase";
+import {USER_LOGGED_IN, USER_LOGGED_OUT} from "./types";
 import {USER_KEY} from "../utils/common";
 import {adminLoggedOut, fetchAdmin} from "./admins";
 

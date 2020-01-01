@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
+import {combineReducers} from "redux";
 import user from "./user";
-import { getBranch, fetchBranchList } from "./branch";
-import { fetchTeacherAttendance, fetchStudentAttendance } from "./attendance";
-import { fetchTeacher, fetchTeacherList } from "./teacher";
+import {getBranch, fetchBranchList} from "./branch";
+import {fetchTeacherAttendance, fetchStudentAttendance} from "./attendance";
+import {fetchTeacher, fetchTeacherList} from "./teacher";
 import {fetchStudent, fetchStudentList} from "./student";
 import {fetchAdmin, fetchAdminList, fetchEditAdmin} from "./admin";
 

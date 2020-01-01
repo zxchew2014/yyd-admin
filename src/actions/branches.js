@@ -75,12 +75,10 @@ export const fetchBranches = () => async dispatch => {
 };
 
 export const fetchBranchList = () => async dispatch => {
-
     branchesRef.orderByValue().on(VALUE_KEY, data => {
         dispatch({
             type: FETCH_BRANCHES,
             branches: data.val()
         });
     });
-
 };

@@ -11,10 +11,10 @@ class EditStudentPage extends React.Component {
 
   render() {
     return (
-      <div className="edit-student-container">
-          <EditStudentForm onBack={this.onBack}/>
-          <hr/>
-      </div>
+        <div className="edit-student-container">
+            <EditStudentForm onBack={this.onBack}/>
+            <hr/>
+        </div>
     );
   }
 }

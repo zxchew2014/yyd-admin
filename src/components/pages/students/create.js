@@ -13,11 +13,8 @@ class AddStudentPage extends React.Component {
   render() {
     return (
       <div className="add-student-container">
-        <AddStudentForm
-            key="add-student-form"
-            onNext={this.onNext}
-        />
-        <hr />
+          <AddStudentForm key="add-student-form" onNext={this.onNext}/>
+          <hr/>
       </div>
     );
   }

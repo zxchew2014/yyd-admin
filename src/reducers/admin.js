@@ -1,4 +1,9 @@
-import {ADMIN_LOGGED_OUT, FETCH_ADMIN, FETCH_ADMINS, FETCH_EDIT_ADMIN} from "../actions/types";
+import {
+    ADMIN_LOGGED_OUT,
+    FETCH_ADMIN,
+    FETCH_ADMINS,
+    FETCH_EDIT_ADMIN
+} from "../actions/types";
 
 export const fetchAdminList = (state = null, action) => {
     if (action.type === FETCH_ADMINS) {

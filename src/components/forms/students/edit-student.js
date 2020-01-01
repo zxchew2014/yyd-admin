@@ -27,13 +27,13 @@ class EditStudent extends React.Component {
     if (student.Branch === this.state.Branch) {
       updateStudent(this.state);
     } else {
-      if (student.Batch) {
-        removeStudent(student.Id, student.Branch, student.Batch);
-      } else {
-        removeStudent(student.Id, student.Branch, "");
-      }
+        if (student.Batch) {
+            removeStudent(student.Id, student.Branch, student.Batch);
+        } else {
+            removeStudent(student.Id, student.Branch, "");
+        }
 
-      addStudent(this.state);
+        addStudent(this.state);
     }
 
       updateStudent(this.state);

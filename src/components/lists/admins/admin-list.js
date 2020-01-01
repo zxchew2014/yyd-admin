@@ -63,7 +63,9 @@ class AdminList extends React.Component {
                             {admins
                                 ? [
                                     <Table.HeaderCell key="header-name">Name</Table.HeaderCell>,
-                                    <Table.HeaderCell key="header-email">Email</Table.HeaderCell>
+                                    <Table.HeaderCell key="header-email">
+                                        Email
+                                    </Table.HeaderCell>
                                 ]
                                 : null}
 
