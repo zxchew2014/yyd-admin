@@ -4,19 +4,17 @@ import {
 } from "../actions/types";
 
 export const fetchTeacherAttendance = (state = null, action) => {
-  switch (action.type) {
-    case FETCH_TEACHER_ATTENDANCES:
-      return action.attendanceTeachers || [];
-    default:
-      return state;
+  if (action.type === FETCH_TEACHER_ATTENDANCES) {
+    return action.attendanceTeachers;
+  } else {
+    return state;
   }
 };
 
 export const fetchStudentAttendance = (state = null, action) => {
-  switch (action.type) {
-    case FETCH_STUDENT_ATTENDANCES:
-      return action.attendanceStudents || [];
-    default:
-      return state;
+  if (action.type === FETCH_STUDENT_ATTENDANCES) {
+    return action.attendanceStudents;
+  } else {
+    return state;
   }
 };

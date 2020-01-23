@@ -92,6 +92,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     const { branch, batch, endDate, startDate } = data;
     const { branches } = this.props;
 
+    if(branches === null ) return null;
     const BRANCH_OPTIONS = Object.keys(branches).map(key => {
       const branch = branches[key];
       return (
@@ -131,7 +132,6 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           id="batch"
           onChange={this.handleBatchInputChange}
           value={batch || ""}
-          required
         >
           <option key={batch || ""} defaultValue={batch || ""} />
           <option key={BATCH_1} value={BATCH_1}>

@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import GenerateStudentAttendanceList from "./generate-student-attendance-list";
 
 class StudentAttendanceList extends React.Component {
@@ -26,7 +25,4 @@ StudentAttendanceList.propTypes = {
   batch: PropTypes.string
 };
 
-export default connect(
-  null,
-  {}
-)(StudentAttendanceList);
+export default StudentAttendanceList;

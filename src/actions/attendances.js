@@ -102,9 +102,14 @@ const filterTeacherAttendanceByDateNBranch = (result, inputData, clockType) => {
 
                                 if (branch === attendanceBranch) {
                                     if (attendanceBranch === BRANCH_PUNGGOL) {
-                                        const attendanceBatch = attendance.batch;
-                                        if (attendanceBatch === batch) {
+                                        if(batch === "") {
                                             mapDate.set(attendanceId, attendance);
+                                        }
+                                        else{
+                                            const attendanceBatch = attendance.batch;
+                                            if (attendanceBatch === batch) {
+                                                mapDate.set(attendanceId, attendance);
+                                            }
                                         }
                                     } else {
                                         mapDate.set(attendanceId, attendance);
@@ -120,14 +125,7 @@ const filterTeacherAttendanceByDateNBranch = (result, inputData, clockType) => {
     return new Map([...mapDate.entries()].sort());
 };
 
-const filterStudentAttendance = (
-    result,
-    start,
-    end,
-    branch,
-    batch,
-    clockType
-) => {
+const filterStudentAttendance = (result, start, end, branch, batch, clockType) => {
     const mapDate = new Map();
 
     Object.keys(result).forEach(key => {
@@ -147,9 +145,13 @@ const filterStudentAttendance = (
 
                                 if (branch === attendanceBranch) {
                                     if (attendanceBranch === BRANCH_PUNGGOL) {
-                                        const attendanceBatch = attendance.batch;
-                                        if (attendanceBatch === batch) {
+                                        if(batch === "") {
                                             mapDate.set(attendanceId, attendance);
+                                        }else{
+                                            const attendanceBatch = attendance.batch;
+                                            if (attendanceBatch === batch) {
+                                                mapDate.set(attendanceId, attendance);
+                                            }
                                         }
                                     } else {
                                         mapDate.set(attendanceId, attendance);
@@ -164,7 +166,6 @@ const filterStudentAttendance = (
     });
     return new Map([...mapDate.entries()].sort());
 };
-
 
 const sortTeacherMapByTeacherName = result => {
   const mapTeacher = new Map();
@@ -250,6 +251,12 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
         const clockOutArray = clockOutMap.get(key);
         Object.keys(clockInArray).forEach(clockInIndex => {
             const clockInAttendance = clockInArray[clockInIndex];
+
+            if(clockInAttendance.feedback.length > 0)
+            {
+                clockInAttendance.feedback = "Clock In Remark: " + clockInAttendance.feedback;
+            }
+
             if (clockOutArray && clockOutArray.length > 0) {
                 const clockInDate = moment(
                     clockInAttendance.clockIn,
@@ -257,22 +264,39 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
                 ).format(DATEFORMAT_DDSLASHMMSLASHYYYY);
                 // eslint-disable-next-line array-callback-return,consistent-return
                 Object.keys(clockOutArray).some(clockOutIndex => {
+
+                    const clockOutAttendanceWClockIn = clockOutArray[clockOutIndex];
+
                     const clockOutDate = moment(
-                        clockOutArray[clockOutIndex].clockOut,
+                        clockOutAttendanceWClockIn.clockOut,
                         DATETME_DDMMYYYSLASH_HHMMSS
                     ).format(DATEFORMAT_DDSLASHMMSLASHYYYY);
                     const dateCheck = clockInDate === clockOutDate;
                     const subjectCheck =
-                        clockInAttendance.subject === clockOutArray[clockOutIndex].subject;
+                        clockInAttendance.subject === clockOutAttendanceWClockIn.subject;
                     const branchCheck =
-                        clockInAttendance.branch === clockOutArray[clockOutIndex].branch;
+                        clockInAttendance.branch === clockOutAttendanceWClockIn.branch;
                     const primaryCheck = comparePrimaryClass(
                         clockInAttendance.primary,
-                        clockOutArray[clockOutIndex].primary
+                        clockOutAttendanceWClockIn.primary
                     );
 
                     if (primaryCheck && dateCheck && subjectCheck && branchCheck) {
-                        clockInAttendance.clockOut = clockOutArray[clockOutIndex].clockOut;
+                        clockInAttendance.clockOut = clockOutAttendanceWClockIn.clockOut;
+
+                        if(clockOutAttendanceWClockIn.feedback.length > 0){
+                            clockInAttendance.feedback = clockInAttendance.feedback  + ",\n  Clock Out Remark: " + clockOutAttendanceWClockIn.feedback;
+                        }
+
+                        //if(clockInAttendance.phoneNumber && clockOutAttendanceWClockIn.phoneNumber)
+                        //{
+                            if(clockInAttendance.phoneNumber !== clockOutAttendanceWClockIn.phoneNumber)
+                            {
+                                clockInAttendance.phoneUser = clockInAttendance.phoneUser + "/" + clockOutAttendanceWClockIn.phoneUser;
+                                clockInAttendance.phoneNumber = clockInAttendance.phoneNumber + "/" + clockOutAttendanceWClockIn.phoneNumber;
+                            }
+                        //}
+
                         return true;
                     }
                 });
@@ -289,6 +313,11 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
         const clockInArray = clockInMap.get(key);
         Object.keys(clockOutArray).forEach(clockOutIndex => {
             const clockOutAttendance = clockOutArray[clockOutIndex];
+            if(clockOutAttendance.feedback.length > 0)
+            {
+                clockOutAttendance.feedback = "Clock Out Remark: " + clockOutAttendance.feedback;
+            }
+
             if (clockInArray && clockInArray.length > 0) {
                 const clockOutDate = moment(
                     clockOutAttendance.clockOut,

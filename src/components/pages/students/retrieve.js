@@ -19,10 +19,7 @@ class StudentAttendancePage extends React.Component {
     const { fetchStudentAttendanceClockOut } = this.props;
     fetchStudentAttendanceClockOut(data).then(() =>
       this.setState({
-        endDate: data.endDate,
-        startDate: data.startDate,
-        branch: data.branch,
-        batch: data.batch
+        ...data
       })
     );
   };

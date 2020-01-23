@@ -73,19 +73,22 @@ class AttendanceListByBranch extends React.Component {
           <Table.HeaderCell>Date</Table.HeaderCell>
           <Table.HeaderCell>Clock In</Table.HeaderCell>
           <Table.HeaderCell>Clock Out</Table.HeaderCell>
+          <Table.HeaderCell>Phone User</Table.HeaderCell>
+          <Table.HeaderCell>Phone Number</Table.HeaderCell>
           <Table.HeaderCell>Name</Table.HeaderCell>
           <Table.HeaderCell>Subject</Table.HeaderCell>
           <Table.HeaderCell>Branch</Table.HeaderCell>
           <Table.HeaderCell>Batch</Table.HeaderCell>
           <Table.HeaderCell>Relief</Table.HeaderCell>
           <Table.HeaderCell>Primary</Table.HeaderCell>
+          <Table.HeaderCell>Remarks</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
     );
 
     const renderAttendanceRows = attendanceList =>
       attendanceList.map(attendance => (
-        <Table.Row textAlign="center" key={attendance}>
+        <Table.Row textAlign="center" key={attendance.id}>
           <Table.Cell>
             {(attendance.clockIn &&
               moment(attendance.clockIn, DATETME_DDMMYYYSLASH_HHMMSS).format(
@@ -109,6 +112,8 @@ class AttendanceListByBranch extends React.Component {
               )) ||
               ""}
           </Table.Cell>
+          <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
+          <Table.Cell>{attendance.phoneNumber || "" }</Table.Cell>
           <Table.Cell>{attendance.teacher}</Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>
           <Table.Cell>{attendance.branch}</Table.Cell>
@@ -117,6 +122,7 @@ class AttendanceListByBranch extends React.Component {
           </Table.Cell>
           <Table.Cell>{attendance.relief ? RELIEF_YES : RELIEF_NO}</Table.Cell>
           <Table.Cell>P{attendance.primary.join(", P")}</Table.Cell>
+          <Table.Cell>{attendance.feedback || ""}</Table.Cell>
         </Table.Row>
       ));
 
@@ -128,7 +134,7 @@ class AttendanceListByBranch extends React.Component {
 
       return (
         <Table.Row>
-          <Table.Cell colSpan="10" textAlign="right">
+          <Table.Cell colSpan="12" textAlign="right">
             <b>Total class taught</b> : {noOfClasses}
           </Table.Cell>
         </Table.Row>
@@ -147,8 +153,9 @@ class AttendanceListByBranch extends React.Component {
           {renderHeaderRow()}
           {attendanceTeachers.map(key => {
             const attendanceList = key[1];
+
             return [
-              <Table.Body>
+              <Table.Body key={key[0]}>
                 {renderAttendanceRows(attendanceList)}
                 {renderTotalLessonTaught(attendanceList)}
               </Table.Body>
