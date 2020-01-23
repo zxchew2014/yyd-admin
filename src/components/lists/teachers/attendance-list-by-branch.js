@@ -61,7 +61,7 @@ class AttendanceListByBranch extends React.Component {
     };
 
     newPDF.autoTable(res.columns, res.data, options);
-    newPDF.save(`${fileName  }.pdf`);
+    newPDF.save(`${fileName}.pdf`);
   };
 
   render() {
@@ -113,7 +113,7 @@ class AttendanceListByBranch extends React.Component {
               ""}
           </Table.Cell>
           <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
-          <Table.Cell>{attendance.phoneNumber || "" }</Table.Cell>
+          <Table.Cell>{attendance.phoneNumber || ""}</Table.Cell>
           <Table.Cell>{attendance.teacher}</Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>
           <Table.Cell>{attendance.branch}</Table.Cell>

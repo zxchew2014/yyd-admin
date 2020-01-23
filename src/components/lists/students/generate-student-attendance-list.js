@@ -71,7 +71,10 @@ class GenerateStudentAttendanceList extends React.Component {
 
     const renderAttendanceRows = attendanceList =>
       attendanceList.map(attendance => (
-        <Table.Row textAlign="center" key={attendance.id + '-' + attendance.timestamp} >
+        <Table.Row
+          textAlign="center"
+          key={attendance.id + "-" + attendance.timestamp}
+        >
           <Table.Cell>
             {attendance.timestamp &&
               moment(attendance.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).format(
@@ -111,7 +114,7 @@ class GenerateStudentAttendanceList extends React.Component {
       const actualPercentage = parseFloat(100.0 - absentPercentage).toFixed(2);
 
       return (
-        <Table.Row >
+        <Table.Row>
           <Table.Cell colSpan="5" textAlign="right">
             <b>{studentName}'s Attendance Percentage</b> : {actualPercentage}%
           </Table.Cell>
@@ -130,15 +133,13 @@ class GenerateStudentAttendanceList extends React.Component {
         >
           {renderHeaderRow()}
           {attendanceStudents.map(key => {
-
             const attendanceList = key[1];
 
             return [
-                <Table.Body>
-                  {renderAttendanceRows(attendanceList)}
-                  {renderCalculateAttendancePercentage(attendanceList)}
-                </Table.Body>
-
+              <Table.Body>
+                {renderAttendanceRows(attendanceList)}
+                {renderCalculateAttendancePercentage(attendanceList)}
+              </Table.Body>
             ];
           })}
         </Table>

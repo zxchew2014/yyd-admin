@@ -92,7 +92,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     const { branch, batch, endDate, startDate } = data;
     const { branches } = this.props;
 
-    if(branches === null ) return null;
+    if (branches === null) return null;
     const BRANCH_OPTIONS = Object.keys(branches).map(key => {
       const branch = branches[key];
       return (
