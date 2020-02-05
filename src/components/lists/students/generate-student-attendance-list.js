@@ -30,7 +30,11 @@ class GenerateStudentAttendanceList extends React.Component {
     );
     let fileName = "";
     if (branch === BRANCH_PUNGGOL) {
-      fileName = `YYD Education Center - ${branch} Batch ${batch} Student Attendance Report on ${startDate} to ${endDate}`;
+      if(batch){
+        fileName = `YYD Education Center - ${branch} Batch ${batch} Student Attendance Report on ${startDate} to ${endDate}`;
+      } else {
+        fileName = `YYD Education Center - ${branch} Student Attendance Report on ${startDate} to ${endDate}`;
+      }
     } else {
       fileName = `YYD Education Center - ${branch} Student Attendance Report on ${startDate} to ${endDate}`;
     }
