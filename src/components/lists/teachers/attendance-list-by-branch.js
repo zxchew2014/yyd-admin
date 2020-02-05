@@ -30,11 +30,9 @@ class AttendanceListByBranch extends React.Component {
     );
     let fileName = "";
     if (branch === BRANCH_PUNGGOL) {
-      if(batch)
-      {
+      if (batch) {
         fileName = `YYD Education Center - ${branch} Batch ${batch} Teacher Attendance Report on ${startDate} to ${endDate}`;
-      }
-      else{
+      } else {
         fileName = `YYD Education Center - ${branch} Teacher Attendance Report on ${startDate} to ${endDate}`;
       }
     } else {
