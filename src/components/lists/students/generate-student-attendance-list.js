@@ -9,7 +9,9 @@ import {
   DATETME_DDMMYYYSLASH_HHMMSS,
   LATE,
   MC,
-  PRESENT
+  PRESENT,
+  NOT_AVAILABLE,
+  NO_SUCH_STUDENT
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -66,7 +68,8 @@ class GenerateStudentAttendanceList extends React.Component {
         <Table.Row textAlign="center">
           <Table.HeaderCell>Date</Table.HeaderCell>
           <Table.HeaderCell>Subject</Table.HeaderCell>
-          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Teacher Name</Table.HeaderCell>
+          <Table.HeaderCell>Student Name</Table.HeaderCell>
           <Table.HeaderCell>Primary</Table.HeaderCell>
           <Table.HeaderCell>Status</Table.HeaderCell>
         </Table.Row>
@@ -86,6 +89,7 @@ class GenerateStudentAttendanceList extends React.Component {
               )}
           </Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>
+          <Table.Cell>{attendance.teacherName}</Table.Cell>
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
           {(attendance.status === PRESENT || attendance.status === LATE) && (
@@ -98,6 +102,10 @@ class GenerateStudentAttendanceList extends React.Component {
 
           {attendance.status === MC && (
             <Table.Cell warning>{attendance.status}</Table.Cell>
+          )}
+
+          {(attendance.status === NOT_AVAILABLE || attendance.status === NO_SUCH_STUDENT) && (
+              <Table.Cell>No Such Student</Table.Cell>
           )}
         </Table.Row>
       ));

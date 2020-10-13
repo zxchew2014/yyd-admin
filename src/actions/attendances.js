@@ -16,6 +16,7 @@ const moment = require("moment");
 export const fetchAllTeacherAttendanceClockOut = inputData => async dispatch => {
   attendancesRef.on(VALUE_KEY, data => {
     const result = data.val();
+
     const mapClockInAsc = filterTeacherAttendanceByDate(
       result,
       inputData,
@@ -238,6 +239,7 @@ const sortStudentMapByName = result => {
   result.forEach((value, key) => {
     const attendance = studentFieldsRemove(value);
     const studentList = attendance.students;
+    const teacherName = attendance.teacher;
 
     Object.keys(studentList).forEach(studentKey => {
       const student = studentList[studentKey];
@@ -254,7 +256,8 @@ const sortStudentMapByName = result => {
           studentName,
           primary,
           status,
-          id: combineKey
+          id: combineKey,
+          teacherName
         };
 
         if (mapStudent.has(combineKey)) {
@@ -535,7 +538,6 @@ const studentFieldsRemove = attendance => {
   delete attendance.feedback;
   delete attendance.primary;
   delete attendance.classroomSetup;
-  delete attendance.teacher;
   return attendance;
 };
 
@@ -573,6 +575,8 @@ export const fetchStudentAttendanceClockOut = inputData => async dispatch => {
       mapStudentClockInAsc,
       mapStudentClockOutAsc
     );
+
+
 
     dispatch({
       type: FETCH_STUDENT_ATTENDANCES,

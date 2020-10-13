@@ -4,6 +4,7 @@ export const LATE = "Late";
 export const ABSENT = "Absent";
 export const MC = "MC";
 export const NOT_AVAILABLE = "N.A.";
+export const NO_SUCH_STUDENT = "No Such Student";
 export const BRANCH_PUNGGOL = "Punggol";
 export const BATCH_1 = "1";
 export const BATCH_2 = "2";
