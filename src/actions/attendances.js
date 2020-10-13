@@ -576,8 +576,6 @@ export const fetchStudentAttendanceClockOut = inputData => async dispatch => {
       mapStudentClockOutAsc
     );
 
-
-
     dispatch({
       type: FETCH_STUDENT_ATTENDANCES,
       attendanceStudents: [...mapFinalAttendance]

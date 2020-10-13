@@ -118,8 +118,10 @@ class RetrieveTeacherAttendanceForm extends React.Component {
             ((<option key={branch} defaultValue={branch} />),
             (<option key="" defaultValue="" />))
           )}
-            <option key="All" defaultValue="All" value="All">All Branches</option>
-            {BRANCH_OPTIONS}
+          <option key="All" defaultValue="All" value="All">
+            All Branches
+          </option>
+          {BRANCH_OPTIONS}
         </select>
       </Form.Field>
     );

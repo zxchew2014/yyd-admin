@@ -104,8 +104,9 @@ class GenerateStudentAttendanceList extends React.Component {
             <Table.Cell warning>{attendance.status}</Table.Cell>
           )}
 
-          {(attendance.status === NOT_AVAILABLE || attendance.status === NO_SUCH_STUDENT) && (
-              <Table.Cell>No Such Student</Table.Cell>
+          {(attendance.status === NOT_AVAILABLE ||
+            attendance.status === NO_SUCH_STUDENT) && (
+            <Table.Cell>No Such Student</Table.Cell>
           )}
         </Table.Row>
       ));

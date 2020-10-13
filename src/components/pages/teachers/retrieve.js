@@ -16,24 +16,25 @@ class AttendancePage extends React.Component {
   }
 
   submit = data => {
-    const { fetchAllTeacherAttendanceClockOut , fetchTeacherAttendanceClockOut } = this.props;
+    const {
+      fetchAllTeacherAttendanceClockOut,
+      fetchTeacherAttendanceClockOut
+    } = this.props;
 
     if (data.branch !== "") {
-      if(data.branch === "All") {
+      if (data.branch === "All") {
         fetchAllTeacherAttendanceClockOut(data).then(() =>
-            this.setState({
-              ...data
-            })
+          this.setState({
+            ...data
+          })
         );
-      }
-      else{
+      } else {
         fetchTeacherAttendanceClockOut(data).then(() =>
-            this.setState({
-              ...data
-            })
+          this.setState({
+            ...data
+          })
         );
       }
-
     }
   };
 
