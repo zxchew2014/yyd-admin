@@ -5,15 +5,25 @@ import { Link } from "react-router-dom";
 import * as auths from "../../actions/auth";
 
 class Header extends React.Component {
-  renderLoginButton = () => (
+  renderLoginButton = () => [
+      <Menu.Menu position="left">
+          <Menu.Item name="version" active="version">
+             Updated since 30 Jan 2021 V2.1
+          </Menu.Item>
+      </Menu.Menu>,
     <Menu.Menu position="right">
       <Menu.Item name="login" active="login">
         <Link to="/">Click to Login</Link>
       </Menu.Item>
     </Menu.Menu>
-  );
+  ];
 
-  renderUserData = (logout, user) => (
+  renderUserData = (logout, user) => [
+      <Menu.Menu position="left">
+          <Menu.Item name="version" active="version">
+              Updated since 30 Jan 2021 V2.1
+          </Menu.Item>
+      </Menu.Menu>,
     <Menu.Menu position="right">
       {user !== null ? <Menu.Item name={user.displayName} /> : null}
 
@@ -25,7 +35,7 @@ class Header extends React.Component {
         }}
       />
     </Menu.Menu>
-  );
+  ];
 
   render() {
     const { logout, user } = this.props;
