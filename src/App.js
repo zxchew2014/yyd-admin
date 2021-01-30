@@ -37,140 +37,142 @@ const ContentContainer = styled.div``;
 class App extends React.Component {
   render() {
     return (
-      <UIContainer className="ui container">
-        <Header />
-        <TopMenu />
-        <br />
-        <BodyContainer>
-          <ContentContainer className="content-container">
-            <GuestRoute
-              location={this.props.location}
-              path="/"
-              exact
-              component={LoginPage}
-            />
+      <React.Fragment>
+        <UIContainer className="ui container">
+          <Header />
+          <TopMenu />
+          <br />
+          <BodyContainer>
+            <ContentContainer className="content-container">
+              <GuestRoute
+                location={this.props.location}
+                path="/"
+                exact
+                component={LoginPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/verify_email"
-              exact
-              component={VerifyEmailPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/verify_email"
+                exact
+                component={VerifyEmailPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/teacher/attendance"
-              exact
-              component={AttendancePage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/teacher/attendance"
+                exact
+                component={AttendancePage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/student/attendance"
-              exact
-              component={StudentAttendancePage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/student/attendance"
+                exact
+                component={StudentAttendancePage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/teacher"
-              exact
-              component={TeacherPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/teacher"
+                exact
+                component={TeacherPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/teacher/add"
-              exact
-              component={AddTeacherPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/teacher/add"
+                exact
+                component={AddTeacherPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/teacher/edit"
-              exact
-              component={EditTeacherPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/teacher/edit"
+                exact
+                component={EditTeacherPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/teacher/remove"
-              exact
-              component={RemoveTeacherPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/teacher/remove"
+                exact
+                component={RemoveTeacherPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/student"
-              exact
-              component={StudentPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/student"
+                exact
+                component={StudentPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/student/add"
-              exact
-              component={AddStudentPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/student/add"
+                exact
+                component={AddStudentPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/student/edit"
-              exact
-              component={EditStudentPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/student/edit"
+                exact
+                component={EditStudentPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/student/remove"
-              exact
-              component={RemoveStudentPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/student/remove"
+                exact
+                component={RemoveStudentPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/branch"
-              exact
-              component={BranchPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/branch"
+                exact
+                component={BranchPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/branch/add"
-              exact
-              component={AddBranchPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/branch/add"
+                exact
+                component={AddBranchPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/branch/update"
-              exact
-              component={UpdateBranchPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/branch/update"
+                exact
+                component={UpdateBranchPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/admin"
-              exact
-              component={AdminPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/admin"
+                exact
+                component={AdminPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/admin/add"
-              exact
-              component={AddAdminPage}
-            />
+              <UserRoute
+                location={this.props.location}
+                path="/admin/add"
+                exact
+                component={AddAdminPage}
+              />
 
-            <UserRoute
-              location={this.props.location}
-              path="/admin/edit"
-              exact
-              component={EditAdminPage}
-            />
-          </ContentContainer>
-        </BodyContainer>
-      </UIContainer>
+              <UserRoute
+                location={this.props.location}
+                path="/admin/edit"
+                exact
+                component={EditAdminPage}
+              />
+            </ContentContainer>
+          </BodyContainer>
+        </UIContainer>
+      </React.Fragment>
     );
   }
 }

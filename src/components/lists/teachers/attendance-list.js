@@ -12,7 +12,7 @@ import {
 } from "../../../utils/common";
 
 const moment = require("moment");
-const JSPDF = require("jspdf");
+const { jsPDF } = require("jspdf");
 require("jspdf-autotable");
 
 class AttendanceList extends React.Component {
@@ -23,7 +23,7 @@ class AttendanceList extends React.Component {
 
     generatePDF = () => {
         const {startDate, endDate} = this.props;
-        const newPDF = new JSPDF("landscape", "pt");
+        const newPDF = new jsPDF("landscape", "pt");
         const res = newPDF.autoTableHtmlToJson(
             document.getElementById("attendanceTable")
         );
@@ -32,20 +32,19 @@ class AttendanceList extends React.Component {
         const header = function (data) {
             newPDF.setFontSize(14);
             newPDF.setTextColor(COLOUR_BLACK);
-            newPDF.setFontStyle("normal");
             newPDF.text(fileName, data.settings.margin.left, 30);
 
             let str = `Page ${data.pageCount}`;
             newPDF.setFontSize(10);
             newPDF.text(str, data.settings.margin.left, 585);
 
-            newPDF.text(data.settings.margin.left + 130, 540, "1st Verify By");
-            newPDF.text(data.settings.margin.left + 200, 540, "Signature:");
+            newPDF.text(data.settings.margin.left + 130, 557, "1st Verify By");
+            newPDF.text(data.settings.margin.left + 200, 557, "Signature:");
             newPDF.text(data.settings.margin.left + 200, 570, "Name:");
             newPDF.text(data.settings.margin.left + 200, 585, "Role:");
 
-            newPDF.text(data.settings.margin.left + 430, 540, "2nd Verify By");
-            newPDF.text(data.settings.margin.left + 500, 540, "Signature:");
+            newPDF.text(data.settings.margin.left + 430, 557, "2nd Verify By");
+            newPDF.text(data.settings.margin.left + 500, 557, "Signature:");
             newPDF.text(data.settings.margin.left + 500, 570, "Name:");
             newPDF.text(data.settings.margin.left + 500, 585, "Role:");
         };

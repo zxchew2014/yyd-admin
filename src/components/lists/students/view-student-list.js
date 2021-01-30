@@ -42,7 +42,7 @@ class ViewStudentList extends React.Component {
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field>
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+        {/* eslint-disable-next-line */}
         <label htmlFor="branch">Branch</label>
         <select
           ref="branch"
@@ -59,7 +59,7 @@ class ViewStudentList extends React.Component {
 
     const FORM_FIELD_BATCH = () => (
       <Form.Field>
-        {/* eslint-disable-next-line jsx-a11y/label-has-for */}
+        {/* eslint-disable-next-line */}
         <label htmlFor="batch">Batch</label>
         <select
           ref="batch"
