@@ -6,11 +6,11 @@ import * as auths from "../../actions/auth";
 
 class Header extends React.Component {
   renderLoginButton = () => [
-      <Menu.Menu position="left">
-          <Menu.Item name="version" active="version">
-             Updated since 30 Jan 2021 V2.1
-          </Menu.Item>
-      </Menu.Menu>,
+    <Menu.Menu position="left">
+      <Menu.Item name="version" active="version">
+        Updated since 30 Jan 2021 V2.1
+      </Menu.Item>
+    </Menu.Menu>,
     <Menu.Menu position="right">
       <Menu.Item name="login" active="login">
         <Link to="/">Click to Login</Link>
@@ -19,11 +19,11 @@ class Header extends React.Component {
   ];
 
   renderUserData = (logout, user) => [
-      <Menu.Menu position="left">
-          <Menu.Item name="version" active="version">
-              Updated since 30 Jan 2021 V2.1
-          </Menu.Item>
-      </Menu.Menu>,
+    <Menu.Menu position="left">
+      <Menu.Item name="version" active="version">
+        Updated since 30 Jan 2021 V2.1
+      </Menu.Item>
+    </Menu.Menu>,
     <Menu.Menu position="right">
       {user !== null ? <Menu.Item name={user.displayName} /> : null}
 
@@ -53,7 +53,4 @@ const mapStateToProps = ({ user }) => ({
   user
 });
 
-export default connect(
-  mapStateToProps,
-  auths
-)(Header);
+export default connect(mapStateToProps, auths)(Header);
