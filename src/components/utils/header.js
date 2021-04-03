@@ -3,12 +3,13 @@ import { Menu } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as auths from "../../actions/auth";
+import {VERSION_DATE, VERSION_NO} from "../../utils/common";
 
 class Header extends React.Component {
   renderLoginButton = () => [
     <Menu.Menu position="left">
       <Menu.Item name="version" active="version">
-        Updated since 30 Jan 2021 V2.1
+        Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>
     </Menu.Menu>,
     <Menu.Menu position="right">
@@ -21,7 +22,7 @@ class Header extends React.Component {
   renderUserData = (logout, user) => [
     <Menu.Menu position="left">
       <Menu.Item name="version" active="version">
-        Updated since 30 Jan 2021 V2.1
+        Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>
     </Menu.Menu>,
     <Menu.Menu position="right">

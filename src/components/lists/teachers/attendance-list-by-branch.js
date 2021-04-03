@@ -9,7 +9,9 @@ import {
   COLOUR_BLACK,
   RELIEF_YES,
   RELIEF_NO,
-  BRANCH_PUNGGOL
+  BRANCH_PUNGGOL,
+  TEACHER_ATTENDANCE_REPORT,
+  YYD_EDUCATION_CENTRE, BATCH
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -31,12 +33,12 @@ class AttendanceListByBranch extends React.Component {
     let fileName = "";
     if (branch === BRANCH_PUNGGOL) {
       if (batch) {
-        fileName = `YYD Education Center - ${branch} Batch ${batch} Teacher Attendance Report on ${startDate} to ${endDate}`;
+        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${BATCH} ${batch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
       } else {
-        fileName = `YYD Education Center - ${branch} Teacher Attendance Report on ${startDate} to ${endDate}`;
+        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
       }
     } else {
-      fileName = `YYD Education Center - ${branch} Teacher Attendance Report on ${startDate} to ${endDate}`;
+      fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
     }
 
     const header = function(data) {

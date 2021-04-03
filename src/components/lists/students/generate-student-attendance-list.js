@@ -11,7 +11,10 @@ import {
   MC,
   PRESENT,
   NOT_AVAILABLE,
-  NO_SUCH_STUDENT
+  NO_SUCH_STUDENT,
+  YYD_EDUCATION_CENTRE,
+  BATCH,
+  STUDENT_ATTENDANCE_REPORT
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -33,12 +36,12 @@ class GenerateStudentAttendanceList extends React.Component {
     let fileName = "";
     if (branch === BRANCH_PUNGGOL) {
       if (batch) {
-        fileName = `YYD Education Center - ${branch} Batch ${batch} Student Attendance Report on ${startDate} to ${endDate}`;
+        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${BATCH} ${batch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
       } else {
-        fileName = `YYD Education Center - ${branch} Student Attendance Report on ${startDate} to ${endDate}`;
+        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
       }
     } else {
-      fileName = `YYD Education Center - ${branch} Student Attendance Report on ${startDate} to ${endDate}`;
+      fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
     }
 
     const header = function(data) {

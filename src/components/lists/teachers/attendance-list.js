@@ -8,7 +8,9 @@ import {
   TIMEFORMAT_HHMMTT,
   COLOUR_BLACK,
   RELIEF_YES,
-  RELIEF_NO
+  RELIEF_NO,
+  TEACHER_ATTENDANCE_REPORT,
+  YYD_EDUCATION_CENTRE
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -27,7 +29,7 @@ class AttendanceList extends React.Component {
     const res = newPDF.autoTableHtmlToJson(
       document.getElementById("attendanceTable")
     );
-    const fileName = `YYD Education Center - Teacher Attendance Report on ${startDate} to ${endDate}`;
+    const fileName = `${YYD_EDUCATION_CENTRE} - ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
 
     const header = function(data) {
       newPDF.setFontSize(14);
