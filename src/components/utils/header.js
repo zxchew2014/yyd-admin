@@ -3,7 +3,7 @@ import { Menu } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as auths from "../../actions/auth";
-import {VERSION_DATE, VERSION_NO} from "../../utils/common";
+import { VERSION_DATE, VERSION_NO } from "../../utils/common";
 
 class Header extends React.Component {
   renderLoginButton = () => [
