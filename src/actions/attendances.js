@@ -198,7 +198,7 @@ const filterStudentAttendance = (
 const sortTeacherMapByTeacherName = result => {
   const mapTeacher = new Map();
 
-  result.forEach((value, key) => {
+  result.forEach((value,) => {
     Object.keys(value).forEach(attendanceKey => {
       const attendance = teacherFieldsRemove(value[attendanceKey]);
 
@@ -218,7 +218,7 @@ const sortTeacherMapByTeacherName = result => {
 const sortTeacherMapByTeacherNameNBranch = result => {
   const mapTeacher = new Map();
 
-  result.forEach((value, key) => {
+  result.forEach((value,) => {
     const attendance = teacherFieldsRemove(value);
 
     if (mapTeacher.has(attendance.teacher)) {
@@ -236,7 +236,7 @@ const sortTeacherMapByTeacherNameNBranch = result => {
 const sortStudentMapByName = result => {
   const mapStudent = new Map();
 
-  result.forEach((value, key) => {
+  result.forEach((value,) => {
     const attendance = studentFieldsRemove(value);
     const studentList = attendance.students;
     const teacherName = attendance.teacher;
@@ -249,7 +249,7 @@ const sortStudentMapByName = result => {
       const combineKey = `P${primary}_${studentName}`;
       const status = student.Status;
 
-      if (status !== NOT_AVAILABLE) {
+      //if (status !== NOT_AVAILABLE) {
         const newStudentAttendanceDetail = {
           subject: attendance.subject,
           timestamp: attendance.timestamp,
@@ -269,7 +269,7 @@ const sortStudentMapByName = result => {
           newArrayAttendance.push(newStudentAttendanceDetail);
           mapStudent.set(combineKey, newArrayAttendance);
         }
-      }
+      //}
     });
   });
   return new Map([...mapStudent.entries()].sort());
@@ -401,7 +401,7 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
     });
   });
 
-  clockInMap.forEach((value, key) => {
+  clockInMap.forEach((value,) => {
     value.sort(
       (a, b) =>
         moment(a.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).toDate() -
@@ -413,13 +413,16 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
 };
 
 const mergeStudentAttendance = (clockInMap, clockOutMap) => {
+
   clockInMap.forEach((value, key) => {
     const clockInArray = value;
     const clockOutArray = clockOutMap.get(key);
-
     Object.keys(clockInArray).forEach(clockInIndex => {
       const clockInAttendance = clockInArray[clockInIndex];
+      clockInAttendance.checkInStatus = clockInAttendance.status;
       if (clockOutArray && clockOutArray.length > 0) {
+
+
         const clockInDate = moment(
           clockInAttendance.timestamp,
           DATETME_DDMMYYYSLASH_HHMMSS
@@ -437,10 +440,10 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
           const dateCheck = clockInDate === clockOutDate;
           const subjectCheck =
             clockInAttendance.subject === clockOutArray[clockOutIndex].subject;
-
           if (studentNameCheck && dateCheck && subjectCheck) {
             clockInAttendance.status = clockOutArray[clockOutIndex].status;
-            return true;
+            clockInAttendance.checkOutStatus = clockOutArray[clockOutIndex].status;
+            return;
           }
         });
       }
@@ -454,6 +457,7 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
     const clockInArray = clockInMap.get(key);
     Object.keys(clockOutArray).forEach(clockOutIndex => {
       const clockOutAttendance = clockOutArray[clockOutIndex];
+      clockOutAttendance.checkOutStatus = clockOutAttendance.status;
       if (clockInArray && clockInArray.length > 0) {
         const clockOutDate = moment(
           clockOutAttendance.timestamp,
@@ -476,7 +480,8 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
 
           if (studentNameCheck && dateCheck && subjectCheck) {
             checkDuplication = true;
-            return true;
+            return;
+
           }
         });
       }
@@ -484,9 +489,9 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
       if (checkDuplication) {
         checkDuplication = false;
       } else if (clockInMap.has(key)) {
-        const currentAttendance = clockInMap.get(key);
-        currentAttendance.push(clockOutAttendance);
-        clockInMap.set(key, currentAttendance);
+          const currentAttendance = clockInMap.get(key);
+          currentAttendance.push(clockOutAttendance);
+          clockInMap.set(key, currentAttendance);
       } else {
         const arrayOfAttendance = new Array(clockOutAttendance);
         clockInMap.set(key, arrayOfAttendance);
@@ -494,7 +499,7 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
     });
   });
 
-  clockInMap.forEach((value, key) => {
+  clockInMap.forEach((value,) => {
     value.sort(
       (a, b) =>
         moment(a.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).toDate() -

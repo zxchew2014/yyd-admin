@@ -83,7 +83,9 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.HeaderCell>Teacher Name</Table.HeaderCell>
           <Table.HeaderCell>Student Name</Table.HeaderCell>
           <Table.HeaderCell>Primary</Table.HeaderCell>
-          <Table.HeaderCell>Status</Table.HeaderCell>
+          <Table.HeaderCell>Check In Status</Table.HeaderCell>
+          <Table.HeaderCell>Check Out Status</Table.HeaderCell>
+          <Table.HeaderCell>Final Status</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
     );
@@ -104,43 +106,66 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.teacherName}</Table.Cell>
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
-          {(attendance.status === PRESENT || attendance.status === LATE) && (
-            <Table.Cell positive>{attendance.status}</Table.Cell>
-          )}
-
-          {attendance.status === ABSENT && (
-            <Table.Cell negative>{attendance.status}</Table.Cell>
-          )}
-
-          {attendance.status === MC && (
-            <Table.Cell warning>{attendance.status}</Table.Cell>
-          )}
-
-          {(attendance.status === NOT_AVAILABLE ||
-            attendance.status === NO_SUCH_STUDENT) && (
-            <Table.Cell>No Such Student</Table.Cell>
-          )}
+          {renderStatusCell(attendance.checkInStatus)}
+          {renderStatusCell(attendance.checkOutStatus)}
+          {renderStatusCell(calculateFinalStatus(attendance.checkInStatus, attendance.checkOutStatus))}
         </Table.Row>
       ));
 
+    const calculateFinalStatus = (checkInStatus, checkOutStatus) => {
+      if(checkInStatus && checkOutStatus)
+        return checkOutStatus;
+
+      if(!checkInStatus)
+        return checkOutStatus;
+
+      if(!checkOutStatus)
+        return checkInStatus;
+    }
+
+
+    const renderStatusCell = status => {
+      if (status && status != "") {
+        if (status === PRESENT || status === LATE)
+          return <Table.Cell positive>{status}</Table.Cell>
+        else if (status === ABSENT)
+          return <Table.Cell negative>{status}</Table.Cell>
+        else if (status === MC)
+          return <Table.Cell warning>{status}</Table.Cell>
+        else if (status === NOT_AVAILABLE || status === NO_SUCH_STUDENT)
+          return <Table.Cell warning>{NO_SUCH_STUDENT}</Table.Cell>
+      }
+      else
+        return <Table.Cell warning>Attendance was not mark!</Table.Cell>
+    }
+
     const renderCalculateAttendancePercentage = attendanceList => {
-      let noOfAbsent = 0.0;
+      let noOfAbsent = 0;
+      let noOfNoSuchStudent = 0;
       let studentName = "";
+
+
       attendanceList.forEach(attendance => {
+        let finalStatus = calculateFinalStatus(attendance.checkInStatus, attendance.checkOutStatus)
         studentName = attendance.studentName;
-        if (attendance.status === ABSENT) {
-          noOfAbsent += 1.0;
+        if (finalStatus === ABSENT) {
+          noOfAbsent += 1;
+        } else if (finalStatus === NOT_AVAILABLE ||  finalStatus === NO_SUCH_STUDENT) {
+          noOfNoSuchStudent += 1;
         }
       });
 
-      const absentPercentage = parseFloat(
-        (noOfAbsent / attendanceList.length) * 100.0
-      ).toFixed(2);
-      const actualPercentage = parseFloat(100.0 - absentPercentage).toFixed(2);
+      let absentPercentage =  ((noOfAbsent / (attendanceList.length - noOfNoSuchStudent)) * 100).toFixed(2)
+      if(isNaN(absentPercentage))
+      {
+        absentPercentage = 100
+      }
+
+      const actualPercentage = (100.0 - absentPercentage).toFixed(2);
 
       return (
         <Table.Row>
-          <Table.Cell colSpan="5" textAlign="right">
+          <Table.Cell colSpan="8" textAlign="right">
             <b>{studentName}'s Attendance Percentage</b> : {actualPercentage}%
           </Table.Cell>
         </Table.Row>
@@ -156,11 +181,11 @@ class GenerateStudentAttendanceList extends React.Component {
           id="attendanceTable"
           ref="attendanceTable"
         >
-          {renderHeaderRow()}
           {attendanceStudents.map(key => {
             const attendanceList = key[1];
 
             return [
+              renderHeaderRow(),
               <Table.Body>
                 {renderAttendanceRows(attendanceList)}
                 {renderCalculateAttendancePercentage(attendanceList)}
