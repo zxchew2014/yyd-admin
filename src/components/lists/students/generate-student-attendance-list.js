@@ -108,57 +108,63 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>P{attendance.primary}</Table.Cell>
           {renderStatusCell(attendance.checkInStatus)}
           {renderStatusCell(attendance.checkOutStatus)}
-          {renderStatusCell(calculateFinalStatus(attendance.checkInStatus, attendance.checkOutStatus))}
+          {renderStatusCell(
+            calculateFinalStatus(
+              attendance.checkInStatus,
+              attendance.checkOutStatus
+            )
+          )}
         </Table.Row>
       ));
 
     const calculateFinalStatus = (checkInStatus, checkOutStatus) => {
-      if(checkInStatus && checkOutStatus)
-        return checkOutStatus;
+      if (checkInStatus && checkOutStatus) return checkOutStatus;
 
-      if(!checkInStatus)
-        return checkOutStatus;
+      if (!checkInStatus) return checkOutStatus;
 
-      if(!checkOutStatus)
-        return checkInStatus;
-    }
-
+      if (!checkOutStatus) return checkInStatus;
+    };
 
     const renderStatusCell = status => {
       if (status && status != "") {
         if (status === PRESENT || status === LATE)
-          return <Table.Cell positive>{status}</Table.Cell>
+          return <Table.Cell positive>{status}</Table.Cell>;
         else if (status === ABSENT)
-          return <Table.Cell negative>{status}</Table.Cell>
+          return <Table.Cell negative>{status}</Table.Cell>;
         else if (status === MC)
-          return <Table.Cell warning>{status}</Table.Cell>
+          return <Table.Cell warning>{status}</Table.Cell>;
         else if (status === NOT_AVAILABLE || status === NO_SUCH_STUDENT)
-          return <Table.Cell warning>{NO_SUCH_STUDENT}</Table.Cell>
-      }
-      else
-        return <Table.Cell warning>Attendance was not mark!</Table.Cell>
-    }
+          return <Table.Cell warning>{NO_SUCH_STUDENT}</Table.Cell>;
+      } else return <Table.Cell warning>Attendance was not mark!</Table.Cell>;
+    };
 
     const renderCalculateAttendancePercentage = attendanceList => {
       let noOfAbsent = 0;
       let noOfNoSuchStudent = 0;
       let studentName = "";
 
-
       attendanceList.forEach(attendance => {
-        let finalStatus = calculateFinalStatus(attendance.checkInStatus, attendance.checkOutStatus)
+        let finalStatus = calculateFinalStatus(
+          attendance.checkInStatus,
+          attendance.checkOutStatus
+        );
         studentName = attendance.studentName;
         if (finalStatus === ABSENT) {
           noOfAbsent += 1;
-        } else if (finalStatus === NOT_AVAILABLE ||  finalStatus === NO_SUCH_STUDENT) {
+        } else if (
+          finalStatus === NOT_AVAILABLE ||
+          finalStatus === NO_SUCH_STUDENT
+        ) {
           noOfNoSuchStudent += 1;
         }
       });
 
-      let absentPercentage =  ((noOfAbsent / (attendanceList.length - noOfNoSuchStudent)) * 100).toFixed(2)
-      if(isNaN(absentPercentage))
-      {
-        absentPercentage = 100
+      let absentPercentage = (
+        (noOfAbsent / (attendanceList.length - noOfNoSuchStudent)) *
+        100
+      ).toFixed(2);
+      if (isNaN(absentPercentage)) {
+        absentPercentage = 100;
       }
 
       const actualPercentage = (100.0 - absentPercentage).toFixed(2);

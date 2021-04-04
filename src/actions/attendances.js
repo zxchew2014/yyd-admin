@@ -198,7 +198,7 @@ const filterStudentAttendance = (
 const sortTeacherMapByTeacherName = result => {
   const mapTeacher = new Map();
 
-  result.forEach((value,) => {
+  result.forEach(value => {
     Object.keys(value).forEach(attendanceKey => {
       const attendance = teacherFieldsRemove(value[attendanceKey]);
 
@@ -218,7 +218,7 @@ const sortTeacherMapByTeacherName = result => {
 const sortTeacherMapByTeacherNameNBranch = result => {
   const mapTeacher = new Map();
 
-  result.forEach((value,) => {
+  result.forEach(value => {
     const attendance = teacherFieldsRemove(value);
 
     if (mapTeacher.has(attendance.teacher)) {
@@ -236,7 +236,7 @@ const sortTeacherMapByTeacherNameNBranch = result => {
 const sortStudentMapByName = result => {
   const mapStudent = new Map();
 
-  result.forEach((value,) => {
+  result.forEach(value => {
     const attendance = studentFieldsRemove(value);
     const studentList = attendance.students;
     const teacherName = attendance.teacher;
@@ -250,25 +250,25 @@ const sortStudentMapByName = result => {
       const status = student.Status;
 
       //if (status !== NOT_AVAILABLE) {
-        const newStudentAttendanceDetail = {
-          subject: attendance.subject,
-          timestamp: attendance.timestamp,
-          studentName,
-          primary,
-          status,
-          id: combineKey,
-          teacherName
-        };
+      const newStudentAttendanceDetail = {
+        subject: attendance.subject,
+        timestamp: attendance.timestamp,
+        studentName,
+        primary,
+        status,
+        id: combineKey,
+        teacherName
+      };
 
-        if (mapStudent.has(combineKey)) {
-          const currentAttendance = mapStudent.get(combineKey);
-          currentAttendance.push(newStudentAttendanceDetail);
-          mapStudent.set(combineKey, currentAttendance);
-        } else {
-          const newArrayAttendance = [];
-          newArrayAttendance.push(newStudentAttendanceDetail);
-          mapStudent.set(combineKey, newArrayAttendance);
-        }
+      if (mapStudent.has(combineKey)) {
+        const currentAttendance = mapStudent.get(combineKey);
+        currentAttendance.push(newStudentAttendanceDetail);
+        mapStudent.set(combineKey, currentAttendance);
+      } else {
+        const newArrayAttendance = [];
+        newArrayAttendance.push(newStudentAttendanceDetail);
+        mapStudent.set(combineKey, newArrayAttendance);
+      }
       //}
     });
   });
@@ -401,7 +401,7 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
     });
   });
 
-  clockInMap.forEach((value,) => {
+  clockInMap.forEach(value => {
     value.sort(
       (a, b) =>
         moment(a.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).toDate() -
@@ -413,7 +413,6 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
 };
 
 const mergeStudentAttendance = (clockInMap, clockOutMap) => {
-
   clockInMap.forEach((value, key) => {
     const clockInArray = value;
     const clockOutArray = clockOutMap.get(key);
@@ -421,8 +420,6 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
       const clockInAttendance = clockInArray[clockInIndex];
       clockInAttendance.checkInStatus = clockInAttendance.status;
       if (clockOutArray && clockOutArray.length > 0) {
-
-
         const clockInDate = moment(
           clockInAttendance.timestamp,
           DATETME_DDMMYYYSLASH_HHMMSS
@@ -442,7 +439,8 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
             clockInAttendance.subject === clockOutArray[clockOutIndex].subject;
           if (studentNameCheck && dateCheck && subjectCheck) {
             clockInAttendance.status = clockOutArray[clockOutIndex].status;
-            clockInAttendance.checkOutStatus = clockOutArray[clockOutIndex].status;
+            clockInAttendance.checkOutStatus =
+              clockOutArray[clockOutIndex].status;
             return;
           }
         });
@@ -481,7 +479,6 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
           if (studentNameCheck && dateCheck && subjectCheck) {
             checkDuplication = true;
             return;
-
           }
         });
       }
@@ -489,9 +486,9 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
       if (checkDuplication) {
         checkDuplication = false;
       } else if (clockInMap.has(key)) {
-          const currentAttendance = clockInMap.get(key);
-          currentAttendance.push(clockOutAttendance);
-          clockInMap.set(key, currentAttendance);
+        const currentAttendance = clockInMap.get(key);
+        currentAttendance.push(clockOutAttendance);
+        clockInMap.set(key, currentAttendance);
       } else {
         const arrayOfAttendance = new Array(clockOutAttendance);
         clockInMap.set(key, arrayOfAttendance);
@@ -499,7 +496,7 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
     });
   });
 
-  clockInMap.forEach((value,) => {
+  clockInMap.forEach(value => {
     value.sort(
       (a, b) =>
         moment(a.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).toDate() -
