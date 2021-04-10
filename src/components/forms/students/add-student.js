@@ -3,12 +3,7 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import _ from "lodash";
 import * as students from "../../../actions/students";
-import {
-  ALL_PRIMARY_LEVEL,
-  BRANCH_PUNGGOL,
-  BATCH_1,
-  BATCH_2
-} from "../../../utils/common";
+import { ALL_PRIMARY_LEVEL, ALL_BATCH } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
@@ -23,57 +18,41 @@ class AddStudentForm extends React.Component {
   }
 
   onSubmit = event => {
-      const {addStudent} = this.props;
-      event.preventDefault();
-      addStudent(this.state);
-      this.props.onNext();
+    const { addStudent } = this.props;
+    event.preventDefault();
+    const { Batch } = this.state;
+    if (Batch === "") {
+      delete this.state.Batch;
+    }
+    addStudent(this.state);
+    this.props.onNext();
   };
 
-  handleNameInputChange = event => {
-    this.setState({ Name: event.target.value });
-  };
-
-  handlePrimaryInputChange = event => {
-    this.setState({ Primary: event.target.value });
-  };
-
-  handleBranchInputChange = event => {
-    // eslint-disable-next-line no-unused-expressions
-    event.target.value === BRANCH_PUNGGOL
-      ? this.setState({ Branch: event.target.value, Batch: "" })
-      : [
-          this.setState({ Branch: event.target.value }),
-          delete this.state.Batch
-        ];
-  };
-
-  handleBatchInputChange = event => {
-    this.setState({ Batch: event.target.value });
-  };
-
-  handleClassInputChange = event => {
-    this.setState({ Class: event.target.value });
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   renderBatchDropDownList() {
     const { Batch } = this.state;
+
+    const BATCH_OPTIONS = _.map(ALL_BATCH, value => (
+      <option key={value} value={value}>
+        BATCH {value}
+      </option>
+    ));
+
     const FORM_FIELD_BATCH = () => (
       <Form.Field>
         <label htmlFor="batch">Batch</label>
         <select
           ref="batch"
-          name="batch"
+          name="Batch"
           id="batch"
-          onChange={this.handleBatchInputChange}
+          onChange={this.handleInputChange}
           value={Batch || ""}
         >
           <option key={""} value={""} />
-          <option key={BATCH_1} value={BATCH_1}>
-            Batch 1
-          </option>
-          <option key={BATCH_2} value={BATCH_2}>
-            Batch 2
-          </option>
+          {BATCH_OPTIONS}
         </select>
       </Form.Field>
     );
@@ -92,13 +71,13 @@ class AddStudentForm extends React.Component {
     ));
 
     const FORM_FIELD_PRIMARY = () => (
-      <Form.Field>
+      <Form.Field required>
         <label htmlFor="primary">Primary</label>
         <select
           ref="primary"
-          name="primary"
+          name="Primary"
           id="primary"
-          onChange={this.handlePrimaryInputChange}
+          onChange={this.handleInputChange}
           value={Primary || ""}
           required
         >
@@ -118,13 +97,14 @@ class AddStudentForm extends React.Component {
     const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
 
     const FORM_FIELD_BRANCH = () => (
-      <Form.Field>
+      <Form.Field required>
         <label htmlFor="branch">Branch</label>
         <select
           ref="branch"
-          name="branch"
+
+          name="Branch"
           id="branch"
-          onChange={this.handleBranchInputChange}
+          onChange={this.handleInputChange}
           value={Branch || ""}
           required
         >
@@ -138,7 +118,7 @@ class AddStudentForm extends React.Component {
   }
 
   renderAddForm = () => {
-    const { Name, Branch } = this.state;
+    const { Name } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
         <Form.Field
@@ -147,12 +127,12 @@ class AddStudentForm extends React.Component {
           value={Name || ""}
           label="Full Name"
           placeholder="Full Name"
-          name="name"
-          onChange={this.handleNameInputChange}
+          name="Name"
+          onChange={this.handleInputChange}
           required
         />
         {this.renderBranchDropDownList()}
-        {Branch === BRANCH_PUNGGOL ? this.renderBatchDropDownList() : null}
+        {this.renderBatchDropDownList()}
         {this.renderPrimaryDropDownList()}
         <Button type="submit" primary>
           Add Student
@@ -162,12 +142,16 @@ class AddStudentForm extends React.Component {
   };
 
   render() {
-    return [<div className="add-student-form">{this.renderAddForm()}</div>];
+    return [
+      <div className="add-student-form">
+        {this.renderAddForm()}
+      </div>
+    ];
   }
 }
 
 AddStudentForm.propTypes = {
-    onNext: PropTypes.func.isRequired
+  onNext: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({ branches });

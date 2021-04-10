@@ -52,8 +52,8 @@ class AddAdmin extends React.Component {
           id="form-input-control-name"
           control={Input}
           value={name || ""}
-          label="Name"
-          placeholder="Name"
+          label="Full Name"
+          placeholder="Full Name"
           name="name"
           onChange={this.handleInputChange}
           required

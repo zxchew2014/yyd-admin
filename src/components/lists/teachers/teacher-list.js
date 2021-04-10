@@ -93,7 +93,7 @@ class TeacherList extends React.Component {
       const { teachers } = this.props;
 
       return teachers !== null ? (
-        <Table basic="very" striped stackable key="all-teacher">
+        <Table striped stackable key="all-teacher">
           {Object.keys(teachers).map(branchKey => {
             const branchName = teachers[branchKey];
             counter = 0;
@@ -121,7 +121,7 @@ class TeacherList extends React.Component {
     const renderTeachersByBranch = branchName => {
       const { teachers } = this.props;
       return (
-        <Table basic="very" striped stackable key="teacher-by-branch">
+        <Table striped stackable key="teacher-by-branch">
           <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
           {teachers !== null ? (
             <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>

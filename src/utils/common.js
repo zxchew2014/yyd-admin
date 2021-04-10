@@ -1,5 +1,5 @@
-export const VERSION_DATE = "04 April 2021";
-export const VERSION_NO = "V2.1.3";
+export const VERSION_DATE = "10 April 2021";
+export const VERSION_NO = "V2.2.0";
 
 export const YYD_EDUCATION_CENTRE = "YYD Education Centre";
 export const TEACHER_ATTENDANCE_REPORT = "Teacher Attendance Report";
@@ -7,8 +7,7 @@ export const STUDENT_ATTENDANCE_REPORT = "Student Attendance Report";
 export const BATCH = "Batch";
 
 export const NO_ACCESS_MSG = "You do not have access on this system";
-export const CONTACT_ADMIN_MSG =
-  "Please contact Admin to add you for access right.";
+export const CONTACT_ADMIN_MSG = "Please contact Admin to add you for access right.";
 export const VERIFY_EMAIL_MSG = "Please verify you email first to access!";
 
 export const START_DATE = "2019-01-01";
@@ -23,6 +22,7 @@ export const BATCH_1 = "1";
 export const BATCH_2 = "2";
 
 export const ALL_PRIMARY_LEVEL = ["1", "2", "3", "4", "5", "6"];
+export const ALL_BATCH = [BATCH_1, BATCH_2];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";
 export const DATEFORMAT_DAY_MMM_DD_YYYY = "ddd MMM DD YYYY";

@@ -2,9 +2,7 @@ import _ from "lodash";
 import { attendancesRef } from "../configs/firebase";
 import { FETCH_TEACHER_ATTENDANCES, FETCH_STUDENT_ATTENDANCES } from "./types";
 import {
-  NOT_AVAILABLE,
   DATETME_DDMMYYYSLASH_HHMMSS,
-  BRANCH_PUNGGOL,
   CAMELCASED_CLOCK_IN,
   CAMELCASED_CLOCK_OUT,
   DATEFORMAT_DDSLASHMMSLASHYYYY,
@@ -103,7 +101,7 @@ const filterTeacherAttendanceByDate = (result, inputData, clockType) => {
 
 const filterTeacherAttendanceByDateNBranch = (result, inputData, clockType) => {
   const mapDate = new Map();
-  const { startDate, endDate, batch, branch } = inputData;
+  const { startDate, endDate, branch } = inputData;
   const start = new Date(startDate);
   const end = new Date(endDate);
 
@@ -123,18 +121,7 @@ const filterTeacherAttendanceByDateNBranch = (result, inputData, clockType) => {
                 const attendanceBranch = attendance.branch;
 
                 if (branch === attendanceBranch) {
-                  if (attendanceBranch === BRANCH_PUNGGOL) {
-                    if (batch === "") {
-                      mapDate.set(attendanceId, attendance);
-                    } else {
-                      const attendanceBatch = attendance.batch;
-                      if (attendanceBatch === batch) {
-                        mapDate.set(attendanceId, attendance);
-                      }
-                    }
-                  } else {
-                    mapDate.set(attendanceId, attendance);
-                  }
+                  mapDate.set(attendanceId, attendance);
                 }
               });
             }
@@ -172,18 +159,7 @@ const filterStudentAttendance = (
                 const attendanceBranch = attendance.branch;
 
                 if (branch === attendanceBranch) {
-                  if (attendanceBranch === BRANCH_PUNGGOL) {
-                    if (batch === "") {
-                      mapDate.set(attendanceId, attendance);
-                    } else {
-                      const attendanceBatch = attendance.batch;
-                      if (attendanceBatch === batch) {
-                        mapDate.set(attendanceId, attendance);
-                      }
-                    }
-                  } else {
-                    mapDate.set(attendanceId, attendance);
-                  }
+                  mapDate.set(attendanceId, attendance);
                 }
               });
             }
@@ -249,7 +225,6 @@ const sortStudentMapByName = result => {
       const combineKey = `P${primary}_${studentName}`;
       const status = student.Status;
 
-      //if (status !== NOT_AVAILABLE) {
       const newStudentAttendanceDetail = {
         subject: attendance.subject,
         timestamp: attendance.timestamp,

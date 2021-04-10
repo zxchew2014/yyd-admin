@@ -52,7 +52,7 @@ class AttendanceList extends React.Component {
     };
 
     const options = {
-      beforePageContent: header
+      didDrawPage: header
     };
 
     newPDF.autoTable(res.columns, res.data, options);

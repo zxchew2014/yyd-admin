@@ -1,6 +1,6 @@
 {
   "name": "yyd-admin",
-  "version": "2.0.0",
+  "version": "2.1.3",
   "main": "index.js",
   "repository": "git@github.com:zxchew2014/yyd-admin.git",
   "lint-staged": {
@@ -19,10 +19,6 @@
   "author": "Sky Chew <zxchew.2014@sis.smu.edu.sg>",
   "license": "MIT",
   "dependencies": {
-    "@babel/helper-call-delegate": "^7.10.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "firebase": "^8.2.5",
     "firebaseui": "^4.3.0",
     "jspdf": "^2.3.0",
@@ -30,14 +26,14 @@
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-firebaseui": "^4.1.0",
     "react-mdl": "^2.1.0",
-    "react-redux": "^7.2.2",
+    "react-redux": "^7.2.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.1",
+    "react-scripts": "^4.0.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
@@ -51,7 +47,7 @@
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1"
   },
-  "homepage": "https://yyd-admin.firebaseapp.com",
+  "homepage": "https://yyd-admin.web.app",
   "browserslist": {
     "production": [
       ">0.2%",

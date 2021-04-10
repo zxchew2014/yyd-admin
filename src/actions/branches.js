@@ -16,7 +16,7 @@ export const addBranch = branch => async dispatch => {
 
   const insertData = {};
   insertData[`${URL_BRANCHES}/${newKey}`] = branch;
-  yydASDb.ref().update(insertData);
+  await yydASDb.ref().update(insertData);
 };
 
 export const updateBranch = branch => async dispatch => {
@@ -76,9 +76,21 @@ export const fetchBranches = () => async dispatch => {
 
 export const fetchBranchList = () => async dispatch => {
   branchesRef.orderByValue().on(VALUE_KEY, data => {
+    const branches = data.val();
+    const sortList = [];
+
+    Object.keys(branches).forEach(key => {
+      sortList.push(branches[key]);
+    });
+
+    sortList.sort((a, b) => {
+          return b.Branch_Name.localeCompare(a.Branch_Name)
+        }
+    );
+
     dispatch({
       type: FETCH_BRANCHES,
-      branches: data.val()
+      branches: sortList
     });
   });
 };

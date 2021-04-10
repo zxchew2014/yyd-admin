@@ -5,7 +5,7 @@ import { Button, Icon, Label, Table } from "semantic-ui-react";
 import PropTypes from "prop-types";
 
 class BranchList extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchBranchList } = this.props;
     fetchBranchList();
   }

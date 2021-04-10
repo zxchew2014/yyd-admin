@@ -13,8 +13,9 @@ import {
   START_DATE,
   BRANCH_PUNGGOL,
   ENDATE_ERROR_MESSAGE,
-  STARTDATE_ERROR_MESSAGE
+  STARTDATE_ERROR_MESSAGE, ALL_BATCH
 } from "../../../utils/common";
+import _ from "lodash";
 
 const moment = require("moment");
 
@@ -25,7 +26,8 @@ class RetrieveStudentAttendanceForm extends React.Component {
         .startOf(DATE_UNITOFTIME_MONTH)
         .format(DATEFORMAT_DAY_MMM_DD_YYYY),
       endDate: new Date().toDateString(),
-      branch: ""
+      branch: "",
+      batch: ""
     },
     errors: {}
   };
@@ -52,23 +54,13 @@ class RetrieveStudentAttendanceForm extends React.Component {
     }
   };
 
-  handleBranchInputChange = event => {
+  handleInputChange = event => {
     const { data } = this.state;
 
     this.setState({
       data: {
         ...data,
         [event.target.name]: event.target.value,
-        batch: ""
-      }
-    });
-  };
-
-  handleBatchInputChange = event => {
-    this.setState({
-      data: {
-        ...this.state.data,
-        [event.target.name]: event.target.value
       }
     });
   };
@@ -100,14 +92,20 @@ class RetrieveStudentAttendanceForm extends React.Component {
       );
     });
 
+    const BATCH_OPTIONS = _.map(ALL_BATCH, value => (
+        <option key={value} value={value}>
+          BATCH {value}
+        </option>
+    ));
+
     const FORM_FIELD_BRANCH = () => (
-      <Form.Field>
+      <Form.Field required>
         <label htmlFor="branch">Branch</label>
         <select
           ref="branch"
           name="branch"
           id="branch"
-          onChange={this.handleBranchInputChange}
+          onChange={this.handleInputChange}
           value={branch || ""}
           required
         >
@@ -117,29 +115,9 @@ class RetrieveStudentAttendanceForm extends React.Component {
       </Form.Field>
     );
 
-    const FORM_FIELD_BATCH = () => (
-      <Form.Field>
-        <label htmlFor="batch">Batch</label>
-        <select
-          ref="batch"
-          name="batch"
-          id="batch"
-          onChange={this.handleBatchInputChange}
-          value={batch || ""}
-        >
-          <option key={batch || ""} defaultValue={batch || ""} />
-          <option key={BATCH_1} value={BATCH_1}>
-            Batch 1
-          </option>
-          <option key={BATCH_2} value={BATCH_2}>
-            Batch 2
-          </option>
-        </select>
-      </Form.Field>
-    );
 
     const FORM_FIELD_START_DATE = () => (
-      <Form.Field error={!!errors.startDate}>
+      <Form.Field error={!!errors.startDate} required>
         <label htmlFor="start-date">Start Date</label>
         <input
           id="start-date"
@@ -156,7 +134,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
     );
 
     const FORM_FIELD_END_DATE = () => (
-      <Form.Field error={!!errors.endDate}>
+      <Form.Field error={!!errors.endDate} required>
         <label htmlFor="start-date">End Date</label>
         <input
           id="end-date"
@@ -175,7 +153,6 @@ class RetrieveStudentAttendanceForm extends React.Component {
     return [
       <Form onSubmit={this.onSubmit}>
         {FORM_FIELD_BRANCH()}
-        {branch === BRANCH_PUNGGOL ? FORM_FIELD_BATCH() : null}
         {FORM_FIELD_START_DATE()}
         {FORM_FIELD_END_DATE()}
         <Button type="submit" primary>

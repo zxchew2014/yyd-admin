@@ -1,6 +1,6 @@
-import firebase from "firebase";
-
-// require('dotenv').config();
+import firebase from "firebase/app";
+import "firebase/database"
+import "firebase/auth"
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

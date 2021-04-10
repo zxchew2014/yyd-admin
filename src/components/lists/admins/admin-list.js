@@ -6,7 +6,7 @@ import { Button, Icon, Table, Label } from "semantic-ui-react";
 import AdminAction from "../../actions/admins/admin-action";
 
 class AdminList extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchAdminList } = this.props;
     fetchAdminList();
   }
@@ -57,7 +57,7 @@ class AdminList extends React.Component {
 
     return (
       <div className="admin-list-container">
-        <Table basic="very" striped unstackable>
+        <Table striped unstackable>
           <Table.Header>
             <Table.Row>
               {admins
@@ -85,6 +85,7 @@ class AdminList extends React.Component {
 
           <Table.Body>{renderAdminUserRow()}</Table.Body>
         </Table>
+        <br/>
       </div>
     );
   }

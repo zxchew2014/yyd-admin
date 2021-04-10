@@ -19,14 +19,26 @@ export const addAdmin = admin => async dispatch => {
 
   const insertData = {};
   insertData[`${URL_ADMINS}/${newKey}`] = admin;
-  yydASDb.ref().update(insertData);
+  await yydASDb.ref().update(insertData);
 };
 
 export const fetchAdminList = () => async dispatch => {
   adminsRef.on(VALUE_KEY, data => {
+    const adminList = data.val();
+
+    const sortList = [];
+    Object.keys(adminList).forEach(key => {
+      sortList.push(adminList[key]);
+    });
+
+    sortList.sort((a, b) => {
+          return b.role.localeCompare(a.role) || a.name.localeCompare(b.name)
+        }
+    );
+
     dispatch({
       type: FETCH_ADMINS,
-      admins: data.val()
+      admins: sortList
     });
   });
 };
@@ -81,5 +93,5 @@ export const updateAdmin = admin => async dispatch => {
 };
 
 export const removeAdmin = admin => async dispatch => {
-  adminsRef.child(admin.Id).remove();
+  await adminsRef.child(admin.Id).remove();
 };

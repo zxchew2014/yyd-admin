@@ -58,20 +58,12 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     this.setState({
       data: {
         ...data,
-        [event.target.name]: event.target.value,
-        batch: ""
-      }
-    });
-  };
-
-  handleBatchInputChange = event => {
-    this.setState({
-      data: {
-        ...this.state.data,
         [event.target.name]: event.target.value
       }
     });
   };
+
+
 
   validateDate = data => {
     const { startDate, endDate } = data;
@@ -89,7 +81,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
 
   render() {
     const { errors, data } = this.state;
-    const { branch, batch, endDate, startDate } = data;
+    const { branch, endDate, startDate } = data;
     const { branches } = this.props;
 
     if (branches === null) return null;
@@ -103,7 +95,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     });
 
     const FORM_FIELD_BRANCH = () => (
-      <Form.Field>
+      <Form.Field required>
         <label htmlFor="branch">Branch</label>
         <select
           ref="branch"
@@ -126,29 +118,8 @@ class RetrieveTeacherAttendanceForm extends React.Component {
       </Form.Field>
     );
 
-    const FORM_FIELD_BATCH = () => (
-      <Form.Field>
-        <label htmlFor="batch">Batch</label>
-        <select
-          ref="batch"
-          name="batch"
-          id="batch"
-          onChange={this.handleBatchInputChange}
-          value={batch || ""}
-        >
-          <option key={batch || ""} defaultValue={batch || ""} />
-          <option key={BATCH_1} value={BATCH_1}>
-            Batch 1
-          </option>
-          <option key={BATCH_2} value={BATCH_2}>
-            Batch 2
-          </option>
-        </select>
-      </Form.Field>
-    );
-
     const FORM_FIELD_START_DATE = () => (
-      <Form.Field error={!!errors.startDate}>
+      <Form.Field error={!!errors.startDate} required>
         <label htmlFor="start-date">Start Date</label>
         <input
           id="start-date"
@@ -165,7 +136,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     );
 
     const FORM_FIELD_END_DATE = () => (
-      <Form.Field error={!!errors.endDate}>
+      <Form.Field error={!!errors.endDate} required>
         <label htmlFor="end-date">End Date</label>
         <input
           id="end-date"
@@ -184,7 +155,6 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     return [
       <Form onSubmit={this.onSubmit}>
         {FORM_FIELD_BRANCH()}
-        {branch === BRANCH_PUNGGOL ? FORM_FIELD_BATCH() : null}
         {FORM_FIELD_START_DATE()}
         {FORM_FIELD_END_DATE()}
         <Button type="submit" primary>

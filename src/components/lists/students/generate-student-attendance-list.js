@@ -33,16 +33,7 @@ class GenerateStudentAttendanceList extends React.Component {
     const res = newPDF.autoTableHtmlToJson(
       document.getElementById("attendanceTable")
     );
-    let fileName = "";
-    if (branch === BRANCH_PUNGGOL) {
-      if (batch) {
-        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${BATCH} ${batch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
-      } else {
-        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
-      }
-    } else {
-      fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
-    }
+    let fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${STUDENT_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
 
     const header = function(data) {
       newPDF.setFontSize(14);
@@ -65,7 +56,7 @@ class GenerateStudentAttendanceList extends React.Component {
     };
 
     const options = {
-      beforePageContent: header
+      didDrawPage: header
     };
 
     newPDF.autoTable(res.columns, res.data, options);

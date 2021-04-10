@@ -14,7 +14,7 @@ class ViewTeacherList extends React.Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchBranchList } = this.props;
     fetchBranchList();
   }
@@ -25,7 +25,7 @@ class ViewTeacherList extends React.Component {
     const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
 
     const FORM_FIELD_BRANCH = () => (
-      <Form.Field>
+      <Form.Field required>
         <label htmlFor="branch">Branch</label>
         <select
           ref="branch"
