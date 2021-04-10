@@ -53,7 +53,7 @@ class StudentList extends React.Component {
     const renderStudentRows = (branchName, branchKey) =>
       Object.keys(branchName).map(studentKey => {
         const student = branchName[studentKey];
-        return renderStudentRow(student,branchKey,studentKey);
+        return renderStudentRow(student, branchKey, studentKey);
       });
 
     const renderStudentBatchRows = (branchName, branchKey) =>
@@ -64,40 +64,39 @@ class StudentList extends React.Component {
         }
       });
 
-    const renderStudentRow = (student, branchKey, studentKey)  => {
-        return (
-            <Table.Row key={`${branchKey}-${studentKey}`}>
-                <Table.Cell>{(counter += 1)}.</Table.Cell>
-                <Table.Cell>{student.Name}</Table.Cell>
-                <Table.Cell>Primary {student.Primary}</Table.Cell>
-                <Table.Cell>{student.Branch}</Table.Cell>
-                <Table.Cell>{student.Batch}</Table.Cell>
-                {btnDisable ? null : (
-                    <Table.Cell textAlign="right">
-                        <Button
-                            icon
-                            labelPosition="left"
-                            size="small"
-                            color="green"
-                            onClick={() => this.props.onEdit(student)}
-                        >
-                            <Icon name="edit" /> Edit Student
-                        </Button>
-                        <Button
-                            icon
-                            labelPosition="left"
-                            size="small"
-                            color="red"
-                            onClick={() => this.props.onDelete(student)}
-                        >
-                            <Icon name="user delete" /> Remove Student
-                        </Button>
-                    </Table.Cell>
-                )}
-            </Table.Row>
-        );
-
-    }
+    const renderStudentRow = (student, branchKey, studentKey) => {
+      return (
+        <Table.Row key={`${branchKey}-${studentKey}`}>
+          <Table.Cell>{(counter += 1)}.</Table.Cell>
+          <Table.Cell>{student.Name}</Table.Cell>
+          <Table.Cell>Primary {student.Primary}</Table.Cell>
+          <Table.Cell>{student.Branch}</Table.Cell>
+          <Table.Cell>{student.Batch}</Table.Cell>
+          {btnDisable ? null : (
+            <Table.Cell textAlign="right">
+              <Button
+                icon
+                labelPosition="left"
+                size="small"
+                color="green"
+                onClick={() => this.props.onEdit(student)}
+              >
+                <Icon name="edit" /> Edit Student
+              </Button>
+              <Button
+                icon
+                labelPosition="left"
+                size="small"
+                color="red"
+                onClick={() => this.props.onDelete(student)}
+              >
+                <Icon name="user delete" /> Remove Student
+              </Button>
+            </Table.Cell>
+          )}
+        </Table.Row>
+      );
+    };
 
     const renderStudentsByBranch = branchName => {
       const { students } = this.props;
@@ -126,11 +125,11 @@ class StudentList extends React.Component {
     };
 
     if (branch !== "") {
-        if (batch === "") {
-          return renderStudentsByBranch(branch);
-        } else if (batch === BATCH_1 || batch === BATCH_2) {
-          return renderStudentsByBranchBatch(branch);
-        }
+      if (batch === "") {
+        return renderStudentsByBranch(branch);
+      } else if (batch === BATCH_1 || batch === BATCH_2) {
+        return renderStudentsByBranchBatch(branch);
+      }
     }
 
     return [

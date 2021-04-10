@@ -32,9 +32,8 @@ export const fetchAdminList = () => async dispatch => {
     });
 
     sortList.sort((a, b) => {
-          return b.role.localeCompare(a.role) || a.name.localeCompare(b.name)
-        }
-    );
+      return b.role.localeCompare(a.role) || a.name.localeCompare(b.name);
+    });
 
     dispatch({
       type: FETCH_ADMINS,

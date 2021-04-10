@@ -13,7 +13,8 @@ import {
   START_DATE,
   BRANCH_PUNGGOL,
   ENDATE_ERROR_MESSAGE,
-  STARTDATE_ERROR_MESSAGE, ALL_BATCH
+  STARTDATE_ERROR_MESSAGE,
+  ALL_BATCH
 } from "../../../utils/common";
 import _ from "lodash";
 
@@ -60,7 +61,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
     this.setState({
       data: {
         ...data,
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value
       }
     });
   };
@@ -93,9 +94,9 @@ class RetrieveStudentAttendanceForm extends React.Component {
     });
 
     const BATCH_OPTIONS = _.map(ALL_BATCH, value => (
-        <option key={value} value={value}>
-          BATCH {value}
-        </option>
+      <option key={value} value={value}>
+        BATCH {value}
+      </option>
     ));
 
     const FORM_FIELD_BRANCH = () => (
@@ -114,7 +115,6 @@ class RetrieveStudentAttendanceForm extends React.Component {
         </select>
       </Form.Field>
     );
-
 
     const FORM_FIELD_START_DATE = () => (
       <Form.Field error={!!errors.startDate} required>

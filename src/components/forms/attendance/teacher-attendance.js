@@ -63,8 +63,6 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     });
   };
 
-
-
   validateDate = data => {
     const { startDate, endDate } = data;
     const errors = {};

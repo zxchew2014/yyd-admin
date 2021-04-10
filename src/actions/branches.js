@@ -84,9 +84,8 @@ export const fetchBranchList = () => async dispatch => {
     });
 
     sortList.sort((a, b) => {
-          return b.Branch_Name.localeCompare(a.Branch_Name)
-        }
-    );
+      return b.Branch_Name.localeCompare(a.Branch_Name);
+    });
 
     dispatch({
       type: FETCH_BRANCHES,

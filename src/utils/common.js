@@ -7,7 +7,8 @@ export const STUDENT_ATTENDANCE_REPORT = "Student Attendance Report";
 export const BATCH = "Batch";
 
 export const NO_ACCESS_MSG = "You do not have access on this system";
-export const CONTACT_ADMIN_MSG = "Please contact Admin to add you for access right.";
+export const CONTACT_ADMIN_MSG =
+  "Please contact Admin to add you for access right.";
 export const VERIFY_EMAIL_MSG = "Please verify you email first to access!";
 
 export const START_DATE = "2019-01-01";

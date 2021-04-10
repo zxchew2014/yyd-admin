@@ -2,8 +2,8 @@
   "rules": {
     ".read": "auth != null",
     ".write": "auth != null",
-    "Admins" : {
-        ".indexOn" : "emailAddress"
+    "Admins": {
+      ".indexOn": "emailAddress"
     }
   }
 }

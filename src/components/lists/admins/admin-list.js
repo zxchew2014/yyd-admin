@@ -85,7 +85,7 @@ class AdminList extends React.Component {
 
           <Table.Body>{renderAdminUserRow()}</Table.Body>
         </Table>
-        <br/>
+        <br />
       </div>
     );
   }

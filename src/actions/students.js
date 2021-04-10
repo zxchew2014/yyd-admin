@@ -89,11 +89,12 @@ export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
       newStudentList.push(student);
     });
 
-    newStudentList.sort(
-      (a, b) => {
-        return parseInt(a.Primary, 10) - parseInt(b.Primary, 10) || a.Name.localeCompare(b.Name);
-      }
-    );
+    newStudentList.sort((a, b) => {
+      return (
+        parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
+        a.Name.localeCompare(b.Name)
+      );
+    });
 
     dispatch({
       type: FETCH_STUDENTS_BY_BRANCH,
