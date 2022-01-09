@@ -151,10 +151,10 @@ class App extends React.Component {
               />
 
               <UserRoute
-                  location={this.props.location}
-                  path="/branch/edit"
-                  exact
-                  component={EditBranchPage}
+                location={this.props.location}
+                path="/branch/edit"
+                exact
+                component={EditBranchPage}
               />
 
               <UserRoute

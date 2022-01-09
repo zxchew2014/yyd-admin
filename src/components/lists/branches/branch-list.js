@@ -34,19 +34,15 @@ class BranchList extends React.Component {
                 </Label>
               )}
             </Table.Cell>
-            <Table.Cell>
-              SGD $ {branch.teacher_payout}
-              </Table.Cell>
-            <Table.Cell>
-              SGD $ {branch.parent_volunteer_payout}
-            </Table.Cell>
+            <Table.Cell>SGD $ {branch.teacher_payout}</Table.Cell>
+            <Table.Cell>SGD $ {branch.parent_volunteer_payout}</Table.Cell>
             <Table.Cell textAlign="right">
               <Button
-                  icon
-                  labelPosition="left"
-                  size="small"
-                  color="green"
-                  onClick={() => this.props.onEdit(branch)}
+                icon
+                labelPosition="left"
+                size="small"
+                color="green"
+                onClick={() => this.props.onEdit(branch)}
               >
                 <Icon name="edit" /> Edit Branch
               </Button>

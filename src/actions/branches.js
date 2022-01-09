@@ -10,15 +10,15 @@ export const getBranch = (branch = "") => ({
 });
 
 export const addBranch = branch => async dispatch => {
-  const myRef = branchesRef.push()
-  const newKey = myRef.key
-  branch.Id = newKey
+  const myRef = branchesRef.push();
+  const newKey = myRef.key;
+  branch.Id = newKey;
 
-  console.log(branch)
+  console.log(branch);
 
-  const insertData = {}
-  insertData[`${URL_BRANCHES}/${newKey}`] = branch
-  await yydASDb.ref().update(insertData)
+  const insertData = {};
+  insertData[`${URL_BRANCHES}/${newKey}`] = branch;
+  await yydASDb.ref().update(insertData);
 };
 
 export const updateBranch = branch => async dispatch => {
@@ -41,14 +41,14 @@ export const updateBranchDetail = branch => async dispatch => {
   const updateData = {};
   updateData[`${URL_BRANCHES}/${branch.Id}`] = branch;
   yydASDb
-      .ref()
-      .update(updateData)
-      .then(() =>
-          dispatch({
-            type: GET_BRANCH,
-            branch: null
-          })
-      );
+    .ref()
+    .update(updateData)
+    .then(() =>
+      dispatch({
+        type: GET_BRANCH,
+        branch: null
+      })
+    );
 };
 
 export const fetchBranch = branch => async dispatch => {

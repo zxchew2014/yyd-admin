@@ -16,11 +16,18 @@ class AddBranch extends React.Component {
   }
 
   onSubmit = event => {
-    const { addBranch, updateBranch, updateBranchDetail, branches } = this.props;
+    const {
+      addBranch,
+      updateBranch,
+      updateBranchDetail,
+      branches
+    } = this.props;
     let { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
 
     this.state.teacher_payout = parseFloat(teacher_payout).toFixed(2);
-    this.state.parent_volunteer_payout =  parseFloat(parent_volunteer_payout).toFixed(2);
+    this.state.parent_volunteer_payout = parseFloat(
+      parent_volunteer_payout
+    ).toFixed(2);
 
     let existingBranch = null;
     let checkExisted = false;
@@ -47,9 +54,9 @@ class AddBranch extends React.Component {
       if (existingBranch === null) {
         addBranch(this.state);
       } else {
-        existingBranch.teacher_payout = this.state.teacher_payout
-        existingBranch.parent_volunteer_payout = this.state.parent_volunteer_payout
-        updateBranchDetail(existingBranch)
+        existingBranch.teacher_payout = this.state.teacher_payout;
+        existingBranch.parent_volunteer_payout = this.state.parent_volunteer_payout;
+        updateBranchDetail(existingBranch);
       }
     }
 
