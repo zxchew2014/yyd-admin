@@ -80,26 +80,26 @@ export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
         type: FETCH_STUDENTS_BY_BRANCH,
         students: null
       });
+    } else {
+      const newStudentList = [];
+      Object.keys(studentList).forEach(key => {
+        const student = studentList[key];
+        student.Id = key;
+        newStudentList.push(student);
+      });
+
+      newStudentList.sort((a, b) => {
+        return (
+            parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
+            a.Name.localeCompare(b.Name)
+        );
+      });
+
+      dispatch({
+        type: FETCH_STUDENTS_BY_BRANCH,
+        students: newStudentList
+      });
     }
-
-    const newStudentList = [];
-    Object.keys(studentList).forEach(key => {
-      const student = studentList[key];
-      student.Id = key;
-      newStudentList.push(student);
-    });
-
-    newStudentList.sort((a, b) => {
-      return (
-        parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
-        a.Name.localeCompare(b.Name)
-      );
-    });
-
-    dispatch({
-      type: FETCH_STUDENTS_BY_BRANCH,
-      students: newStudentList
-    });
   });
 };
 

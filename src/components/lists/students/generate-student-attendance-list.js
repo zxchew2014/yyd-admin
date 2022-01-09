@@ -13,7 +13,6 @@ import {
   NOT_AVAILABLE,
   NO_SUCH_STUDENT,
   YYD_EDUCATION_CENTRE,
-  BATCH,
   STUDENT_ATTENDANCE_REPORT
 } from "../../../utils/common";
 
@@ -125,7 +124,7 @@ class GenerateStudentAttendanceList extends React.Component {
         else if (status === MC)
           return <Table.Cell warning>{status}</Table.Cell>;
         else if (status === NOT_AVAILABLE || status === NO_SUCH_STUDENT)
-          return <Table.Cell warning>{NO_SUCH_STUDENT}</Table.Cell>;
+          return <Table.Cell warning>{NOT_AVAILABLE}</Table.Cell>;
       } else return <Table.Cell warning>Attendance was not mark!</Table.Cell>;
     };
 

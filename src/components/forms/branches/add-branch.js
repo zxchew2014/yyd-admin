@@ -9,13 +9,18 @@ class AddBranch extends React.Component {
     super(props);
     this.state = {
       Branch_Name: "",
+      teacher_payout: "0",
+      parent_volunteer_payout: "0",
       Active: true
     };
   }
 
   onSubmit = event => {
-    const { addBranch, updateBranch, branches } = this.props;
-    const { Branch_Name } = this.state;
+    const { addBranch, updateBranch, updateBranchDetail, branches } = this.props;
+    let { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
+
+    this.state.teacher_payout = parseFloat(teacher_payout).toFixed(2);
+    this.state.parent_volunteer_payout =  parseFloat(parent_volunteer_payout).toFixed(2);
 
     let existingBranch = null;
     let checkExisted = false;
@@ -41,6 +46,10 @@ class AddBranch extends React.Component {
     } else {
       if (existingBranch === null) {
         addBranch(this.state);
+      } else {
+        existingBranch.teacher_payout = this.state.teacher_payout
+        existingBranch.parent_volunteer_payout = this.state.parent_volunteer_payout
+        updateBranchDetail(existingBranch)
       }
     }
 
@@ -52,7 +61,7 @@ class AddBranch extends React.Component {
   };
 
   renderAddForm = () => {
-    const { Branch_Name } = this.state;
+    const { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
         <Form.Field
@@ -64,6 +73,32 @@ class AddBranch extends React.Component {
           name="Branch_Name"
           onChange={this.handleInputChange}
           required
+        />
+
+        <Form.Field
+          id="form-input-control-branch-payout"
+          control={Input}
+          type="number"
+          min="0"
+          step="0.05"
+          value={teacher_payout}
+          label="Teacher Payout"
+          placeholder="Teacher Payout"
+          name="teacher_payout"
+          onChange={this.handleInputChange}
+        />
+
+        <Form.Field
+          id="form-input-control-parent-volunteer-payout"
+          control={Input}
+          type="number"
+          min="0"
+          step="0.05"
+          value={parent_volunteer_payout}
+          label="Parent Volunteer Payout"
+          placeholder="Parent Volunteer Payout"
+          name="parent_volunteer_payout"
+          onChange={this.handleInputChange}
         />
 
         <Button type="submit" primary>

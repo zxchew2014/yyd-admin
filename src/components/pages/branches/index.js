@@ -29,6 +29,12 @@ class BranchPage extends React.Component {
     history.push(`/branch`);
   };
 
+  onEdit = data => {
+    const { history, fetchBranch } = this.props;
+    fetchBranch(data);
+    history.push(`/branch/edit`);
+  };
+
   render() {
     return (
       <div className="retrieve-branch">
@@ -37,6 +43,7 @@ class BranchPage extends React.Component {
           onSetNotActive={this.onSetNotActive}
           onSetActive={this.onSetActive}
           onDelete={this.onDelete}
+          onEdit={this.onEdit}
         />
       </div>
     );

@@ -34,7 +34,23 @@ class BranchList extends React.Component {
                 </Label>
               )}
             </Table.Cell>
+            <Table.Cell>
+              SGD $ {branch.teacher_payout}
+              </Table.Cell>
+            <Table.Cell>
+              SGD $ {branch.parent_volunteer_payout}
+            </Table.Cell>
             <Table.Cell textAlign="right">
+              <Button
+                  icon
+                  labelPosition="left"
+                  size="small"
+                  color="green"
+                  onClick={() => this.props.onEdit(branch)}
+              >
+                <Icon name="edit" /> Edit Branch
+              </Button>
+
               {active ? (
                 <Button
                   key="btn-set-not-active"
@@ -84,6 +100,8 @@ class BranchList extends React.Component {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
+              <Table.HeaderCell>Teacher Payout</Table.HeaderCell>
+              <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>
               <Table.HeaderCell>
                 <Button
                   floated="right"
@@ -111,6 +129,7 @@ const mapStateToProps = ({ branches }) => ({
 });
 
 BranchList.propTypes = {
+  onEdit: PropTypes.func.isRequired,
   onCreate: PropTypes.func.isRequired,
   onSetActive: PropTypes.func.isRequired,
   onSetNotActive: PropTypes.func.isRequired,
