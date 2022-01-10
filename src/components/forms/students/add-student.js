@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import _ from "lodash";
 import * as students from "../../../actions/students";
-import {ALL_PRIMARY_LEVEL, ALL_BATCH, FOUNDATION_SUBJECT} from "../../../utils/common";
+import {
+  ALL_PRIMARY_LEVEL,
+  ALL_BATCH,
+  FOUNDATION_SUBJECT
+} from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
@@ -120,31 +124,33 @@ class AddStudentForm extends React.Component {
   }
 
   renderFoundationDropDownList() {
-        const foundationSubject = FOUNDATION_SUBJECT;
-        const { Foundation } = this.state;
+    const foundationSubject = FOUNDATION_SUBJECT;
+    const { Foundation } = this.state;
 
-        const FOUNDATION_OPTIONS = _.map(foundationSubject, (value, key) => (
-            <option key={key} value={value}>{value}</option>
-        ));
+    const FOUNDATION_OPTIONS = _.map(foundationSubject, (value, key) => (
+      <option key={key} value={value}>
+        {value}
+      </option>
+    ));
 
-        const FORM_FIELD_FOUNDATION = () => (
-            <Form.Field>
-                <label htmlFor="foundation">Foundation (Optional)</label>
-                <select
-                    ref="foundation"
-                    name="Foundation"
-                    id="foundation"
-                    onChange={this.handleInputChange}
-                    value={Foundation || ""}
-                >
-                    <option key={Foundation || ""} defaultValue={Foundation || ""} />
-                    {FOUNDATION_OPTIONS}
-                </select>
-            </Form.Field>
-        );
+    const FORM_FIELD_FOUNDATION = () => (
+      <Form.Field>
+        <label htmlFor="foundation">Foundation (Optional)</label>
+        <select
+          ref="foundation"
+          name="Foundation"
+          id="foundation"
+          onChange={this.handleInputChange}
+          value={Foundation || ""}
+        >
+          <option key={Foundation || ""} defaultValue={Foundation || ""} />
+          {FOUNDATION_OPTIONS}
+        </select>
+      </Form.Field>
+    );
 
-        return FORM_FIELD_FOUNDATION();
-    }
+    return FORM_FIELD_FOUNDATION();
+  }
 
   renderAddForm = () => {
     const { Name } = this.state;

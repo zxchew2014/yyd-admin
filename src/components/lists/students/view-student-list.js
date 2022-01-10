@@ -3,9 +3,7 @@ import { Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
 import StudentList from "./student-list";
-import {
-  ALL_BATCH
-} from "../../../utils/common";
+import { ALL_BATCH } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 import _ from "lodash";
