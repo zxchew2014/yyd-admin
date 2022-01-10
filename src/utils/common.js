@@ -1,5 +1,5 @@
-export const VERSION_DATE = "09 January 2022";
-export const VERSION_NO = "V2.2.2";
+export const VERSION_DATE = "10 January 2022";
+export const VERSION_NO = "V2.2.3";
 
 export const YYD_EDUCATION_CENTRE = "YYD Education Centre";
 export const TEACHER_ATTENDANCE_REPORT = "Teacher Attendance Report";
@@ -23,6 +23,7 @@ export const BATCH_1 = "1";
 export const BATCH_2 = "2";
 
 export const ALL_PRIMARY_LEVEL = ["1", "2", "3", "4", "5", "6"];
+export const FOUNDATION_SUBJECT = ["English", "Math", "English & Math"];
 export const ALL_BATCH = [BATCH_1, BATCH_2];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";

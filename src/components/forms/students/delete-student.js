@@ -13,6 +13,7 @@ class RemoveStudent extends React.Component {
       Name: student.Name,
       Branch: student.Branch,
       Primary: student.Primary,
+      Foundation: student.Foundation,
       Batch: student.Batch
     };
   }
@@ -30,7 +31,7 @@ class RemoveStudent extends React.Component {
   };
 
   renderRemoveForm = () => {
-    const { Name, Primary, Branch, Batch } = this.state;
+    const { Name, Primary, Branch, Batch, Foundation } = this.state;
     return [
       <Message warning key="student-remove-message">
         <Message.Header>Are you sure??</Message.Header>
@@ -47,6 +48,11 @@ class RemoveStudent extends React.Component {
           <Table.Row>
             <Table.Cell>Primary</Table.Cell>
             <Table.Cell>{Primary || ""}</Table.Cell>
+          </Table.Row>
+
+          <Table.Row>
+            <Table.Cell>Foundation</Table.Cell>
+            <Table.Cell>{Foundation || ""}</Table.Cell>
           </Table.Row>
 
           <Table.Row>

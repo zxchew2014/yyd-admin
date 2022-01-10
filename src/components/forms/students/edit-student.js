@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import _ from "lodash";
 import * as students from "../../../actions/students";
-import { ALL_PRIMARY_LEVEL, ALL_BATCH } from "../../../utils/common";
+import {ALL_PRIMARY_LEVEL, ALL_BATCH, FOUNDATION_SUBJECT} from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
@@ -101,6 +101,34 @@ class EditStudent extends React.Component {
     return FORM_FIELD_PRIMARY();
   }
 
+  renderFoundationDropDownList() {
+    const foundationSubject = FOUNDATION_SUBJECT;
+    const { Foundation } = this.state;
+
+    const FOUNDATION_OPTIONS = _.map(foundationSubject, (value, key) => (
+        <option key={key} value={value}>{value}</option>
+    ));
+
+    const FORM_FIELD_FOUNDATION = () => (
+        <Form.Field>
+          <label htmlFor="foundation">Foundation (Optional)</label>
+          <select
+              ref="foundation"
+              name="Foundation"
+              id="foundation"
+              onChange={this.handleInputChange}
+              value={Foundation || ""}
+          >
+            <option key={Foundation || ""} defaultValue={Foundation || ""} />
+            {FOUNDATION_OPTIONS}
+          </select>
+        </Form.Field>
+    );
+
+    return FORM_FIELD_FOUNDATION();
+  }
+
+
   renderBranchDropDownList() {
     const { branches } = this.props;
     const { Branch } = this.state;
@@ -144,6 +172,7 @@ class EditStudent extends React.Component {
         {this.renderBranchDropDownList()}
         {this.renderBatchDropDownList()}
         {this.renderPrimaryDropDownList()}
+        {this.renderFoundationDropDownList()}
         <Button type="submit" primary>
           Update Student
         </Button>

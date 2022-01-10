@@ -4,10 +4,7 @@ import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
 import StudentList from "./student-list";
 import {
-  ALL_BATCH,
-  BATCH_1,
-  BATCH_2,
-  BRANCH_PUNGGOL
+  ALL_BATCH
 } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import _ from "lodash";
 import * as students from "../../../actions/students";
-import { ALL_PRIMARY_LEVEL, ALL_BATCH } from "../../../utils/common";
+import {ALL_PRIMARY_LEVEL, ALL_BATCH, FOUNDATION_SUBJECT} from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 
@@ -20,9 +20,12 @@ class AddStudentForm extends React.Component {
   onSubmit = event => {
     const { addStudent } = this.props;
     event.preventDefault();
-    const { Batch } = this.state;
+    const { Batch, Foundation } = this.state;
     if (Batch === "") {
       delete this.state.Batch;
+    }
+    if (Foundation === "") {
+      delete this.state.Foundation;
     }
     addStudent(this.state);
     this.props.onNext();
@@ -43,7 +46,7 @@ class AddStudentForm extends React.Component {
 
     const FORM_FIELD_BATCH = () => (
       <Form.Field>
-        <label htmlFor="batch">Batch</label>
+        <label htmlFor="batch">Batch (Optional)</label>
         <select
           ref="batch"
           name="Batch"
@@ -116,6 +119,33 @@ class AddStudentForm extends React.Component {
     return FORM_FIELD_BRANCH();
   }
 
+  renderFoundationDropDownList() {
+        const foundationSubject = FOUNDATION_SUBJECT;
+        const { Foundation } = this.state;
+
+        const FOUNDATION_OPTIONS = _.map(foundationSubject, (value, key) => (
+            <option key={key} value={value}>{value}</option>
+        ));
+
+        const FORM_FIELD_FOUNDATION = () => (
+            <Form.Field>
+                <label htmlFor="foundation">Foundation (Optional)</label>
+                <select
+                    ref="foundation"
+                    name="Foundation"
+                    id="foundation"
+                    onChange={this.handleInputChange}
+                    value={Foundation || ""}
+                >
+                    <option key={Foundation || ""} defaultValue={Foundation || ""} />
+                    {FOUNDATION_OPTIONS}
+                </select>
+            </Form.Field>
+        );
+
+        return FORM_FIELD_FOUNDATION();
+    }
+
   renderAddForm = () => {
     const { Name } = this.state;
     return (
@@ -133,6 +163,7 @@ class AddStudentForm extends React.Component {
         {this.renderBranchDropDownList()}
         {this.renderBatchDropDownList()}
         {this.renderPrimaryDropDownList()}
+        {this.renderFoundationDropDownList()}
         <Button type="submit" primary>
           Add Student
         </Button>

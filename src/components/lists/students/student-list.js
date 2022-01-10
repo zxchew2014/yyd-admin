@@ -32,6 +32,7 @@ class StudentList extends React.Component {
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Primary</Table.HeaderCell>
+        <Table.HeaderCell>Foundation</Table.HeaderCell>
         <Table.HeaderCell>Branch</Table.HeaderCell>
         <Table.HeaderCell>Batch</Table.HeaderCell>
         {btnDisable ? null : (
@@ -70,6 +71,7 @@ class StudentList extends React.Component {
           <Table.Cell>{(counter += 1)}.</Table.Cell>
           <Table.Cell>{student.Name}</Table.Cell>
           <Table.Cell>Primary {student.Primary}</Table.Cell>
+          <Table.Cell> {student.Foundation}</Table.Cell>
           <Table.Cell>{student.Branch}</Table.Cell>
           <Table.Cell>{student.Batch}</Table.Cell>
           {btnDisable ? null : (

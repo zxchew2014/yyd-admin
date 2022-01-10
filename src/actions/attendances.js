@@ -223,6 +223,7 @@ const sortStudentMapByName = result => {
       const studentName = student.Name;
       const primary = student.Primary;
       const combineKey = `P${primary}_${studentName}`;
+      const foundation = student.Foundation || "" ;
       const status = student.Status;
 
       const newStudentAttendanceDetail = {
@@ -230,6 +231,7 @@ const sortStudentMapByName = result => {
         timestamp: attendance.timestamp,
         studentName,
         primary,
+        foundation,
         status,
         id: combineKey,
         teacherName

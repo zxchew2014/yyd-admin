@@ -73,6 +73,7 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.HeaderCell>Teacher Name</Table.HeaderCell>
           <Table.HeaderCell>Student Name</Table.HeaderCell>
           <Table.HeaderCell>Primary</Table.HeaderCell>
+          <Table.HeaderCell>Foundation</Table.HeaderCell>
           <Table.HeaderCell>Check In Status</Table.HeaderCell>
           <Table.HeaderCell>Check Out Status</Table.HeaderCell>
           <Table.HeaderCell>Final Status</Table.HeaderCell>
@@ -96,6 +97,7 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.teacherName}</Table.Cell>
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
+          <Table.Cell>{attendance.foundation}</Table.Cell>
           {renderStatusCell(attendance.checkInStatus)}
           {renderStatusCell(attendance.checkOutStatus)}
           {renderStatusCell(
@@ -161,7 +163,7 @@ class GenerateStudentAttendanceList extends React.Component {
 
       return (
         <Table.Row>
-          <Table.Cell colSpan="8" textAlign="right">
+          <Table.Cell colSpan="9" textAlign="right">
             <b>{studentName}'s Attendance Percentage</b> : {actualPercentage}%
           </Table.Cell>
         </Table.Row>
