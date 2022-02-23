@@ -133,7 +133,14 @@ const filterTeacherAttendanceByDateNBranch = (result, inputData, clockType) => {
   return new Map([...mapDate.entries()].sort());
 };
 
-const filterStudentAttendance = (result, start, end, branch, batch, clockType) => {
+const filterStudentAttendance = (
+  result,
+  start,
+  end,
+  branch,
+  batch,
+  clockType
+) => {
   const mapDate = new Map();
 
   Object.keys(result).forEach(key => {
@@ -554,4 +561,3 @@ export const fetchStudentAttendanceClockOut = inputData => async dispatch => {
     });
   });
 };
-
