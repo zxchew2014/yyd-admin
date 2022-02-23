@@ -77,7 +77,7 @@ class AttendancePage extends React.Component {
   }
 }
 
-const mapStateToProps = ({ attendanceTeachers }) => ({
+const mapStateToProps = ({ attendanceTeachers}) => ({
   attendanceTeachers
 });
 
