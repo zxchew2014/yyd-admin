@@ -95,10 +95,10 @@ class AttendanceListByBranch extends React.Component {
       attendanceList.map(attendance => (
         <Table.Row textAlign="center" key={attendance.id}>
           <Table.Cell>
-            {(attendance.clockOut &&
+            {attendance.clockOut &&
               moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
                 DATEFORMAT_DAY_MMM_DD_YYYY
-              ))}
+              )}
           </Table.Cell>
           <Table.Cell>
             {(attendance.clockOut &&

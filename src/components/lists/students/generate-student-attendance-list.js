@@ -80,29 +80,28 @@ class GenerateStudentAttendanceList extends React.Component {
             <Table.HeaderCell colSpan={colSpan}>Status</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-      ]
-
+      ];
     };
 
     const renderAttendanceRows = (attendanceList, foundationCheck) =>
       attendanceList.map(attendance => (
-          <Table.Row
-              textAlign="center"
-              key={attendance.id + "-" + attendance.timestamp}
-          >
-            <Table.Cell>
-              {attendance.timestamp &&
-                  moment(attendance.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                      DATEFORMAT_DAY_MMM_DD_YYYY
-                  )}
-            </Table.Cell>
-            <Table.Cell>{attendance.subject}</Table.Cell>
-            <Table.Cell>{attendance.teacherName}</Table.Cell>
-            <Table.Cell>{attendance.studentName}</Table.Cell>
-            <Table.Cell>P{attendance.primary}</Table.Cell>
-            {foundationCheck && <Table.Cell>{attendance.foundation}</Table.Cell>}
-            {renderStatusCell(attendance.checkOutStatus, foundationCheck)}
-          </Table.Row>
+        <Table.Row
+          textAlign="center"
+          key={attendance.id + "-" + attendance.timestamp}
+        >
+          <Table.Cell>
+            {attendance.timestamp &&
+              moment(attendance.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).format(
+                DATEFORMAT_DAY_MMM_DD_YYYY
+              )}
+          </Table.Cell>
+          <Table.Cell>{attendance.subject}</Table.Cell>
+          <Table.Cell>{attendance.teacherName}</Table.Cell>
+          <Table.Cell>{attendance.studentName}</Table.Cell>
+          <Table.Cell>P{attendance.primary}</Table.Cell>
+          {foundationCheck && <Table.Cell>{attendance.foundation}</Table.Cell>}
+          {renderStatusCell(attendance.checkOutStatus, foundationCheck)}
+        </Table.Row>
       ));
 
     const renderStatusCell = (status, foundationCheck) => {
@@ -110,14 +109,35 @@ class GenerateStudentAttendanceList extends React.Component {
 
       if (status && status != "") {
         if (status === PRESENT || status === LATE)
-          return <Table.Cell positive colSpan={colSpan}>{status}</Table.Cell>;
+          return (
+            <Table.Cell positive colSpan={colSpan}>
+              {status}
+            </Table.Cell>
+          );
         else if (status === ABSENT)
-          return <Table.Cell negative colSpan={colSpan}>{status}</Table.Cell>;
+          return (
+            <Table.Cell negative colSpan={colSpan}>
+              {status}
+            </Table.Cell>
+          );
         else if (status === MC)
-          return <Table.Cell warning colSpan={colSpan}>{status}</Table.Cell>;
+          return (
+            <Table.Cell warning colSpan={colSpan}>
+              {status}
+            </Table.Cell>
+          );
         else if (status === NOT_AVAILABLE || status === NO_SUCH_STUDENT)
-          return <Table.Cell warning colSpan={colSpan}>{NOT_AVAILABLE}</Table.Cell>;
-      } else return <Table.Cell warning colSpan={colSpan}>Attendance was not mark!</Table.Cell>;
+          return (
+            <Table.Cell warning colSpan={colSpan}>
+              {NOT_AVAILABLE}
+            </Table.Cell>
+          );
+      } else
+        return (
+          <Table.Cell warning colSpan={colSpan}>
+            Attendance was not mark!
+          </Table.Cell>
+        );
     };
 
     const renderCalculateAttendancePercentage = attendanceList => {
@@ -169,12 +189,15 @@ class GenerateStudentAttendanceList extends React.Component {
         >
           {attendanceStudents.map(studentAttendance => {
             const attendanceList = studentAttendance[1];
-            const foundationCheck = attendanceList[0].foundation && attendanceList[0].foundation != "" ? true : false
+            const foundationCheck =
+              attendanceList[0].foundation && attendanceList[0].foundation != ""
+                ? true
+                : false;
 
             return [
               renderHeaderRow(foundationCheck),
               <Table.Body>
-                {renderAttendanceRows(attendanceList,foundationCheck)}
+                {renderAttendanceRows(attendanceList, foundationCheck)}
                 {renderCalculateAttendancePercentage(attendanceList)}
               </Table.Body>
             ];
