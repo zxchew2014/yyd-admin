@@ -330,10 +330,6 @@ const mergeTeacherAttendance = (clockInMap, clockOutMap) => {
     const clockInArray = clockInMap.get(key);
     Object.keys(clockOutArray).forEach(clockOutIndex => {
       const clockOutAttendance = clockOutArray[clockOutIndex];
-      if (clockOutAttendance.feedback.length > 0) {
-        clockOutAttendance.feedback =
-          "Clock Out Remark: " + clockOutAttendance.feedback;
-      }
 
       if (clockInArray && clockInArray.length > 0) {
         const clockOutDate = moment(
