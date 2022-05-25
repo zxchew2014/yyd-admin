@@ -96,8 +96,7 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
           <Table.Cell>{attendance.foundation}</Table.Cell>
-         {renderStatusCell(attendance.checkOutStatus)}
-
+          {renderStatusCell(attendance.checkOutStatus)}
         </Table.Row>
       ));
 
