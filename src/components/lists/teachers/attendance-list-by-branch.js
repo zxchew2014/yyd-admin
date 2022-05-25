@@ -77,7 +77,6 @@ class AttendanceListByBranch extends React.Component {
       <Table.Header fullWidth>
         <Table.Row textAlign="center">
           <Table.HeaderCell>Date</Table.HeaderCell>
-          <Table.HeaderCell>Clock In</Table.HeaderCell>
           <Table.HeaderCell>Clock Out</Table.HeaderCell>
           <Table.HeaderCell>Phone User</Table.HeaderCell>
           <Table.HeaderCell>Phone Number</Table.HeaderCell>
@@ -96,20 +95,10 @@ class AttendanceListByBranch extends React.Component {
       attendanceList.map(attendance => (
         <Table.Row textAlign="center" key={attendance.id}>
           <Table.Cell>
-            {(attendance.clockIn &&
-              moment(attendance.clockIn, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                DATEFORMAT_DAY_MMM_DD_YYYY
-              )) ||
+            {(attendance.clockOut &&
               moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
                 DATEFORMAT_DAY_MMM_DD_YYYY
-              )}
-          </Table.Cell>
-          <Table.Cell>
-            {(attendance.clockIn &&
-              moment(attendance.clockIn, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                TIMEFORMAT_HHMMTT
-              )) ||
-              ""}
+              ))}
           </Table.Cell>
           <Table.Cell>
             {(attendance.clockOut &&
