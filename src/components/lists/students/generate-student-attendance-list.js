@@ -74,9 +74,7 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.HeaderCell>Student Name</Table.HeaderCell>
           <Table.HeaderCell>Primary</Table.HeaderCell>
           <Table.HeaderCell>Foundation</Table.HeaderCell>
-          <Table.HeaderCell>Check In Status</Table.HeaderCell>
-          <Table.HeaderCell>Check Out Status</Table.HeaderCell>
-          <Table.HeaderCell>Final Status</Table.HeaderCell>
+          <Table.HeaderCell>Status</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
     );
@@ -98,24 +96,10 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
           <Table.Cell>{attendance.foundation}</Table.Cell>
-          {renderStatusCell(attendance.checkInStatus)}
-          {renderStatusCell(attendance.checkOutStatus)}
-          {renderStatusCell(
-            calculateFinalStatus(
-              attendance.checkInStatus,
-              attendance.checkOutStatus
-            )
-          )}
+         {renderStatusCell(attendance.checkOutStatus)}
+
         </Table.Row>
       ));
-
-    const calculateFinalStatus = (checkInStatus, checkOutStatus) => {
-      if (checkInStatus && checkOutStatus) return checkOutStatus;
-
-      if (!checkInStatus) return checkOutStatus;
-
-      if (!checkOutStatus) return checkInStatus;
-    };
 
     const renderStatusCell = status => {
       if (status && status != "") {
@@ -136,10 +120,8 @@ class GenerateStudentAttendanceList extends React.Component {
       let studentName = "";
 
       attendanceList.forEach(attendance => {
-        let finalStatus = calculateFinalStatus(
-          attendance.checkInStatus,
-          attendance.checkOutStatus
-        );
+        let finalStatus = attendance.checkOutStatus;
+
         studentName = attendance.studentName;
         if (finalStatus === ABSENT) {
           noOfAbsent += 1;

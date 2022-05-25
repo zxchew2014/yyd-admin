@@ -1,5 +1,5 @@
-export const VERSION_DATE = "10 January 2022";
-export const VERSION_NO = "V2.2.3";
+export const VERSION_DATE = "25 May 2022";
+export const VERSION_NO = "V2.2.4";
 
 export const YYD_EDUCATION_CENTRE = "YYD Education Centre";
 export const TEACHER_ATTENDANCE_REPORT = "Teacher Attendance Report";
