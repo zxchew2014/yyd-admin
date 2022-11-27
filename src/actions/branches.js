@@ -100,7 +100,10 @@ export const fetchBranchList = () => async dispatch => {
     });
 
     sortList.sort((a, b) => {
-      return Number(b.Active) - Number(a.Active) || a.Branch_Name.localeCompare(b.Branch_Name);
+      return (
+        Number(b.Active) - Number(a.Active) ||
+        a.Branch_Name.localeCompare(b.Branch_Name)
+      );
     });
 
     dispatch({
@@ -114,5 +117,5 @@ export const clearBranch = () => async dispatch => {
   dispatch({
     type: GET_BRANCH,
     branch: null
-  })
+  });
 };

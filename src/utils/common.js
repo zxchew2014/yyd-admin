@@ -26,7 +26,7 @@ export const ALL_PRIMARY_LEVEL = ["1", "2", "3", "4", "5", "6"];
 export const FOUNDATION_SUBJECT = ["English", "Math", "English & Math"];
 export const ALL_BATCH = [BATCH_1, BATCH_2];
 
-export const EDUCATION_LEVEL = ["Primary", "Secondary"]
+export const EDUCATION_LEVEL = ["Primary", "Secondary"];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";
 export const DATEFORMAT_DAY_MMM_DD_YYYY = "ddd MMM DD YYYY";

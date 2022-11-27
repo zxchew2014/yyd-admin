@@ -81,7 +81,7 @@ class GenerateStudentAttendanceList extends React.Component {
       ];
     };
 
-    const renderAttendanceRows = (attendanceList) =>
+    const renderAttendanceRows = attendanceList =>
       attendanceList.map(attendance => (
         <Table.Row
           textAlign="center"
@@ -102,39 +102,17 @@ class GenerateStudentAttendanceList extends React.Component {
         </Table.Row>
       ));
 
-    const renderStatusCell = (status) => {
-
+    const renderStatusCell = status => {
       if (status && status != "") {
         if (status === PRESENT || status === LATE)
-          return (
-            <Table.Cell positive>
-              {status}
-            </Table.Cell>
-          );
+          return <Table.Cell positive>{status}</Table.Cell>;
         else if (status === ABSENT)
-          return (
-            <Table.Cell negative>
-              {status}
-            </Table.Cell>
-          );
+          return <Table.Cell negative>{status}</Table.Cell>;
         else if (status === MC)
-          return (
-            <Table.Cell warning>
-              {status}
-            </Table.Cell>
-          );
+          return <Table.Cell warning>{status}</Table.Cell>;
         else if (status === NOT_AVAILABLE || status === NO_SUCH_STUDENT)
-          return (
-            <Table.Cell warning>
-              {NOT_AVAILABLE}
-            </Table.Cell>
-          );
-      } else
-        return (
-          <Table.Cell warning>
-            Attendance was not mark!
-          </Table.Cell>
-        );
+          return <Table.Cell warning>{NOT_AVAILABLE}</Table.Cell>;
+      } else return <Table.Cell warning>Attendance was not mark!</Table.Cell>;
     };
 
     const renderCalculateAttendancePercentage = attendanceList => {

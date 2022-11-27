@@ -69,7 +69,6 @@ class EditBranch extends React.Component {
 
     return (
       <Form onSubmit={this.onSubmit}>
-
         <Button secondary fluid onClick={() => this.props.onBack()}>
           Back
         </Button>

@@ -35,11 +35,23 @@ class BranchList extends React.Component {
               )}
             </Table.Cell>
             <Table.Cell>
-              Primary {branch.primary ?  <Icon circular color='green' name='check' /> : <Icon circular color='red' name='close' /> }
-              Secondary {branch.secondary ?  <Icon circular color='green' name='check' /> : <Icon circular color='red' name='close' /> }
+              Primary{" "}
+              {branch.primary ? (
+                <Icon circular color="green" name="check" />
+              ) : (
+                <Icon circular color="red" name="close" />
+              )}
+              Secondary{" "}
+              {branch.secondary ? (
+                <Icon circular color="green" name="check" />
+              ) : (
+                <Icon circular color="red" name="close" />
+              )}
             </Table.Cell>
-            <Table.Cell>SGD $ {branch.teacher_payout || 0.00}</Table.Cell>
-            <Table.Cell>SGD $ {branch.parent_volunteer_payout || 0.00}</Table.Cell>
+            <Table.Cell>SGD $ {branch.teacher_payout || 0.0}</Table.Cell>
+            <Table.Cell>
+              SGD $ {branch.parent_volunteer_payout || 0.0}
+            </Table.Cell>
             <Table.Cell textAlign="right">
               <Button
                 icon

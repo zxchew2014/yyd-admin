@@ -6,7 +6,7 @@ import * as action_branches from "../../../actions/branches";
 
 class EditBranchPage extends React.Component {
   onBack = () => {
-    const { history , clearBranch} = this.props;
+    const { history, clearBranch } = this.props;
     clearBranch();
     history.push(`/branch`);
   };
