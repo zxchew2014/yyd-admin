@@ -10,7 +10,6 @@ import { yydASAuth } from "./configs/firebase";
 import registerServiceWorker from "./registerServiceWorker";
 import { userLoggedIn } from "./actions/auth";
 import rootReducer from "./reducers/rootReducer";
-
 import App from "./App";
 import {fetchAdmin} from "./actions/admins";
 

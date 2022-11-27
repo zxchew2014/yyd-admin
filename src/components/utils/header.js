@@ -7,13 +7,13 @@ import { VERSION_DATE, VERSION_NO } from "../../utils/common";
 
 class Header extends React.Component {
   renderLoginButton = () => [
-    <Menu.Menu position="left">
-      <Menu.Item name="version" active="version">
+    <Menu.Menu position="left" key={'menu-login-left'}>
+      <Menu.Item name="version" active>
         Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>
     </Menu.Menu>,
-    <Menu.Menu position="right">
-      <Menu.Item name="login" active="login">
+    <Menu.Menu position="right" key={'menu-login-right'}>
+      <Menu.Item name="login" active>
         <Link to="/">Click to Login</Link>
       </Menu.Item>
     </Menu.Menu>
@@ -21,16 +21,16 @@ class Header extends React.Component {
 
   renderUserData = (logout, user) => [
     <Menu.Menu position="left">
-      <Menu.Item name="version" active="version">
+      <Menu.Item name="version" active key={'menu-user-left'}>
         Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>
     </Menu.Menu>,
-    <Menu.Menu position="right">
+    <Menu.Menu position="right" key={'menu-user-right'}>
       {user !== null ? <Menu.Item name={user.displayName} /> : null}
 
       <Menu.Item
         name="logout"
-        active="logout"
+        active
         onClick={() => {
           logout();
         }}
@@ -41,7 +41,7 @@ class Header extends React.Component {
   render() {
     const { logout, user } = this.props;
     return (
-      <Menu pointing secondary>
+      <Menu pointing secondary key={'main-menu'}>
         {user === null
           ? this.renderLoginButton()
           : this.renderUserData(logout, user)}

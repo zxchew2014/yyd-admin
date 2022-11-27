@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as branches from "../../../actions/branches";
 import { Button, Form, Input } from "semantic-ui-react";
+import { EDUCATION_LEVEL } from "../../../utils/common";
 
 class AddBranch extends React.Component {
   constructor(props) {
@@ -11,7 +12,9 @@ class AddBranch extends React.Component {
       Branch_Name: "",
       teacher_payout: "0",
       parent_volunteer_payout: "0",
-      Active: true
+      Active: true,
+      primary: false,
+      secondary: false
     };
   }
 
@@ -67,10 +70,57 @@ class AddBranch extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   };
 
+  handleCheckboxChange = e => {
+    const { value, checked } = e.target;
+    if (checked) {
+      if (value === "Primary") this.setState({ primary: true });
+      else this.setState({ secondary: true });
+    } else {
+      if (value === "Primary") this.setState({ primary: false });
+      else this.setState({ secondary: false });
+    }
+  };
+
+  getLevelChecked = level => {
+    const { secondary, primary } = this.state;
+    if (level === "Primary") return primary;
+    if (level === "Secondary") return secondary;
+  };
+
   renderAddForm = () => {
-    const { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
+    const {
+      Branch_Name,
+      teacher_payout,
+      parent_volunteer_payout
+    } = this.state;
+
+    const FORM_FIELD_LEVEL = () => (
+      <Form.Field required >
+        <label htmlFor="Level">Level</label>
+        <Form.Group required>{LEVEL_CHECKBOX_FIELDS}</Form.Group>
+      </Form.Field>
+    );
+
+    const LEVEL_CHECKBOX_FIELDS = EDUCATION_LEVEL.map(level => (
+      <Form.Field
+        key={level}
+        label={level}
+        control="input"
+        type="checkbox"
+        name={level}
+        value={level}
+        checked={this.getLevelChecked(level)}
+        onChange={this.handleCheckboxChange}
+      />
+    ));
+
     return (
       <Form onSubmit={this.onSubmit}>
+        <Button secondary fluid onClick={() => this.props.onNext()}>
+          Back
+        </Button>
+        <hr />
+
         <Form.Field
           id="form-input-control-branch-name"
           control={Input}
@@ -81,6 +131,7 @@ class AddBranch extends React.Component {
           onChange={this.handleInputChange}
           required
         />
+        {FORM_FIELD_LEVEL()}
 
         <Form.Field
           id="form-input-control-branch-payout"
@@ -108,7 +159,7 @@ class AddBranch extends React.Component {
           onChange={this.handleInputChange}
         />
 
-        <Button type="submit" primary>
+        <Button type="submit" fluid primary>
           Add Branch
         </Button>
       </Form>

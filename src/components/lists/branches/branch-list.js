@@ -34,8 +34,12 @@ class BranchList extends React.Component {
                 </Label>
               )}
             </Table.Cell>
-            <Table.Cell>SGD $ {branch.teacher_payout}</Table.Cell>
-            <Table.Cell>SGD $ {branch.parent_volunteer_payout}</Table.Cell>
+            <Table.Cell>
+              Primary {branch.primary ?  <Icon circular color='green' name='check' /> : <Icon circular color='red' name='close' /> }
+              Secondary {branch.secondary ?  <Icon circular color='green' name='check' /> : <Icon circular color='red' name='close' /> }
+            </Table.Cell>
+            <Table.Cell>SGD $ {branch.teacher_payout || 0.00}</Table.Cell>
+            <Table.Cell>SGD $ {branch.parent_volunteer_payout || 0.00}</Table.Cell>
             <Table.Cell textAlign="right">
               <Button
                 icon
@@ -44,7 +48,7 @@ class BranchList extends React.Component {
                 color="green"
                 onClick={() => this.props.onEdit(branch)}
               >
-                <Icon name="edit" /> Edit Branch
+                <Icon name="edit" /> Edit
               </Button>
 
               {active ? (
@@ -53,7 +57,7 @@ class BranchList extends React.Component {
                   icon
                   labelPosition="left"
                   size="small"
-                  color="red"
+                  color="orange"
                   onClick={() => this.props.onSetNotActive(branch)}
                 >
                   <Icon name="unlink" />
@@ -66,7 +70,7 @@ class BranchList extends React.Component {
                     icon
                     labelPosition="left"
                     size="small"
-                    color="green"
+                    color="teal"
                     onClick={() => this.props.onSetActive(branch)}
                   >
                     <Icon name="linkify" /> Set to Active
@@ -80,7 +84,7 @@ class BranchList extends React.Component {
                     onClick={() => this.props.onDelete(branch)}
                   >
                     <Icon name="trash" />
-                    Remove Branch
+                    Remove
                   </Button>
                 ]
               )}
@@ -92,10 +96,11 @@ class BranchList extends React.Component {
 
     return (
       <div className="branch-list-container">
-        <Table basic="very" striped unstackable>
+        <Table basic="very" striped celled unstackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
+              <Table.HeaderCell>Level</Table.HeaderCell>
               <Table.HeaderCell>Teacher Payout</Table.HeaderCell>
               <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>
               <Table.HeaderCell>

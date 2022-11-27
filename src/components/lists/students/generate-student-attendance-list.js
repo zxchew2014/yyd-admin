@@ -65,9 +65,7 @@ class GenerateStudentAttendanceList extends React.Component {
   render() {
     const { attendanceStudents } = this.props;
 
-    const renderHeaderRow = foundationCheck => {
-      const colSpan = foundationCheck ? "1" : "2";
-
+    const renderHeaderRow = () => {
       return [
         <Table.Header fullWidth>
           <Table.Row textAlign="center">
@@ -76,14 +74,14 @@ class GenerateStudentAttendanceList extends React.Component {
             <Table.HeaderCell>Teacher Name</Table.HeaderCell>
             <Table.HeaderCell>Student Name</Table.HeaderCell>
             <Table.HeaderCell>Primary</Table.HeaderCell>
-            {foundationCheck && <Table.HeaderCell>Foundation</Table.HeaderCell>}
-            <Table.HeaderCell colSpan={colSpan}>Status</Table.HeaderCell>
+            <Table.HeaderCell>Foundation</Table.HeaderCell>
+            <Table.HeaderCell>Status</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
       ];
     };
 
-    const renderAttendanceRows = (attendanceList, foundationCheck) =>
+    const renderAttendanceRows = (attendanceList) =>
       attendanceList.map(attendance => (
         <Table.Row
           textAlign="center"
@@ -99,42 +97,41 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.teacherName}</Table.Cell>
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
-          {foundationCheck && <Table.Cell>{attendance.foundation}</Table.Cell>}
-          {renderStatusCell(attendance.checkOutStatus, foundationCheck)}
+          <Table.Cell>{attendance.foundation}</Table.Cell>
+          {renderStatusCell(attendance.checkOutStatus)}
         </Table.Row>
       ));
 
-    const renderStatusCell = (status, foundationCheck) => {
-      const colSpan = foundationCheck ? "1" : "2";
+    const renderStatusCell = (status) => {
 
       if (status && status != "") {
         if (status === PRESENT || status === LATE)
           return (
-            <Table.Cell positive colSpan={colSpan}>
+            <Table.Cell positive>
               {status}
             </Table.Cell>
           );
         else if (status === ABSENT)
           return (
-            <Table.Cell negative colSpan={colSpan}>
+            <Table.Cell negative>
               {status}
             </Table.Cell>
           );
         else if (status === MC)
           return (
-            <Table.Cell warning colSpan={colSpan}>
+            <Table.Cell warning>
               {status}
             </Table.Cell>
           );
         else if (status === NOT_AVAILABLE || status === NO_SUCH_STUDENT)
           return (
-            <Table.Cell warning colSpan={colSpan}>
+            <Table.Cell warning>
               {NOT_AVAILABLE}
             </Table.Cell>
           );
       } else
         return (
-          <Table.Cell warning colSpan={colSpan}>
+          <Table.Cell warning>
             Attendance was not mark!
           </Table.Cell>
         );
@@ -189,15 +186,11 @@ class GenerateStudentAttendanceList extends React.Component {
         >
           {attendanceStudents.map(studentAttendance => {
             const attendanceList = studentAttendance[1];
-            const foundationCheck =
-              attendanceList[0].foundation && attendanceList[0].foundation != ""
-                ? true
-                : false;
 
             return [
-              renderHeaderRow(foundationCheck),
+              renderHeaderRow(),
               <Table.Body>
-                {renderAttendanceRows(attendanceList, foundationCheck)}
+                {renderAttendanceRows(attendanceList)}
                 {renderCalculateAttendancePercentage(attendanceList)}
               </Table.Body>
             ];

@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Icon, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import connect from "react-redux/es/connect/connect";
+import { connect } from "react-redux";
 import * as STUDENTS from "../../../actions/students";
 import { BATCH_1, BATCH_2, BRANCH_PUNGGOL } from "../../../utils/common";
 
@@ -28,7 +28,7 @@ class StudentList extends React.Component {
     let counter = 0;
 
     const renderHeaderRow = () => (
-      <Table.Row key="student-list_header">
+      <Table.Row key="student-list_header-all">
         <Table.HeaderCell>S/N</Table.HeaderCell>
         <Table.HeaderCell>Name</Table.HeaderCell>
         <Table.HeaderCell>Primary</Table.HeaderCell>
