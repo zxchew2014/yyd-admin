@@ -72,7 +72,7 @@ class EditStudent extends React.Component {
     const { Primary } = this.state;
 
     if (name === "level") {
-      const {fetchBranchList} = this.props;
+      const { fetchBranchList } = this.props;
       fetchBranchList(value);
       if (value === "Primary") {
         delete this.state.Secondary;
@@ -213,7 +213,7 @@ class EditStudent extends React.Component {
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { Branch, level} = this.state;
+    const { Branch, level } = this.state;
 
     const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
@@ -345,4 +345,4 @@ EditStudent.propTypes = {
 
 const mapStateToProps = ({ branches, student }) => ({ branches, student });
 
-export default connect(mapStateToProps, (students,action_branch))(EditStudent);
+export default connect(mapStateToProps, (students, action_branch))(EditStudent);

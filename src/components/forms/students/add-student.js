@@ -65,7 +65,7 @@ class AddStudentForm extends React.Component {
   handleInputChange = event => {
     const { name, value } = event.target;
     if (name === "level") {
-      const {fetchBranchList} = this.props;
+      const { fetchBranchList } = this.props;
       fetchBranchList(value);
 
       if (value === "Primary") {
@@ -179,7 +179,7 @@ class AddStudentForm extends React.Component {
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { Branch, level} = this.state;
+    const { Branch, level } = this.state;
 
     const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
@@ -341,4 +341,7 @@ AddStudentForm.propTypes = {
 
 const mapStateToProps = ({ branches }) => ({ branches });
 
-export default connect(mapStateToProps, (students,action_branch))(AddStudentForm);
+export default connect(
+  mapStateToProps,
+  (students, action_branch)
+)(AddStudentForm);
