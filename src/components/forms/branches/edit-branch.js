@@ -27,6 +27,7 @@ class EditBranch extends React.Component {
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
   handleCheckboxChange = e => {
     const { value, checked } = e.target;
     if (checked) {

@@ -1,5 +1,5 @@
-export const VERSION_DATE = "27 Nov 2022";
-export const VERSION_NO = "V3.0";
+export const VERSION_DATE = "28 Nov 2022";
+export const VERSION_NO = "V3.1";
 
 export const YYD_EDUCATION_CENTRE = "YYD Education Centre";
 export const TEACHER_ATTENDANCE_REPORT = "Teacher Attendance Report";
@@ -27,6 +27,9 @@ export const FOUNDATION_SUBJECT = ["English", "Math", "English & Math"];
 export const ALL_BATCH = [BATCH_1, BATCH_2];
 
 export const EDUCATION_LEVEL = ["Primary", "Secondary"];
+
+export const ALL_SECONDARY_LEVEL = ["1", "2", "3", "4", "5"];
+export const SECONDARY_SUBJECT = ["English", "Math", "Science"];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";
 export const DATEFORMAT_DAY_MMM_DD_YYYY = "ddd MMM DD YYYY";

@@ -14,7 +14,8 @@ import {
   BRANCH_PUNGGOL,
   ENDATE_ERROR_MESSAGE,
   STARTDATE_ERROR_MESSAGE,
-  ALL_BATCH
+  ALL_BATCH,
+  EDUCATION_LEVEL
 } from "../../../utils/common";
 import _ from "lodash";
 
@@ -28,10 +29,17 @@ class RetrieveStudentAttendanceForm extends React.Component {
         .format(DATEFORMAT_DAY_MMM_DD_YYYY),
       endDate: new Date().toDateString(),
       branch: "",
-      batch: ""
+      batch: "",
+      level: "Primary"
     },
     errors: {}
   };
+
+  UNSAFE_componentWillMount() {
+    const { fetchBranchList } = this.props;
+    const { level } = this.state;
+    fetchBranchList(level);
+  }
 
   onChangeDate = event => {
     this.setState({
@@ -79,9 +87,18 @@ class RetrieveStudentAttendanceForm extends React.Component {
     return errors;
   };
 
+  handleRadioInputChange = event => {
+    const { fetchBranchList } = this.props;
+    const { data } = this.state;
+    fetchBranchList(event.target.value);
+    this.setState({
+      data: { ...data, [event.target.name]: event.target.value }
+    });
+  };
+
   render() {
     const { errors, data } = this.state;
-    const { branch, batch, endDate, startDate } = data;
+    const { branch, batch, endDate, startDate, level } = data;
     const { branches } = this.props;
 
     const BRANCH_OPTIONS = Object.keys(branches).map(key => {
@@ -150,8 +167,29 @@ class RetrieveStudentAttendanceForm extends React.Component {
       </Form.Field>
     );
 
+    const FORM_FIELD_LEVEL = () => (
+      <Form.Field required>
+        <label htmlFor="Level">Level</label>
+        <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
+      </Form.Field>
+    );
+
+    const LEVEL_RADIOBOX_FIELDS = EDUCATION_LEVEL.map(l => (
+      <Form.Field
+        key={l}
+        label={l}
+        control="input"
+        type="radio"
+        name="level"
+        value={l}
+        checked={level === l}
+        onChange={this.handleRadioInputChange}
+      />
+    ));
+
     return [
       <Form onSubmit={this.onSubmit}>
+        {FORM_FIELD_LEVEL()}
         {FORM_FIELD_BRANCH()}
         {FORM_FIELD_START_DATE()}
         {FORM_FIELD_END_DATE()}

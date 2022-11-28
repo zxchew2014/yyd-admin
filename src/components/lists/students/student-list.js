@@ -7,34 +7,44 @@ import { BATCH_1, BATCH_2, BRANCH_PUNGGOL } from "../../../utils/common";
 
 class StudentList extends React.Component {
   componentDidMount() {
-    const { branch, batch, fetchStudentsByBranch } = this.props;
+    const { branch, batch, level, fetchStudentsByBranch } = this.props;
     if (branch !== "") {
-      fetchStudentsByBranch(branch, batch);
+      fetchStudentsByBranch(branch, batch, level);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { branch, batch, fetchStudentsByBranch } = this.props;
-    if (prevProps.branch !== branch) {
-      fetchStudentsByBranch(branch, batch);
-    } else if (prevProps.batch !== batch) {
-      fetchStudentsByBranch(branch, batch);
+    const { branch, batch, level, fetchStudentsByBranch } = this.props;
+    if (
+      prevProps.branch !== branch ||
+      prevProps.batch !== batch ||
+      prevProps.level !== level
+    ) {
+
+      if (branch !== "") {
+        fetchStudentsByBranch(branch, batch, level);
+      }
     }
   }
 
   render() {
-    const { branch, batch, btnDisable = false } = this.props;
-
+    const { branch, batch, level, btnDisable = false } = this.props;
     let counter = 0;
 
     const renderHeaderRow = () => (
       <Table.Row key="student-list_header-all">
-        <Table.HeaderCell>S/N</Table.HeaderCell>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Primary</Table.HeaderCell>
-        <Table.HeaderCell>Foundation</Table.HeaderCell>
-        <Table.HeaderCell>Branch</Table.HeaderCell>
-        <Table.HeaderCell>Batch</Table.HeaderCell>
+        <Table.HeaderCell textAlign="center">S/N</Table.HeaderCell>
+        <Table.HeaderCell textAlign="center">Name</Table.HeaderCell>
+        {level === "Primary" && [
+          <Table.HeaderCell textAlign="center">Primary</Table.HeaderCell>,
+          <Table.HeaderCell textAlign="center">Foundation</Table.HeaderCell>
+        ]}
+        {level === "Secondary" && [
+          <Table.HeaderCell textAlign="center">Secondary</Table.HeaderCell>,
+          <Table.HeaderCell textAlign="center">Subject</Table.HeaderCell>
+        ]}
+        <Table.HeaderCell textAlign="center">Branch</Table.HeaderCell>
+        {batch && <Table.HeaderCell>Batch</Table.HeaderCell>}
         {btnDisable ? null : (
           <Table.HeaderCell textAlign="right">
             <Button
@@ -44,7 +54,7 @@ class StudentList extends React.Component {
               color="green"
               onClick={() => this.props.onCreate()}
             >
-              <Icon name="add user" /> Add Student
+              <Icon name="add user" /> Add Student / Alumni
             </Button>
           </Table.HeaderCell>
         )}
@@ -68,12 +78,44 @@ class StudentList extends React.Component {
     const renderStudentRow = (student, branchKey, studentKey) => {
       return (
         <Table.Row key={`${branchKey}-${studentKey}`}>
-          <Table.Cell>{(counter += 1)}.</Table.Cell>
-          <Table.Cell>{student.Name}</Table.Cell>
-          <Table.Cell>Primary {student.Primary}</Table.Cell>
-          <Table.Cell> {student.Foundation}</Table.Cell>
-          <Table.Cell>{student.Branch}</Table.Cell>
-          <Table.Cell>{student.Batch}</Table.Cell>
+          <Table.Cell textAlign="center">{(counter += 1)}.</Table.Cell>
+          <Table.Cell textAlign="center">{student.Name}</Table.Cell>
+          {level === "Primary" && [
+            <Table.Cell textAlign="center">
+              Primary {student.Primary}
+            </Table.Cell>,
+            <Table.Cell textAlign="center">{student.Foundation}</Table.Cell>
+          ]}
+          {level === "Secondary" && [
+            <Table.Cell textAlign="center">
+              Secondary {student.Secondary}
+            </Table.Cell>,
+            <Table.Cell textAlign="center">
+              English{" "}
+              {student.english ? (
+                <Icon circular color="green" name="check" />
+              ) : (
+                <Icon circular color="red" name="close" />
+              )}
+              <br />
+              Math{" "}
+              {student.math ? (
+                <Icon circular color="green" name="check" />
+              ) : (
+                <Icon circular color="red" name="close" />
+              )}
+              <br />
+              Science{" "}
+              {student.science ? (
+                <Icon circular color="green" name="check" />
+              ) : (
+                <Icon circular color="red" name="close" />
+              )}
+              <br />
+            </Table.Cell>
+          ]}
+          <Table.Cell textAlign="center">{student.Branch}</Table.Cell>
+          {batch && <Table.Cell textAlign="center">{student.Batch}</Table.Cell>}
           {btnDisable ? null : (
             <Table.Cell textAlign="right">
               <Button
@@ -83,7 +125,7 @@ class StudentList extends React.Component {
                 color="green"
                 onClick={() => this.props.onEdit(student)}
               >
-                <Icon name="edit" /> Edit Student
+                <Icon name="edit" />Edit
               </Button>
               <Button
                 icon
@@ -92,7 +134,7 @@ class StudentList extends React.Component {
                 color="red"
                 onClick={() => this.props.onDelete(student)}
               >
-                <Icon name="user delete" /> Remove Student
+                <Icon name="user delete" />Remove
               </Button>
             </Table.Cell>
           )}
@@ -103,7 +145,7 @@ class StudentList extends React.Component {
     const renderStudentsByBranch = branchName => {
       const { students } = this.props;
       return (
-        <Table striped stackable key="student-by-branch">
+        <Table striped celled stackable key="student-by-branch">
           <Table.Header fullWidth>{renderHeaderRow(branchName)}</Table.Header>
           {students !== null && (
             <Table.Body>{renderStudentRows(students, branchName)}</Table.Body>
@@ -115,7 +157,7 @@ class StudentList extends React.Component {
     const renderStudentsByBranchBatch = branchName => {
       const { students } = this.props;
       return (
-        <Table striped stackable key="student-by-branch-batch">
+        <Table striped celled stackable key="student-by-branch-batch">
           <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
           {students !== null && (
             <Table.Body>
@@ -144,7 +186,7 @@ class StudentList extends React.Component {
         color="green"
         onClick={() => this.props.onCreate()}
       >
-        <Icon name="add user" /> Add Student
+        <Icon name="add user" /> Add Student / Alumni
       </Button>
     ];
   }
@@ -156,6 +198,7 @@ StudentList.propTypes = {
   onCreate: PropTypes.func,
   branch: PropTypes.string,
   batch: PropTypes.string,
+  level: PropTypes.string,
   btnDisable: PropTypes.bool
 };
 

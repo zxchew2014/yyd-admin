@@ -20,8 +20,8 @@ class Header extends React.Component {
   ];
 
   renderUserData = (logout, user) => [
-    <Menu.Menu position="left">
-      <Menu.Item name="version" active key={"menu-user-left"}>
+    <Menu.Menu position="left" key={"menu-user-left"}>
+      <Menu.Item name="version" active>
         Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>
     </Menu.Menu>,
