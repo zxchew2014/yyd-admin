@@ -61,7 +61,7 @@ class StudentAttendancePage extends React.Component {
   }
 }
 
-const mapStateToProps = ({ attendanceStudents,branches }) => ({
+const mapStateToProps = ({ attendanceStudents, branches }) => ({
   attendanceStudents
 });
 

@@ -67,7 +67,11 @@ export const removeStudentsByBranch = branch => async dispatch => {
       })
     );
 };
-export const fetchStudentsByBranch = (branch, batch, level = "Primary") => async dispatch => {
+export const fetchStudentsByBranch = (
+  branch,
+  batch,
+  level = "Primary"
+) => async dispatch => {
   const studentByBranchRef = yydASDb
     .ref(`${URL_STUDENTS}/${branch}`)
     .orderByChild("Name");
@@ -83,36 +87,36 @@ export const fetchStudentsByBranch = (branch, batch, level = "Primary") => async
       const newStudentList = [];
       Object.keys(studentList).forEach(key => {
         const student = studentList[key];
-        if(!student.level && (level === "Primary" || student.level === level)){
+        if (
+          !student.level &&
+          (level === "Primary" || student.level === level)
+        ) {
           student.Id = key;
           newStudentList.push(student);
-        }
-        else if(student.level === level){
+        } else if (student.level === level) {
           student.Id = key;
           newStudentList.push(student);
         }
       });
 
-      if(level === "Primary"){
+      if (level === "Primary") {
         newStudentList.sort((a, b) => {
           //console.log(a, b, b.Name);
           return (
-              parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
-              a.Name.localeCompare(b.Name)
-
+            parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
+            a.Name.localeCompare(b.Name)
           );
         });
       }
-      if(level === "Secondary") { // For secondary students
+      if (level === "Secondary") {
+        // For secondary students
         newStudentList.sort((a, b) => {
           return (
-              parseInt(a.Secondary, 10) - parseInt(b.Secondary, 10) ||
-              a.Name.localeCompare(b.Name)
+            parseInt(a.Secondary, 10) - parseInt(b.Secondary, 10) ||
+            a.Name.localeCompare(b.Name)
           );
         });
       }
-
-
 
       dispatch({
         type: FETCH_STUDENTS_BY_BRANCH,

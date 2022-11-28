@@ -3,7 +3,7 @@ import { Form } from "semantic-ui-react";
 import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
 import StudentList from "./student-list";
-import {ALL_BATCH, EDUCATION_LEVEL} from "../../../utils/common";
+import { ALL_BATCH, EDUCATION_LEVEL } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
 import _ from "lodash";
@@ -87,27 +87,25 @@ class ViewStudentList extends React.Component {
       </Form.Field>
     );
 
-
     const FORM_FIELD_LEVEL = () => (
-        <Form.Field required>
-          <label htmlFor="Level">Level</label>
-          <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
-        </Form.Field>
+      <Form.Field required>
+        <label htmlFor="Level">Level</label>
+        <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
+      </Form.Field>
     );
 
     const LEVEL_RADIOBOX_FIELDS = EDUCATION_LEVEL.map(l => (
-        <Form.Field
-            key={l}
-            label={l}
-            control="input"
-            type="radio"
-            name="level"
-            value={l}
-            checked={level === l}
-            onChange={this.handleRadioInputChange}
-        />
+      <Form.Field
+        key={l}
+        label={l}
+        control="input"
+        type="radio"
+        name="level"
+        value={l}
+        checked={level === l}
+        onChange={this.handleRadioInputChange}
+      />
     ));
-
 
     return (
       <Form>

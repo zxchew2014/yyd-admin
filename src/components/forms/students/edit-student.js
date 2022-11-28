@@ -30,11 +30,11 @@ class EditStudent extends React.Component {
     if (this.state.errors) delete this.state.errors;
 
     if (level === "Secondary") {
-      if( english || math || science){
+      if (english || math || science) {
         updateStudent(this.state);
         this.props.onBack();
-      }
-      else{ // No Subject is selected
+      } else {
+        // No Subject is selected
         errors.subject = "At least 1 subject need to be select";
         this.setState({ errors });
       }
@@ -42,12 +42,11 @@ class EditStudent extends React.Component {
       updateStudent(this.state);
       this.props.onBack();
     }
-
-  }
+  };
   onSubmit = event => {
     const { updateStudent, removeStudent, addStudent, student } = this.props;
     event.preventDefault();
-    const { Batch , english ,math , level, science, errors} = this.state;
+    const { Batch, english, math, level, science, errors } = this.state;
 
     if (Batch === "") {
       delete this.state.Batch;
@@ -77,8 +76,7 @@ class EditStudent extends React.Component {
         delete this.state.english;
         delete this.state.math;
         delete this.state.science;
-        if(!Primary)  this.setState({ Primary: "" })
-
+        if (!Primary) this.setState({ Primary: "" });
       } else {
         this.setState({
           Secondary: "",

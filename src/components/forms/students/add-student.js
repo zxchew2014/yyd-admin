@@ -29,7 +29,15 @@ class AddStudentForm extends React.Component {
   onSubmit = event => {
     const { addStudent } = this.props;
     event.preventDefault();
-    const { Batch, Foundation, level, english, math, science, errors } = this.state;
+    const {
+      Batch,
+      Foundation,
+      level,
+      english,
+      math,
+      science,
+      errors
+    } = this.state;
     if (Batch === "") {
       delete this.state.Batch;
     }
@@ -37,16 +45,16 @@ class AddStudentForm extends React.Component {
       delete this.state.Foundation;
     }
 
-    if(this.state.errors) delete this.state.errors;
+    if (this.state.errors) delete this.state.errors;
     if (level === "Secondary") {
-        if( english || math || science){
-          addStudent(this.state);
-          this.props.onNext();
-        }
-        else{ // No Subject is selected
-           errors.subject = "At least 1 subject need to be select";
-          this.setState({  errors });
-        }
+      if (english || math || science) {
+        addStudent(this.state);
+        this.props.onNext();
+      } else {
+        // No Subject is selected
+        errors.subject = "At least 1 subject need to be select";
+        this.setState({ errors });
+      }
     } else {
       addStudent(this.state);
       this.props.onNext();

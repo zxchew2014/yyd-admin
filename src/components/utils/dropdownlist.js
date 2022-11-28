@@ -8,18 +8,17 @@ export const DDL_BRANCH_OPTIONS = (branches, level = "Primary") => {
     const primary = branch.primary;
     const secondary = branch.secondary;
     if (active) {
-      if(level === "Primary" && primary){
+      if (level === "Primary" && primary) {
         return (
-            <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
-              {branch.Branch_Name}
-            </option>
+          <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
+            {branch.Branch_Name}
+          </option>
         );
-      }
-      else if(level === "Secondary" && secondary){
+      } else if (level === "Secondary" && secondary) {
         return (
-            <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
-              {branch.Branch_Name}
-            </option>
+          <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
+            {branch.Branch_Name}
+          </option>
         );
       }
     }

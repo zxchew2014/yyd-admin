@@ -96,13 +96,11 @@ export const fetchBranchList = (level = "Primary") => async dispatch => {
     const sortList = [];
 
     Object.keys(branches).forEach(key => {
-      if(level === "Primary" && branches[key].primary){
+      if (level === "Primary" && branches[key].primary) {
+        sortList.push(branches[key]);
+      } else if (level === "Secondary" && branches[key].secondary) {
         sortList.push(branches[key]);
       }
-      else if (level === "Secondary" && branches[key].secondary){
-        sortList.push(branches[key]);
-      }
-
     });
 
     sortList.sort((a, b) => {

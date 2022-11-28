@@ -20,7 +20,6 @@ class StudentList extends React.Component {
       prevProps.batch !== batch ||
       prevProps.level !== level
     ) {
-
       if (branch !== "") {
         fetchStudentsByBranch(branch, batch, level);
       }
@@ -125,7 +124,8 @@ class StudentList extends React.Component {
                 color="green"
                 onClick={() => this.props.onEdit(student)}
               >
-                <Icon name="edit" />Edit
+                <Icon name="edit" />
+                Edit
               </Button>
               <Button
                 icon
@@ -134,7 +134,8 @@ class StudentList extends React.Component {
                 color="red"
                 onClick={() => this.props.onDelete(student)}
               >
-                <Icon name="user delete" />Remove
+                <Icon name="user delete" />
+                Remove
               </Button>
             </Table.Cell>
           )}
