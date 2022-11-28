@@ -13,7 +13,6 @@ import {
 } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
-import * as action_branch from "../../../actions/branches";
 
 class AddStudentForm extends React.Component {
   constructor(props) {
@@ -341,7 +340,4 @@ AddStudentForm.propTypes = {
 
 const mapStateToProps = ({ branches }) => ({ branches });
 
-export default connect(
-  mapStateToProps,
-  (students, action_branch)
-)(AddStudentForm);
+export default connect(mapStateToProps, students)(AddStudentForm);

@@ -1,8 +1,8 @@
-import { studentsRef, yydASDb } from "../configs/firebase";
+import {branchesRef, studentsRef, yydASDb} from "../configs/firebase";
 import {
   FETCH_STUDENTS_BY_BRANCH,
   FETCH_STUDENT,
-  REMOVE_STUDENTS_BY_BRANCH
+  REMOVE_STUDENTS_BY_BRANCH, FETCH_BRANCHES
 } from "./types";
 import { VALUE_KEY, URL_STUDENTS, BRANCH_PUNGGOL } from "../utils/common";
 import { getBranch } from "./branches";
@@ -134,6 +134,34 @@ export const fetchStudent = student => async dispatch => {
     dispatch({
       type: FETCH_STUDENT,
       student: data.val()
+    });
+  });
+};
+
+
+export const fetchBranchList = (level = "Primary") => async dispatch => {
+  branchesRef.orderByValue().on(VALUE_KEY, data => {
+    const branches = data.val();
+    const sortList = [];
+
+    Object.keys(branches).forEach(key => {
+      if (level === "Primary" && branches[key].primary) {
+        sortList.push(branches[key]);
+      } else if (level === "Secondary" && branches[key].secondary) {
+        sortList.push(branches[key]);
+      }
+    });
+
+    sortList.sort((a, b) => {
+      return (
+          Number(b.Active) - Number(a.Active) ||
+          a.Branch_Name.localeCompare(b.Branch_Name)
+      );
+    });
+
+    dispatch({
+      type: FETCH_BRANCHES,
+      branches: sortList
     });
   });
 };

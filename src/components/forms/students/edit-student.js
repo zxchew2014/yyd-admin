@@ -26,7 +26,7 @@ class EditStudent extends React.Component {
   }
 
   updateStudentCheck = () => {
-    const { updateStudent, student } = this.props;
+    const { updateStudent } = this.props;
     const { english, math, level, science, errors } = this.state;
     if (this.state.errors) delete this.state.errors;
 
@@ -345,4 +345,4 @@ EditStudent.propTypes = {
 
 const mapStateToProps = ({ branches, student }) => ({ branches, student });
 
-export default connect(mapStateToProps, (students, action_branch))(EditStudent);
+export default connect(mapStateToProps, students)(EditStudent);
