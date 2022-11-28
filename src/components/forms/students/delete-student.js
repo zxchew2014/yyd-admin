@@ -20,7 +20,6 @@ class RemoveStudent extends React.Component {
       english: student.english,
       math: student.math,
       science: student.science
-      ,
     };
   }
 
@@ -37,7 +36,18 @@ class RemoveStudent extends React.Component {
   };
 
   renderRemoveForm = () => {
-    const { Name, Primary, Branch, Batch, Foundation, Secondary, english, math, science, level } = this.state;
+    const {
+      Name,
+      Primary,
+      Branch,
+      Batch,
+      Foundation,
+      Secondary,
+      english,
+      math,
+      science,
+      level
+    } = this.state;
     return [
       <Message warning key="student-remove-message">
         <Message.Header>Are you sure??</Message.Header>
@@ -51,7 +61,7 @@ class RemoveStudent extends React.Component {
             <Table.Cell>{Name || ""}</Table.Cell>
           </Table.Row>
 
-          { level === "Primary" && [
+          {level === "Primary" && [
             <Table.Row>
               <Table.Cell>Primary</Table.Cell>
               <Table.Cell>{Primary || ""}</Table.Cell>
@@ -62,7 +72,7 @@ class RemoveStudent extends React.Component {
             </Table.Row>
           ]}
 
-          { level === "Secondary" && [
+          {level === "Secondary" && [
             <Table.Row>
               <Table.Cell>Secondary</Table.Cell>
               <Table.Cell>{Secondary || ""}</Table.Cell>
@@ -70,13 +80,12 @@ class RemoveStudent extends React.Component {
             <Table.Row>
               <Table.Cell>Subjects</Table.Cell>
               <Table.Cell>
-                {english && ["English",<br/>]}
-                {math && ["Math",<br/>]}
+                {english && ["English", <br />]}
+                {math && ["Math", <br />]}
                 {science && "Science"}
               </Table.Cell>
             </Table.Row>
           ]}
-
 
           <Table.Row>
             <Table.Cell>Branch</Table.Cell>
