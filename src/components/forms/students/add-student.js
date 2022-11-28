@@ -13,6 +13,7 @@ import {
 } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
+import * as action_branch from "../../../actions/branches";
 
 class AddStudentForm extends React.Component {
   constructor(props) {
@@ -64,6 +65,9 @@ class AddStudentForm extends React.Component {
   handleInputChange = event => {
     const { name, value } = event.target;
     if (name === "level") {
+      const {fetchBranchList} = this.props;
+      fetchBranchList(value);
+
       if (value === "Primary") {
         delete this.state.Secondary;
         delete this.state.english;
@@ -173,9 +177,9 @@ class AddStudentForm extends React.Component {
     return FORM_FIELD_SECONDARY();
   }
 
-  renderBranchDropDownList(level) {
+  renderBranchDropDownList() {
     const { branches } = this.props;
-    const { Branch } = this.state;
+    const { Branch, level} = this.state;
 
     const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
@@ -306,7 +310,7 @@ class AddStudentForm extends React.Component {
           required
         />
         {FORM_FIELD_LEVEL()}
-        {this.renderBranchDropDownList(level)}
+        {this.renderBranchDropDownList()}
         {this.renderBatchDropDownList()}
         {level === "Primary" && [
           this.renderPrimaryDropDownList(),
@@ -322,7 +326,6 @@ class AddStudentForm extends React.Component {
           {level === "Primary" && "Add Student"}
           {level === "Secondary" && "Add Alumni (Secondary)"}
         </Button>
-        {JSON.stringify(this.state)}
       </Form>
     );
   };
@@ -338,4 +341,4 @@ AddStudentForm.propTypes = {
 
 const mapStateToProps = ({ branches }) => ({ branches });
 
-export default connect(mapStateToProps, students)(AddStudentForm);
+export default connect(mapStateToProps, (students,action_branch))(AddStudentForm);

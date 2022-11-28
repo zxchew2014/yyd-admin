@@ -13,6 +13,7 @@ import {
 } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
+import * as action_branch from "../../../actions/branches";
 
 class EditStudent extends React.Component {
   constructor(props) {
@@ -44,9 +45,9 @@ class EditStudent extends React.Component {
     }
   };
   onSubmit = event => {
-    const { updateStudent, removeStudent, addStudent, student } = this.props;
+    const { removeStudent, addStudent, student } = this.props;
     event.preventDefault();
-    const { Batch, english, math, level, science, errors } = this.state;
+    const { Batch } = this.state;
 
     if (Batch === "") {
       delete this.state.Batch;
@@ -71,6 +72,8 @@ class EditStudent extends React.Component {
     const { Primary } = this.state;
 
     if (name === "level") {
+      const {fetchBranchList} = this.props;
+      fetchBranchList(value);
       if (value === "Primary") {
         delete this.state.Secondary;
         delete this.state.english;
@@ -210,9 +213,9 @@ class EditStudent extends React.Component {
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { Branch } = this.state;
+    const { Branch, level} = this.state;
 
-    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field required>
@@ -327,7 +330,6 @@ class EditStudent extends React.Component {
         <Button type="submit" primary>
           {level === "Primary" || Primary ? " Update Student" : "Update Alumni"}
         </Button>
-        {JSON.stringify(this.state)}
       </Form>
     );
   };
@@ -343,4 +345,4 @@ EditStudent.propTypes = {
 
 const mapStateToProps = ({ branches, student }) => ({ branches, student });
 
-export default connect(mapStateToProps, students)(EditStudent);
+export default connect(mapStateToProps, (students,action_branch))(EditStudent);

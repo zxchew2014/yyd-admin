@@ -14,7 +14,8 @@ export const DDL_BRANCH_OPTIONS = (branches, level = "Primary") => {
             {branch.Branch_Name}
           </option>
         );
-      } else if (level === "Secondary" && secondary) {
+      }
+      if (level === "Secondary" && secondary) {
         return (
           <option key={branch.Branch_Name} defaultValue={branch.Branch_Name}>
             {branch.Branch_Name}
