@@ -3,7 +3,8 @@ import { Table, Icon, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as STUDENTS from "../../../actions/students";
-import { BATCH_1, BATCH_2, BRANCH_PUNGGOL } from "../../../utils/common";
+import { BATCH_1, BATCH_2 } from "../../../utils/common";
+import StudentSubjectList from "../subjectList";
 
 class StudentList extends React.Component {
   componentDidMount() {
@@ -47,14 +48,14 @@ class StudentList extends React.Component {
         {btnDisable ? null : (
           <Table.HeaderCell textAlign="right">
             <Button
-              icon
+              fluid
+              icon="add user"
               labelPosition="left"
               size="small"
               color="green"
+              content="Add Student / Alumni"
               onClick={() => this.props.onCreate()}
-            >
-              <Icon name="add user" /> Add Student / Alumni
-            </Button>
+            />
           </Table.HeaderCell>
         )}
       </Table.Row>
@@ -78,7 +79,7 @@ class StudentList extends React.Component {
       return (
         <Table.Row key={`${branchKey}-${studentKey}`}>
           <Table.Cell textAlign="center">{(counter += 1)}.</Table.Cell>
-          <Table.Cell textAlign="center">{student.Name}</Table.Cell>
+          <Table.Cell textAlign="left">{student.Name}</Table.Cell>
           {level === "Primary" && [
             <Table.Cell textAlign="center">
               Primary {student.Primary}
@@ -90,53 +91,32 @@ class StudentList extends React.Component {
               Secondary {student.Secondary}
             </Table.Cell>,
             <Table.Cell textAlign="center">
-              English{" "}
-              {student.english ? (
-                <Icon circular color="green" name="check" />
-              ) : (
-                <Icon circular color="red" name="close" />
-              )}
-              <br />
-              Math{" "}
-              {student.math ? (
-                <Icon circular color="green" name="check" />
-              ) : (
-                <Icon circular color="red" name="close" />
-              )}
-              <br />
-              Science{" "}
-              {student.science ? (
-                <Icon circular color="green" name="check" />
-              ) : (
-                <Icon circular color="red" name="close" />
-              )}
-              <br />
+              <StudentSubjectList student={student}/>
             </Table.Cell>
           ]}
           <Table.Cell textAlign="center">{student.Branch}</Table.Cell>
           {batch && <Table.Cell textAlign="center">{student.Batch}</Table.Cell>}
           {btnDisable ? null : (
             <Table.Cell textAlign="right">
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="green"
-                onClick={() => this.props.onEdit(student)}
-              >
-                <Icon name="edit" />
-                Edit
-              </Button>
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="red"
-                onClick={() => this.props.onDelete(student)}
-              >
-                <Icon name="user delete" />
-                Remove
-              </Button>
+              <Button.Group fluid>
+                <Button
+                  icon="edit"
+                  labelPosition="left"
+                  size="small"
+                  color="green"
+                  content="Edit"
+                  onClick={() => this.props.onEdit(student)}
+                />
+                <Button.Or />
+                <Button
+                  icon="user delete"
+                  labelPosition="right"
+                  size="small"
+                  color="red"
+                  content="Remove"
+                  onClick={() => this.props.onDelete(student)}
+                />
+              </Button.Group>
             </Table.Cell>
           )}
         </Table.Row>
@@ -180,15 +160,15 @@ class StudentList extends React.Component {
     return [
       <br />,
       <Button
+        fluid
         floated="right"
-        icon
+        icon="add user"
         labelPosition="left"
         size="small"
         color="green"
+        content="Add Student / Alumni"
         onClick={() => this.props.onCreate()}
-      >
-        <Icon name="add user" /> Add Student / Alumni
-      </Button>
+      />
     ];
   }
 }

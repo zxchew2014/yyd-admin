@@ -295,9 +295,16 @@ class AddStudentForm extends React.Component {
 
     return (
       <Form onSubmit={this.onSubmit}>
-        <Button secondary onClick={() => this.props.onNext()}>
-          Back
-        </Button>
+        <Button
+          secondary
+          fluid
+          icon="left arrow"
+          labelPosition="left"
+          content="Back"
+          onClick={() => this.props.onNext()}
+        />
+        <br />
+
         <Form.Field
           id="form-input-control-name"
           control={Input}
@@ -321,10 +328,18 @@ class AddStudentForm extends React.Component {
           FORM_FIELD_SUBJECT()
         ]}
 
-        <Button type="submit" primary>
-          {level === "Primary" && "Add Student"}
-          {level === "Secondary" && "Add Alumni (Secondary)"}
-        </Button>
+        <Button
+          type="submit"
+          primary
+          fluid
+          icon="right arrow"
+          labelPosition="right"
+          content={[
+            level === "Primary" && "Add Student",
+            level === "Secondary" && "Add Alumni (Secondary)"
+          ]}
+        />
+
       </Form>
     );
   };
