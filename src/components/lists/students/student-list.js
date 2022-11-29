@@ -91,7 +91,7 @@ class StudentList extends React.Component {
               Secondary {student.Secondary}
             </Table.Cell>,
             <Table.Cell textAlign="center">
-              <StudentSubjectList student={student}/>
+              <StudentSubjectList student={student} />
             </Table.Cell>
           ]}
           <Table.Cell textAlign="center">{student.Branch}</Table.Cell>

@@ -339,7 +339,6 @@ class AddStudentForm extends React.Component {
             level === "Secondary" && "Add Alumni (Secondary)"
           ]}
         />
-
       </Form>
     );
   };
