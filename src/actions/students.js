@@ -93,6 +93,7 @@ export const fetchStudentsByBranch = (
           (level === "Primary" || student.level === level)
         ) {
           student.Id = key;
+          student.level = level;
           newStudentList.push(student);
         } else if (student.level === level) {
           student.Id = key;
@@ -132,9 +133,13 @@ export const fetchStudent = student => async dispatch => {
     `${URL_STUDENTS}/${student.Branch}/${student.Id}`
   );
   studentRef.on(VALUE_KEY, data => {
+    const student = data.val();
+    const level = student.level;
+    if(!level) student.level = "Primary"
+
     dispatch({
       type: FETCH_STUDENT,
-      student: data.val()
+      student
     });
   });
 };

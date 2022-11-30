@@ -73,7 +73,7 @@ class EditBranch extends React.Component {
         <Button secondary fluid onClick={() => this.props.onBack()}>
           Back
         </Button>
-        <hr />
+        <br />
 
         <Form.Field
           id="form-input-control-branch-name"

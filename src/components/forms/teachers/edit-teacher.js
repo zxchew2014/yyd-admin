@@ -33,9 +33,9 @@ class EditTeacher extends React.Component {
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { Branch } = this.state;
+    const { Branch, level } = this.state;
 
-    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field required>
@@ -64,6 +64,13 @@ class EditTeacher extends React.Component {
     const { Name, Mobile } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
+        <Button
+          secondary
+          fluid
+          content="Back"
+          onClick={() => this.props.navToTeacherPage()}
+        />
+        <br />
         <Form.Field
           id="form-input-control-first-name"
           control={Input}
@@ -88,9 +95,7 @@ class EditTeacher extends React.Component {
         />
 
         {this.renderBranchDropDownList()}
-        <Button type="submit" primary>
-          Update Teacher
-        </Button>
+        <Button type="submit" primary fluid content=" Update Teacher" />
       </Form>
     );
   };

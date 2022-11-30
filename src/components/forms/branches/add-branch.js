@@ -74,10 +74,10 @@ class AddBranch extends React.Component {
     const { value, checked } = e.target;
     if (checked) {
       if (value === "Primary") this.setState({ primary: true });
-      else this.setState({ secondary: true });
+      if (value === "Secondary") this.setState({ secondary: true });
     } else {
       if (value === "Primary") this.setState({ primary: false });
-      else this.setState({ secondary: false });
+      if (value === "Secondary") this.setState({ secondary: false });
     }
   };
 
@@ -115,7 +115,7 @@ class AddBranch extends React.Component {
         <Button secondary fluid onClick={() => this.props.onNext()}>
           Back
         </Button>
-        <hr />
+        <br />
 
         <Form.Field
           id="form-input-control-branch-name"

@@ -4,22 +4,42 @@ import { Table, Icon, Button } from "semantic-ui-react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import * as TEACHERS from "../../../actions/teachers";
+import GenerateHeaderCellList from "../table/headerCellList";
 
 class TeacherList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    const { branch, fetchAllTeachers, fetchTeachersByBranch } = this.props;
+    const {
+      branch,
+      level,
+      fetchAllTeachers,
+      fetchTeachersByBranch
+    } = this.props;
 
     if (branch === "") {
-      fetchAllTeachers();
+      fetchAllTeachers(level);
     } else {
-      fetchTeachersByBranch(branch);
+      fetchTeachersByBranch(branch, level);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { branch, fetchTeachersByBranch } = this.props;
+    const {
+      branch,
+      level,
+      fetchTeachersByBranch,
+      fetchAllTeachers
+    } = this.props;
+    if (prevProps.level !== level) {
+      fetchAllTeachers(level);
+    }
+
     if (prevProps.branch !== branch) {
-      fetchTeachersByBranch(branch);
+      if (branch === "") fetchAllTeachers(level);
+      else fetchTeachersByBranch(branch, level);
     }
   }
 
@@ -31,24 +51,22 @@ class TeacherList extends React.Component {
   render() {
     const { branch, btnDisable = false } = this.props;
     let counter = 0;
+    const headerTextList = ["S/N", "Name", "Contact No.", "Branch"];
 
     const renderHeaderRow = () => (
       <Table.Row>
-        <Table.HeaderCell>S/N</Table.HeaderCell>
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Contact No.</Table.HeaderCell>
-        <Table.HeaderCell>Branch</Table.HeaderCell>
+        <GenerateHeaderCellList headerList={headerTextList} />
         {btnDisable ? null : (
           <Table.HeaderCell textAlign="right">
             <Button
-              icon
+              fluid
+              icon="add user"
               labelPosition="left"
               size="small"
               color="green"
+              content="Add Teacher"
               onClick={() => this.props.onCreate()}
-            >
-              <Icon name="add user" /> Add Teacher
-            </Button>
+            />
           </Table.HeaderCell>
         )}
       </Table.Row>
@@ -65,24 +83,25 @@ class TeacherList extends React.Component {
             <Table.Cell>{teacher.Branch}</Table.Cell>
             {btnDisable ? null : (
               <Table.Cell textAlign="right">
-                <Button
-                  icon
-                  labelPosition="left"
-                  size="small"
-                  color="green"
-                  onClick={() => this.props.onEdit(teacher)}
-                >
-                  <Icon name="edit" /> Edit Teacher
-                </Button>
-                <Button
-                  icon
-                  labelPosition="left"
-                  size="small"
-                  color="red"
-                  onClick={() => this.props.onDelete(teacher)}
-                >
-                  <Icon name="user delete" /> Remove Teacher
-                </Button>
+                <Button.Group fluid>
+                  <Button
+                    icon="edit"
+                    labelPosition="left"
+                    size="small"
+                    color="green"
+                    content="Edit"
+                    onClick={() => this.props.onEdit(teacher)}
+                  />
+                  <Button.Or />
+                  <Button
+                    icon="user delete"
+                    labelPosition="right"
+                    size="small"
+                    color="red"
+                    content="Remove"
+                    onClick={() => this.props.onDelete(teacher)}
+                  />
+                </Button.Group>
               </Table.Cell>
             )}
           </Table.Row>
@@ -141,6 +160,7 @@ TeacherList.propTypes = {
   onDelete: PropTypes.func,
   onCreate: PropTypes.func,
   branch: PropTypes.string,
+  level: PropTypes.string,
   btnDisable: PropTypes.bool
 };
 

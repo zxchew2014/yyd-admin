@@ -302,9 +302,10 @@ class EditStudent extends React.Component {
     ));
     return (
       <Form onSubmit={this.onSubmit}>
-        <Button secondary onClick={() => this.props.onBack()}>
+        <Button secondary fluid onClick={() => this.props.onBack()}>
           Back
         </Button>
+        <br />
         <Form.Field
           id="form-input-control-name"
           control={Input}
@@ -327,7 +328,7 @@ class EditStudent extends React.Component {
           FORM_FIELD_SUBJECT()
         ]}
 
-        <Button type="submit" primary>
+        <Button type="submit" primary fluid>
           {level === "Primary" || Primary ? " Update Student" : "Update Alumni"}
         </Button>
       </Form>

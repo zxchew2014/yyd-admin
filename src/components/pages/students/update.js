@@ -13,7 +13,6 @@ class EditStudentPage extends React.Component {
     return (
       <div className="edit-student-container">
         <EditStudentForm onBack={this.onBack} />
-        <hr />
       </div>
     );
   }
