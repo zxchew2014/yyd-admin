@@ -93,10 +93,10 @@ class AddTeacher extends React.Component {
     return (
       <Form onSubmit={this.onSubmit}>
         <Button
-            secondary
-            fluid
-            content="Back"
-            onClick={() => this.props.navToTeacherPage()}
+          secondary
+          fluid
+          content="Back"
+          onClick={() => this.props.navToTeacherPage()}
         />
         <br />
         <Form.Field

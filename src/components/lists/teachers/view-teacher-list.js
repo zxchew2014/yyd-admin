@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import TeacherList from "./teacher-list";
 import * as BRANCHES from "../../../actions/branches";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
-import {EDUCATION_LEVEL} from "../../../utils/common";
+import { EDUCATION_LEVEL } from "../../../utils/common";
 
 class ViewTeacherList extends React.Component {
   constructor(props) {
@@ -27,32 +27,31 @@ class ViewTeacherList extends React.Component {
     if (name === "level") {
       const { fetchBranchList } = this.props;
       fetchBranchList(value);
-      this.setState({ branch: "",  });
+      this.setState({ branch: "" });
     }
     this.setState({ [name]: value });
   };
 
-
   renderLevelRadioboxList() {
     const { level } = this.state;
     const FORM_FIELD_LEVEL = () => (
-        <Form.Field>
-          <label htmlFor="Level">Teaching Level</label>
-          <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
-        </Form.Field>
+      <Form.Field>
+        <label htmlFor="Level">Teaching Level</label>
+        <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
+      </Form.Field>
     );
 
     const LEVEL_RADIOBOX_FIELDS = EDUCATION_LEVEL.map(l => (
-        <Form.Field
-            key={l}
-            label={l}
-            control="input"
-            type="radio"
-            name="level"
-            value={l}
-            checked={level === l}
-            onChange={this.handleInputChange}
-        />
+      <Form.Field
+        key={l}
+        label={l}
+        control="input"
+        type="radio"
+        name="level"
+        value={l}
+        checked={level === l}
+        onChange={this.handleInputChange}
+      />
     ));
 
     return FORM_FIELD_LEVEL();
@@ -60,9 +59,9 @@ class ViewTeacherList extends React.Component {
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { branch , level} = this.state;
+    const { branch, level } = this.state;
 
-    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches,level);
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field required>

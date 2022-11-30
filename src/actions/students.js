@@ -135,7 +135,7 @@ export const fetchStudent = student => async dispatch => {
   studentRef.on(VALUE_KEY, data => {
     const student = data.val();
     const level = student.level;
-    if(!level) student.level = "Primary"
+    if (!level) student.level = "Primary";
 
     dispatch({
       type: FETCH_STUDENT,

@@ -152,7 +152,7 @@ export const fetchTeacher = teacher => async dispatch => {
   teacherRef.on(VALUE_KEY, data => {
     const teacher = data.val();
     const level = teacher.level;
-    if(!level) teacher.level = "Primary"
+    if (!level) teacher.level = "Primary";
 
     dispatch({
       type: FETCH_TEACHER,
