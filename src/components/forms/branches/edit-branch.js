@@ -16,6 +16,9 @@ class EditBranch extends React.Component {
 
   onSubmit = event => {
     const { updateBranchDetail, branch } = this.props;
+    const {branch_code} = this.state
+
+    this.state.branch_code = branch_code.toUpperCase();
 
     event.preventDefault();
     if (branch.Branch_Name === this.state.Branch_Name) {
@@ -46,7 +49,8 @@ class EditBranch extends React.Component {
   };
 
   renderEditForm = () => {
-    const { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
+    const { Branch_Name, branch_code, teacher_payout, parent_volunteer_payout, primary, secondary } = this.state;
+    const { isPayoutDisplay } = this.props.feature_flag;
 
     const FORM_FIELD_LEVEL = () => (
       <Form.Field required>
@@ -85,36 +89,50 @@ class EditBranch extends React.Component {
           onChange={this.handleInputChange}
           readOnly={true}
         />
+          <Form.Field
+              id="form-input-control-branch-code"
+              control={Input}
+              value={branch_code || ""}
+              label="Branch Code"
+              placeholder="Branch Code"
+              name="branch_code"
+              onChange={this.handleInputChange}
+          />
         {FORM_FIELD_LEVEL()}
 
-        <Form.Field
-          id="form-input-control-branch-payout"
-          control={Input}
-          type="number"
-          min="0"
-          step="0.05"
-          value={teacher_payout}
-          label="Teacher Payout"
-          placeholder="Teacher Payout"
-          name="teacher_payout"
-          onChange={this.handleInputChange}
-        />
+        {
+          isPayoutDisplay ? [
+              <Form.Field
+              id="form-input-control-branch-payout"
+              control={Input}
+              type="number"
+              min="0"
+              step="0.05"
+              value={teacher_payout}
+              label="Teacher Payout"
+              placeholder="Teacher Payout"
+              name="teacher_payout"
+              onChange={this.handleInputChange}
+          />,
 
-        <Form.Field
-          id="form-input-control-parent-volunteer-payout"
-          control={Input}
-          type="number"
-          min="0"
-          step="0.05"
-          value={parent_volunteer_payout}
-          label="Parent Volunteer Payout"
-          placeholder="Parent Volunteer Payout"
-          name="parent_volunteer_payout"
-          onChange={this.handleInputChange}
-        />
-        <Button type="submit" fluid primary>
-          Update Branch
-        </Button>
+            <Form.Field
+                id="form-input-control-parent-volunteer-payout"
+                control={Input}
+                type="number"
+                min="0"
+                step="0.05"
+                value={parent_volunteer_payout}
+                label="Parent Volunteer Payout"
+                placeholder="Parent Volunteer Payout"
+                name="parent_volunteer_payout"
+                onChange={this.handleInputChange}
+            />] : null
+        }
+        {
+          (primary || secondary) ?  <Button type="submit" fluid primary>
+            Update Branch
+          </Button> : null
+        }
       </Form>
     );
   };
@@ -128,8 +146,9 @@ EditBranch.propTypes = {
   onBack: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ branch }) => ({
-  branch
+const mapStateToProps = ({ branch, feature_flag }) => ({
+  branch,
+  feature_flag
 });
 
 export default connect(mapStateToProps, branches)(EditBranch);

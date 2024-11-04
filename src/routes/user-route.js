@@ -17,7 +17,7 @@ const UserRoute = ({ user, component: Component, ...rest }) => (
 );
 
 UserRoute.propTypes = {
-  component: PropTypes.object.isRequired,
+  //component: PropTypes.object.isRequired,
   user: PropTypes.object
 };
 

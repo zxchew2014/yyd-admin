@@ -16,7 +16,7 @@ class UpdateBranch extends React.Component {
 
   renderNotActiveForm = () => {
     const { branch } = this.props;
-    const { Branch_Name } = this.state;
+    const { Branch_Name, branch_code } = this.state;
 
     return [
       <Message error key="branch-remove-message">
@@ -49,6 +49,10 @@ class UpdateBranch extends React.Component {
           <Table.Row>
             <Table.HeaderCell>Branch Name</Table.HeaderCell>
             <Table.Cell>{Branch_Name || ""}</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.HeaderCell>Branch Code</Table.HeaderCell>
+            <Table.Cell>{branch_code || ""}</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>,

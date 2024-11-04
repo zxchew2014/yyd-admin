@@ -23,7 +23,7 @@ const GuestRoute = ({ user, component: Component, ...rest }) => (
 );
 
 GuestRoute.propTypes = {
-  component: PropTypes.object.isRequired,
+  //component: PropTypes.object.isRequired,
   user: PropTypes.object
 };
 

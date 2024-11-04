@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
-import { Button, Icon, Label, List, Table } from "semantic-ui-react";
+import { Button, Label, List, Table } from "semantic-ui-react";
 import PropTypes from "prop-types";
-import ItemIcon from "../../items/itemIcon";
 import ItemList from "../../items/itemList";
 
 class BranchList extends React.Component {
@@ -13,6 +12,7 @@ class BranchList extends React.Component {
   }
 
   render() {
+    const { isPayoutDisplay } = this.props.feature_flag;
     const renderBranchRow = () => {
       const { branches } = this.props;
 
@@ -25,7 +25,8 @@ class BranchList extends React.Component {
         return (
           <Table.Row key={key}>
             <Table.Cell>
-              {branch.Branch_Name} {"  "}
+              {branch.Branch_Name}
+              {branch.branch_code ? ` (${branch.branch_code}) ` : ` `}
               {active ? (
                 <Label basic color="green" size="mini" circular>
                   Active
@@ -42,10 +43,13 @@ class BranchList extends React.Component {
                 <ItemList value={branch.secondary} description="Secondary" />
               </List>
             </Table.Cell>
-            <Table.Cell>SGD $ {branch.teacher_payout || "0.00"}</Table.Cell>
-            <Table.Cell>
-              SGD $ {branch.parent_volunteer_payout || "0.00"}
-            </Table.Cell>
+            {
+              isPayoutDisplay ? [
+                  <Table.Cell>SGD $ {branch.teacher_payout || "0.00"}</Table.Cell>,
+                  <Table.Cell>
+                    SGD $ {branch.parent_volunteer_payout || "0.00"}
+                  </Table.Cell>] : null
+            }
             <Table.Cell textAlign="right">
               <Button.Group fluid>
                 <Button
@@ -100,8 +104,11 @@ class BranchList extends React.Component {
             <Table.Row>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
               <Table.HeaderCell>Level</Table.HeaderCell>
-              <Table.HeaderCell>Teacher Payout</Table.HeaderCell>
-              <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>
+              {
+                isPayoutDisplay ? [
+                    <Table.HeaderCell>Teacher Payout</Table.HeaderCell>,
+                    <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>] : null
+              }
               <Table.HeaderCell>
                 <Button
                   fluid
@@ -124,8 +131,9 @@ class BranchList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ branches }) => ({
-  branches
+const mapStateToProps = ({ branches, feature_flag }) => ({
+  branches,
+  feature_flag
 });
 
 BranchList.propTypes = {
