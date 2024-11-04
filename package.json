@@ -1,6 +1,6 @@
 {
   "name": "yyd-admin",
-  "version": "2.3",
+  "version": "3.3",
   "main": "index.js",
   "repository": "git@github.com:zxchew2014/yyd-admin.git",
   "lint-staged": {
@@ -22,11 +22,11 @@
     "@babel/core": "^7.20.2",
     "@babel/plugin-syntax-flow": "^7.18.6",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
-    "firebase": "^9.14.0",
+    "firebase": "^11.0.1",
     "jspdf": "^2.3.0",
     "jspdf-autotable": "^3.5.13",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4",
+    "moment": "^2.30.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -40,11 +40,12 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
     "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.4",
-    "styled-components": "^5.3.6",
-    "typescript": "^4.9.3"
+    "semantic-ui-react": "^2.1.5",
+    "styled-components": "^6.1.13",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "husky": "^3.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",

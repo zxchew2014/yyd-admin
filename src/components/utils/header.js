@@ -4,10 +4,14 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import * as auths from "../../actions/auth";
 import { VERSION_DATE, VERSION_NO } from "../../utils/common";
+import NewsUpdatePopup from "../pages/newsUpdateItems";
 
 class Header extends React.Component {
   renderLoginButton = () => [
     <Menu.Menu position="left" key={"menu-login-left"}>
+      <Menu.Item active>
+        <NewsUpdatePopup />
+      </Menu.Item>
       <Menu.Item name="version" active>
         Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>
@@ -21,6 +25,9 @@ class Header extends React.Component {
 
   renderUserData = (logout, user) => [
     <Menu.Menu position="left" key={"menu-user-left"}>
+      <Menu.Item active>
+        <NewsUpdatePopup />
+      </Menu.Item>
       <Menu.Item name="version" active>
         Updated since {VERSION_DATE} {VERSION_NO}
       </Menu.Item>

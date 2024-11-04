@@ -21,4 +21,6 @@ export const FETCH_ADMIN = "FETCH_ADMIN";
 export const FETCH_ADMINS = "FETCH_ADMINS";
 export const FETCH_EDIT_ADMIN = "FETCH_EDIT_ADMIN";
 
+export const FETCH_FEATURE_FLAG = "FETCH_FEATURE_FLAG";
+
 export const ADMIN_LOGGED_OUT = "ADMIN_LOGGED_OUT";

@@ -10,6 +10,7 @@ class AddBranch extends React.Component {
     super(props);
     this.state = {
       Branch_Name: "",
+      branch_code: "",
       teacher_payout: "0",
       parent_volunteer_payout: "0",
       Active: true,
@@ -23,14 +24,23 @@ class AddBranch extends React.Component {
       addBranch,
       updateBranch,
       updateBranchDetail,
-      branches
+      branches,
     } = this.props;
-    let { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
+    const {isPayoutDisplay} = this.props.feature_flag;
 
-    this.state.teacher_payout = parseFloat(teacher_payout).toFixed(2);
-    this.state.parent_volunteer_payout = parseFloat(
-      parent_volunteer_payout
-    ).toFixed(2);
+    let { Branch_Name, branch_code, teacher_payout, parent_volunteer_payout } = this.state;
+
+    if (isPayoutDisplay) {
+      this.state.teacher_payout = parseFloat(teacher_payout).toFixed(2);
+      this.state.parent_volunteer_payout = parseFloat(
+          parent_volunteer_payout
+      ).toFixed(2);
+    } else{
+      delete this.state.teacher_payout;
+      delete this.state.parent_volunteer_payout;
+    }
+
+    this.state.branch_code = branch_code.toUpperCase();
 
     let existingBranch = null;
     let checkExisted = false;
@@ -88,7 +98,10 @@ class AddBranch extends React.Component {
   };
 
   renderAddForm = () => {
-    const { Branch_Name, teacher_payout, parent_volunteer_payout } = this.state;
+    const { Branch_Name, branch_code, teacher_payout, parent_volunteer_payout, primary, secondary } = this.state;
+    console.log(this.props);
+    const { IsPayoutDisplay } = this.props.feature_flag;
+    console.log(IsPayoutDisplay);
 
     const FORM_FIELD_LEVEL = () => (
       <Form.Field required>
@@ -127,37 +140,52 @@ class AddBranch extends React.Component {
           onChange={this.handleInputChange}
           required
         />
+
+        <Form.Field
+            id="form-input-control-branch-code"
+            control={Input}
+            value={branch_code || ""}
+            label="Branch Code (Mainly show in attendance summary)"
+            placeholder="Branch Code"
+            name="branch_code"
+            onChange={this.handleInputChange}
+            required
+        />
         {FORM_FIELD_LEVEL()}
+        {
+          IsPayoutDisplay ? [
+              <Form.Field
+                  id="form-input-control-branch-payout"
+                  control={Input}
+                  type="number"
+                  min="0"
+                  step="0.05"
+                  value={teacher_payout}
+                  label="Teacher Payout"
+                  placeholder="Teacher Payout"
+                  name="teacher_payout"
+                  onChange={this.handleInputChange}
+              />,
+              <Form.Field
+                  id="form-input-control-parent-volunteer-payout"
+                  control={Input}
+                  type="number"
+                  min="0"
+                  step="0.05"
+                  value={parent_volunteer_payout}
+                  label="Parent Volunteer Payout"
+                  placeholder="Parent Volunteer Payout"
+                  name="parent_volunteer_payout"
+                  onChange={this.handleInputChange}
+              />] : null
+        }
 
-        <Form.Field
-          id="form-input-control-branch-payout"
-          control={Input}
-          type="number"
-          min="0"
-          step="0.05"
-          value={teacher_payout}
-          label="Teacher Payout"
-          placeholder="Teacher Payout"
-          name="teacher_payout"
-          onChange={this.handleInputChange}
-        />
+        {
+          (primary || secondary) ?  <Button type="submit" fluid primary>
+            Add Branch
+          </Button> : null
+        }
 
-        <Form.Field
-          id="form-input-control-parent-volunteer-payout"
-          control={Input}
-          type="number"
-          min="0"
-          step="0.05"
-          value={parent_volunteer_payout}
-          label="Parent Volunteer Payout"
-          placeholder="Parent Volunteer Payout"
-          name="parent_volunteer_payout"
-          onChange={this.handleInputChange}
-        />
-
-        <Button type="submit" fluid primary>
-          Add Branch
-        </Button>
       </Form>
     );
   };
@@ -171,8 +199,9 @@ AddBranch.propTypes = {
   onNext: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ branches }) => ({
-  branches
+const mapStateToProps = ({ branches, feature_flag }) => ({
+  branches,
+  feature_flag
 });
 
 export default connect(mapStateToProps, branches)(AddBranch);
