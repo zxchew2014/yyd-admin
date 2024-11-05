@@ -211,66 +211,62 @@ class EditStudent extends React.Component {
     const { english, math, chinese } = this.state;
 
     const GROUP_OPTIONS = _.map(subjectGroup, (value, key) => (
-        <option key={key} value={value}>
-          {value}
-        </option>
+      <option key={key} value={value}>
+        {value}
+      </option>
     ));
 
     const FORM_FIELD_ENGLISH = () => (
-        <Form.Field required>
-          <label htmlFor="english">English</label>
-          <select
-              ref="english"
-              name="english"
-              id="english"
-              onChange={this.handleInputSecondarySubjectChange}
-              value={english || ""}
-              required
-          >
-            <option key={english || ""} defaultValue={english || ""} />
-            {GROUP_OPTIONS}
-          </select>
-        </Form.Field>
+      <Form.Field required>
+        <label htmlFor="english">English</label>
+        <select
+          ref="english"
+          name="english"
+          id="english"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={english || ""}
+          required
+        >
+          <option key={english || ""} defaultValue={english || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
     );
 
     const FORM_FIELD_MATH = () => (
-        <Form.Field required>
-          <label htmlFor="math">Math</label>
-          <select
-              ref="math"
-              name="math"
-              id="math"
-              onChange={this.handleInputSecondarySubjectChange}
-              value={math || ""}
-              required
-          >
-            <option key={math || ""} defaultValue={math || ""} />
-            {GROUP_OPTIONS}
-          </select>
-        </Form.Field>
+      <Form.Field required>
+        <label htmlFor="math">Math</label>
+        <select
+          ref="math"
+          name="math"
+          id="math"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={math || ""}
+          required
+        >
+          <option key={math || ""} defaultValue={math || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
     );
 
     const FORM_FIELD_CHINESE = () => (
-        <Form.Field>
-          <label htmlFor="chinese">Chinese</label>
-          <select
-              ref="chinese"
-              name="chinese"
-              id="chinese"
-              onChange={this.handleInputSecondarySubjectChange}
-              value={chinese || ""}
-          >
-            <option key={chinese || ""} defaultValue={chinese || ""} />
-            {GROUP_OPTIONS}
-          </select>
-        </Form.Field>
+      <Form.Field>
+        <label htmlFor="chinese">Chinese</label>
+        <select
+          ref="chinese"
+          name="chinese"
+          id="chinese"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={chinese || ""}
+        >
+          <option key={chinese || ""} defaultValue={chinese || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
     );
 
-    return [
-      FORM_FIELD_ENGLISH(),
-      FORM_FIELD_MATH(),
-      FORM_FIELD_CHINESE(),
-    ];
+    return [FORM_FIELD_ENGLISH(), FORM_FIELD_MATH(), FORM_FIELD_CHINESE()];
   }
 
   renderBranchDropDownList() {

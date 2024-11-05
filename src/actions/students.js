@@ -3,7 +3,10 @@ import {
   FETCH_STUDENTS_BY_BRANCH,
   FETCH_STUDENT,
   REMOVE_STUDENTS_BY_BRANCH,
-  FETCH_BRANCHES, REMOVE_STUDENT, UPDATE_STUDENT, ADD_STUDENT
+  FETCH_BRANCHES,
+  REMOVE_STUDENT,
+  UPDATE_STUDENT,
+  ADD_STUDENT
 } from "./types";
 import { VALUE_KEY, URL_STUDENTS } from "../utils/common";
 import { getBranch } from "./branches";
@@ -24,7 +27,8 @@ export const addStudent = student => async dispatch => {
     .then(() =>
       dispatch({
         type: ADD_STUDENT
-      }));
+      })
+    );
 };
 
 export const updateStudent = student => async dispatch => {
@@ -136,7 +140,7 @@ export const fetchStudent = student => async dispatch => {
   studentRef.on(VALUE_KEY, data => {
     const student = data.val();
     //Check for null or empty
-    if(student) {
+    if (student) {
       const level = student.level;
       if (!level) student.level = "Primary";
 
@@ -145,7 +149,6 @@ export const fetchStudent = student => async dispatch => {
         student
       });
     }
-
   });
 };
 

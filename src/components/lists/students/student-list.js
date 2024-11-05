@@ -91,16 +91,10 @@ class StudentList extends React.Component {
             <Table.Cell textAlign="center">
               Secondary {student.Secondary}
             </Table.Cell>,
-            <Table.Cell textAlign="center">
-              {student.english}
-            </Table.Cell>,
-            <Table.Cell textAlign="center">
-              {student.math}
-            </Table.Cell>,
-            <Table.Cell textAlign="center">
-              {student.chinese}
-            </Table.Cell>,
-              /*
+            <Table.Cell textAlign="center">{student.english}</Table.Cell>,
+            <Table.Cell textAlign="center">{student.math}</Table.Cell>,
+            <Table.Cell textAlign="center">{student.chinese}</Table.Cell>
+            /*
             <Table.Cell textAlign="center">
               <StudentSubjectList student={student} />
             </Table.Cell>

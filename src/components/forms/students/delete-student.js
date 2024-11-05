@@ -73,7 +73,6 @@ class RemoveStudent extends React.Component {
                 <Table.Cell>{Foundation || ""}</Table.Cell>
               </Table.Row>
             ]
-
           ]}
 
           {level === "Secondary" && [
@@ -106,7 +105,7 @@ class RemoveStudent extends React.Component {
       </Table>,
 
       <Form key="student-remove-form">
-        {JSON.stringify(this.state) }
+        {JSON.stringify(this.state)}
         <div className="ui buttons">
           <Button
             className="ui button"

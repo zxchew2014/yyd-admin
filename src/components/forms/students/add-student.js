@@ -29,20 +29,16 @@ class AddStudentForm extends React.Component {
   onSubmit = event => {
     const { addStudent } = this.props;
     event.preventDefault();
-    const {
-      Batch,
-      Foundation,
-      chinese
-    } = this.state;
+    const { Batch, Foundation, chinese } = this.state;
     if (Batch === "") {
-        delete this.state.Batch;
+      delete this.state.Batch;
     }
     if (Foundation === "") {
-        delete this.state.Foundation;
+      delete this.state.Foundation;
     }
 
     if (chinese === "") {
-        delete this.state.chinese;
+      delete this.state.chinese;
     }
 
     if (this.state.errors) delete this.state.errors;
@@ -78,7 +74,7 @@ class AddStudentForm extends React.Component {
   };
 
   handleInputSecondarySubjectChange = event => {
-     this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   renderBatchDropDownList() {
@@ -174,68 +170,63 @@ class AddStudentForm extends React.Component {
     const { english, math, chinese } = this.state;
 
     const GROUP_OPTIONS = _.map(subjectGroup, (value, key) => (
-        <option key={key} value={value}>
-            {value}
-        </option>
+      <option key={key} value={value}>
+        {value}
+      </option>
     ));
 
     const FORM_FIELD_ENGLISH = () => (
-        <Form.Field required>
-          <label htmlFor="english">English</label>
-          <select
-              ref="english"
-              name="english"
-              id="english"
-              onChange={this.handleInputSecondarySubjectChange}
-              value={english || ""}
-              required
-          >
-            <option key={english || ""} defaultValue={english || ""} />
-            {GROUP_OPTIONS}
-          </select>
-        </Form.Field>
+      <Form.Field required>
+        <label htmlFor="english">English</label>
+        <select
+          ref="english"
+          name="english"
+          id="english"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={english || ""}
+          required
+        >
+          <option key={english || ""} defaultValue={english || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
     );
 
     const FORM_FIELD_MATH = () => (
-        <Form.Field required>
-          <label htmlFor="math">Math</label>
-          <select
-              ref="math"
-              name="math"
-              id="math"
-              onChange={this.handleInputSecondarySubjectChange}
-              value={math || ""}
-              required
-          >
-            <option key={math || ""} defaultValue={math || ""} />
-            {GROUP_OPTIONS}
-          </select>
-        </Form.Field>
+      <Form.Field required>
+        <label htmlFor="math">Math</label>
+        <select
+          ref="math"
+          name="math"
+          id="math"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={math || ""}
+          required
+        >
+          <option key={math || ""} defaultValue={math || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
     );
 
     const FORM_FIELD_CHINESE = () => (
-        <Form.Field>
-          <label htmlFor="chinese">Chinese</label>
-          <select
-              ref="chinese"
-              name="chinese"
-              id="chinese"
-              onChange={this.handleInputSecondarySubjectChange}
-              value={chinese || ""}
-          >
-            <option key={chinese || ""} defaultValue={chinese || ""} />
-            {GROUP_OPTIONS}
-          </select>
-        </Form.Field>
+      <Form.Field>
+        <label htmlFor="chinese">Chinese</label>
+        <select
+          ref="chinese"
+          name="chinese"
+          id="chinese"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={chinese || ""}
+        >
+          <option key={chinese || ""} defaultValue={chinese || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
     );
 
-    return [
-      FORM_FIELD_ENGLISH(),
-      FORM_FIELD_MATH(),
-      FORM_FIELD_CHINESE(),
-    ];
+    return [FORM_FIELD_ENGLISH(), FORM_FIELD_MATH(), FORM_FIELD_CHINESE()];
   }
-
 
   renderBranchDropDownList() {
     const { branches } = this.props;
@@ -292,7 +283,6 @@ class AddStudentForm extends React.Component {
     return FORM_FIELD_FOUNDATION();
   }
 
-
   renderAddForm = () => {
     const { Name, level } = this.state;
     const FORM_FIELD_LEVEL = () => (
@@ -326,7 +316,7 @@ class AddStudentForm extends React.Component {
           onClick={() => this.props.onNext()}
         />
         <br />
-          {FORM_FIELD_LEVEL()}
+        {FORM_FIELD_LEVEL()}
         <Form.Field
           id="form-input-control-name"
           control={Input}
@@ -362,12 +352,12 @@ class AddStudentForm extends React.Component {
   };
 
   render() {
-    return (<div className="add-student-form">{this.renderAddForm()}</div>)
+    return <div className="add-student-form">{this.renderAddForm()}</div>;
   }
 }
 
 AddStudentForm.propTypes = {
-    onNext: PropTypes.func.isRequired
+  onNext: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({ branches }) => ({ branches });
