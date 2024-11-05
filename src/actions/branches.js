@@ -90,22 +90,73 @@ export const fetchBranches = () => async dispatch => {
   });
 };
 
-export const fetchBranchList = () => async dispatch => {
+export const fetchBranchList = (level = "Primary") => async dispatch => {
   branchesRef.orderByValue().on(VALUE_KEY, data => {
-    const branches = data.val();
-    const sortList = [];
+    if (data.exists()) {
+      const branches = data.val();
+      const sortList = [];
 
-    Object.keys(branches).forEach(key => {
-      sortList.push(branches[key]);
-    });
+      Object.keys(branches).forEach(key => {
+        if (level === "Primary" && branches[key].primary) {
+          sortList.push(branches[key]);
+        } else if (level === "Secondary" && branches[key].secondary) {
+          sortList.push(branches[key]);
+        }
+      });
 
-    sortList.sort((a, b) => {
-      return b.Branch_Name.localeCompare(a.Branch_Name);
-    });
+      sortList.sort((a, b) => {
+        return (
+          Number(b.Active) - Number(a.Active) ||
+          a.Branch_Name.localeCompare(b.Branch_Name)
+        );
+      });
 
-    dispatch({
-      type: FETCH_BRANCHES,
-      branches: sortList
-    });
+      dispatch({
+        type: FETCH_BRANCHES,
+        branches: sortList
+      });
+    } else {
+      dispatch({
+        type: FETCH_BRANCHES,
+        branches: []
+      });
+    }
+  });
+};
+
+export const fetchBranchLists = () => async dispatch => {
+  branchesRef.orderByValue().on(VALUE_KEY, data => {
+    if (data.exists()) {
+      const branches = data.val();
+      const sortList = [];
+
+      Object.keys(branches).forEach(key => {
+        sortList.push(branches[key]);
+      });
+
+      sortList.sort((a, b) => {
+        return (
+          Number(b.Active) - Number(a.Active) ||
+          a.Branch_Name.localeCompare(b.Branch_Name)
+        );
+      });
+
+      dispatch({
+        type: FETCH_BRANCHES,
+        branches: sortList
+      });
+    } else {
+      dispatch({
+        type: FETCH_BRANCHES,
+        branches: []
+      });
+    }
+  });
+};
+
+export const clearBranch = () => async dispatch => {
+  dispatch({
+    type: GET_BRANCH,
+    branch: null
   });
 };

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Form, Input, Button } from "semantic-ui-react";
 import * as teachers from "../../../actions/teachers";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
+import { EDUCATION_LEVEL } from "../../../utils/common";
 
 class AddTeacher extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class AddTeacher extends React.Component {
     this.state = {
       Name: "",
       Branch: "",
-      Mobile: ""
+      Mobile: "",
+      level: "Primary"
     };
   }
 
@@ -23,14 +25,20 @@ class AddTeacher extends React.Component {
   };
 
   handleInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    if (name === "level") {
+      const { fetchBranchList } = this.props;
+      fetchBranchList(value);
+    }
+
+    this.setState({ [name]: value });
   };
 
   renderBranchDropDownList() {
     const { branches } = this.props;
-    const { Branch } = this.state;
+    const { Branch, level } = this.state;
 
-    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches);
+    const BRANCH_OPTIONS = DDL_BRANCH_OPTIONS(branches, level);
 
     const FORM_FIELD_BRANCH = () => (
       <Form.Field required>
@@ -55,10 +63,42 @@ class AddTeacher extends React.Component {
     return FORM_FIELD_BRANCH();
   }
 
+  renderLevelRadioboxList() {
+    const { level } = this.state;
+    const FORM_FIELD_LEVEL = () => (
+      <Form.Field required>
+        <label htmlFor="Level">Teaching Level</label>
+        <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
+      </Form.Field>
+    );
+
+    const LEVEL_RADIOBOX_FIELDS = EDUCATION_LEVEL.map(l => (
+      <Form.Field
+        key={l}
+        label={l}
+        control="input"
+        type="radio"
+        name="level"
+        value={l}
+        checked={level === l}
+        onChange={this.handleInputChange}
+      />
+    ));
+
+    return FORM_FIELD_LEVEL();
+  }
+
   renderAddForm = () => {
     const { Name, Mobile } = this.state;
     return (
       <Form onSubmit={this.onSubmit}>
+        <Button
+          secondary
+          fluid
+          content="Back"
+          onClick={() => this.props.navToTeacherPage()}
+        />
+        <br />
         <Form.Field
           id="form-input-control-first-name"
           control={Input}
@@ -81,17 +121,15 @@ class AddTeacher extends React.Component {
           onChange={this.handleInputChange}
           required
         />
-
+        {this.renderLevelRadioboxList()}
         {this.renderBranchDropDownList()}
-        <Button type="submit" primary>
-          Add Teacher
-        </Button>
+        <Button type="submit" fluid primary content="Add Teacher" />
       </Form>
     );
   };
 
   render() {
-    return [<div className="add-teacher-form">{this.renderAddForm()}</div>];
+    return <div className="add-teacher-form">{this.renderAddForm()}</div>;
   }
 }
 

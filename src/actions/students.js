@@ -1,8 +1,9 @@
-import { studentsRef, yydASDb } from "../configs/firebase";
+import { branchesRef, studentsRef, yydASDb } from "../configs/firebase";
 import {
   FETCH_STUDENTS_BY_BRANCH,
   FETCH_STUDENT,
-  REMOVE_STUDENTS_BY_BRANCH
+  REMOVE_STUDENTS_BY_BRANCH,
+  FETCH_BRANCHES
 } from "./types";
 import { VALUE_KEY, URL_STUDENTS, BRANCH_PUNGGOL } from "../utils/common";
 import { getBranch } from "./branches";
@@ -67,14 +68,17 @@ export const removeStudentsByBranch = branch => async dispatch => {
       })
     );
 };
-export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
+export const fetchStudentsByBranch = (
+  branch,
+  batch,
+  level = "Primary"
+) => async dispatch => {
   const studentByBranchRef = yydASDb
     .ref(`${URL_STUDENTS}/${branch}`)
     .orderByChild("Name");
 
   studentByBranchRef.on(VALUE_KEY, data => {
     const studentList = data.val();
-
     if (studentList === null) {
       dispatch({
         type: FETCH_STUDENTS_BY_BRANCH,
@@ -84,16 +88,37 @@ export const fetchStudentsByBranch = (branch, batch) => async dispatch => {
       const newStudentList = [];
       Object.keys(studentList).forEach(key => {
         const student = studentList[key];
-        student.Id = key;
-        newStudentList.push(student);
+        if (
+          !student.level &&
+          (level === "Primary" || student.level === level)
+        ) {
+          student.Id = key;
+          student.level = level;
+          newStudentList.push(student);
+        } else if (student.level === level) {
+          student.Id = key;
+          newStudentList.push(student);
+        }
       });
 
-      newStudentList.sort((a, b) => {
-        return (
-          parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
-          a.Name.localeCompare(b.Name)
-        );
-      });
+      if (level === "Primary") {
+        newStudentList.sort((a, b) => {
+          //console.log(a, b, b.Name);
+          return (
+            parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
+            a.Name.localeCompare(b.Name)
+          );
+        });
+      }
+      if (level === "Secondary") {
+        // For secondary students
+        newStudentList.sort((a, b) => {
+          return (
+            parseInt(a.Secondary, 10) - parseInt(b.Secondary, 10) ||
+            a.Name.localeCompare(b.Name)
+          );
+        });
+      }
 
       dispatch({
         type: FETCH_STUDENTS_BY_BRANCH,
@@ -108,9 +133,40 @@ export const fetchStudent = student => async dispatch => {
     `${URL_STUDENTS}/${student.Branch}/${student.Id}`
   );
   studentRef.on(VALUE_KEY, data => {
+    const student = data.val();
+    const level = student.level;
+    if (!level) student.level = "Primary";
+
     dispatch({
       type: FETCH_STUDENT,
-      student: data.val()
+      student
+    });
+  });
+};
+
+export const fetchBranchList = (level = "Primary") => async dispatch => {
+  branchesRef.orderByValue().on(VALUE_KEY, data => {
+    const branches = data.val();
+    const sortList = [];
+
+    Object.keys(branches).forEach(key => {
+      if (level === "Primary" && branches[key].primary) {
+        sortList.push(branches[key]);
+      } else if (level === "Secondary" && branches[key].secondary) {
+        sortList.push(branches[key]);
+      }
+    });
+
+    sortList.sort((a, b) => {
+      return (
+        Number(b.Active) - Number(a.Active) ||
+        a.Branch_Name.localeCompare(b.Branch_Name)
+      );
+    });
+
+    dispatch({
+      type: FETCH_BRANCHES,
+      branches: sortList
     });
   });
 };

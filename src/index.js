@@ -10,9 +10,9 @@ import { yydASAuth } from "./configs/firebase";
 import registerServiceWorker from "./registerServiceWorker";
 import { userLoggedIn } from "./actions/auth";
 import rootReducer from "./reducers/rootReducer";
-
 import App from "./App";
-import {fetchAdmin} from "./actions/admins";
+import { fetchAdmin } from "./actions/admins";
+import {fetchFeatureFlagList} from "./actions/feature_flag";
 
 const store = createStore(
   rootReducer,
@@ -24,6 +24,7 @@ if (localStorage.user) {
       if (user.emailVerified) {
         store.dispatch(userLoggedIn(user));
         store.dispatch(fetchAdmin(user));
+        store.dispatch(fetchFeatureFlagList());
       }
     }
   });

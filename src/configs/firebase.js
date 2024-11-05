@@ -1,6 +1,6 @@
-import firebase from "firebase/app";
-import "firebase/database";
-import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/database";
+import "firebase/compat/auth";
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -36,5 +36,6 @@ export const statesRef = yydASDb.ref("States");
 export const attendancesRef = yydASDb.ref("Attendances");
 export const studentsRef = yydASDb.ref("New_Students");
 export const adminsRef = yydASDb.ref("Admins");
+export const featureFlagRef = yydASDb.ref("feature_flag");
 
 export default firebase;

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Message } from "semantic-ui-react";
 import RetrieveStudentAttendanceForm from "../../forms/attendance/student-attendance";
 import * as attendances from "../../../actions/attendances";
+
 import StudentAttendanceList from "../../lists/students/student-attendance-list";
 
 class StudentAttendancePage extends React.Component {
@@ -11,7 +12,8 @@ class StudentAttendancePage extends React.Component {
     this.state = {
       startDate: "",
       endDate: "",
-      branch: ""
+      branch: "",
+      level: "Primary"
     };
   }
 
@@ -25,7 +27,7 @@ class StudentAttendancePage extends React.Component {
   };
 
   render() {
-    const { startDate, endDate, branch, batch } = this.state;
+    const { startDate, endDate, branch, batch, level } = this.state;
     const { attendanceStudents } = this.props;
     return (
       <div>
@@ -39,6 +41,7 @@ class StudentAttendancePage extends React.Component {
               endDate={endDate}
               branch={branch}
               batch={batch}
+              level={level}
             />
           ) : (
             <Message warning>
@@ -58,7 +61,7 @@ class StudentAttendancePage extends React.Component {
   }
 }
 
-const mapStateToProps = ({ attendanceStudents }) => ({
+const mapStateToProps = ({ attendanceStudents, branches }) => ({
   attendanceStudents
 });
 

@@ -65,21 +65,21 @@ class GenerateStudentAttendanceList extends React.Component {
   render() {
     const { attendanceStudents } = this.props;
 
-    const renderHeaderRow = () => (
-      <Table.Header fullWidth>
-        <Table.Row textAlign="center">
-          <Table.HeaderCell>Date</Table.HeaderCell>
-          <Table.HeaderCell>Subject</Table.HeaderCell>
-          <Table.HeaderCell>Teacher Name</Table.HeaderCell>
-          <Table.HeaderCell>Student Name</Table.HeaderCell>
-          <Table.HeaderCell>Primary</Table.HeaderCell>
-          <Table.HeaderCell>Foundation</Table.HeaderCell>
-          <Table.HeaderCell>Check In Status</Table.HeaderCell>
-          <Table.HeaderCell>Check Out Status</Table.HeaderCell>
-          <Table.HeaderCell>Final Status</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-    );
+    const renderHeaderRow = () => {
+      return [
+        <Table.Header fullWidth>
+          <Table.Row textAlign="center">
+            <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>Subject</Table.HeaderCell>
+            <Table.HeaderCell>Teacher Name</Table.HeaderCell>
+            <Table.HeaderCell>Student Name</Table.HeaderCell>
+            <Table.HeaderCell>Primary</Table.HeaderCell>
+            <Table.HeaderCell>Foundation</Table.HeaderCell>
+            <Table.HeaderCell>Status</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+      ];
+    };
 
     const renderAttendanceRows = attendanceList =>
       attendanceList.map(attendance => (
@@ -98,24 +98,9 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.studentName}</Table.Cell>
           <Table.Cell>P{attendance.primary}</Table.Cell>
           <Table.Cell>{attendance.foundation}</Table.Cell>
-          {renderStatusCell(attendance.checkInStatus)}
           {renderStatusCell(attendance.checkOutStatus)}
-          {renderStatusCell(
-            calculateFinalStatus(
-              attendance.checkInStatus,
-              attendance.checkOutStatus
-            )
-          )}
         </Table.Row>
       ));
-
-    const calculateFinalStatus = (checkInStatus, checkOutStatus) => {
-      if (checkInStatus && checkOutStatus) return checkOutStatus;
-
-      if (!checkInStatus) return checkOutStatus;
-
-      if (!checkOutStatus) return checkInStatus;
-    };
 
     const renderStatusCell = status => {
       if (status && status != "") {
@@ -136,10 +121,8 @@ class GenerateStudentAttendanceList extends React.Component {
       let studentName = "";
 
       attendanceList.forEach(attendance => {
-        let finalStatus = calculateFinalStatus(
-          attendance.checkInStatus,
-          attendance.checkOutStatus
-        );
+        let finalStatus = attendance.checkOutStatus;
+
         studentName = attendance.studentName;
         if (finalStatus === ABSENT) {
           noOfAbsent += 1;
@@ -163,7 +146,7 @@ class GenerateStudentAttendanceList extends React.Component {
 
       return (
         <Table.Row>
-          <Table.Cell colSpan="9" textAlign="right">
+          <Table.Cell colSpan="7" textAlign="right">
             <b>{studentName}'s Attendance Percentage</b> : {actualPercentage}%
           </Table.Cell>
         </Table.Row>
@@ -179,8 +162,8 @@ class GenerateStudentAttendanceList extends React.Component {
           id="attendanceTable"
           ref="attendanceTable"
         >
-          {attendanceStudents.map(key => {
-            const attendanceList = key[1];
+          {attendanceStudents.map(studentAttendance => {
+            const attendanceList = studentAttendance[1];
 
             return [
               renderHeaderRow(),

@@ -1,16 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as BRANCHES from "../../../actions/branches";
-import { Button, Icon, Label, Table } from "semantic-ui-react";
+import { Button, Label, List, Table } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import ItemList from "../../items/itemList";
 
 class BranchList extends React.Component {
   UNSAFE_componentWillMount() {
-    const { fetchBranchList } = this.props;
-    fetchBranchList();
+    const { fetchBranchLists } = this.props;
+    fetchBranchLists();
   }
 
   render() {
+    const { isPayoutDisplay } = this.props.feature_flag;
     const renderBranchRow = () => {
       const { branches } = this.props;
 
@@ -23,7 +25,8 @@ class BranchList extends React.Component {
         return (
           <Table.Row key={key}>
             <Table.Cell>
-              {branch.Branch_Name} {"  "}
+              {branch.Branch_Name}
+              {branch.branch_code ? ` (${branch.branch_code}) ` : ` `}
               {active ? (
                 <Label basic color="green" size="mini" circular>
                   Active
@@ -34,56 +37,60 @@ class BranchList extends React.Component {
                 </Label>
               )}
             </Table.Cell>
-            <Table.Cell>SGD $ {branch.teacher_payout}</Table.Cell>
-            <Table.Cell>SGD $ {branch.parent_volunteer_payout}</Table.Cell>
+            <Table.Cell>
+              <List>
+                <ItemList value={branch.primary} description="Primary" />
+                <ItemList value={branch.secondary} description="Secondary" />
+              </List>
+            </Table.Cell>
+            {
+              isPayoutDisplay ? [
+                  <Table.Cell>SGD $ {branch.teacher_payout || "0.00"}</Table.Cell>,
+                  <Table.Cell>
+                    SGD $ {branch.parent_volunteer_payout || "0.00"}
+                  </Table.Cell>] : null
+            }
             <Table.Cell textAlign="right">
-              <Button
-                icon
-                labelPosition="left"
-                size="small"
-                color="green"
-                onClick={() => this.props.onEdit(branch)}
-              >
-                <Icon name="edit" /> Edit Branch
-              </Button>
-
-              {active ? (
+              <Button.Group fluid>
                 <Button
-                  key="btn-set-not-active"
-                  icon
-                  labelPosition="left"
+                  icon="edit"
                   size="small"
-                  color="red"
-                  onClick={() => this.props.onSetNotActive(branch)}
-                >
-                  <Icon name="unlink" />
-                  Set to Not Active
-                </Button>
-              ) : (
-                [
+                  color="green"
+                  content="Edit"
+                  onClick={() => this.props.onEdit(branch)}
+                />
+                <Button.Or />
+                {active ? (
                   <Button
-                    key="btn-set-active"
-                    icon
-                    labelPosition="left"
+                    key="btn-set-not-active"
+                    icon="unlink"
                     size="small"
-                    color="green"
-                    onClick={() => this.props.onSetActive(branch)}
-                  >
-                    <Icon name="linkify" /> Set to Active
-                  </Button>,
-                  <Button
-                    key="btn-set-delete"
-                    icon
-                    labelPosition="left"
-                    size="small"
-                    color="red"
-                    onClick={() => this.props.onDelete(branch)}
-                  >
-                    <Icon name="trash" />
-                    Remove Branch
-                  </Button>
-                ]
-              )}
+                    color="orange"
+                    content="Set to Not Active"
+                    onClick={() => this.props.onSetNotActive(branch)}
+                  />
+                ) : (
+                  [
+                    <Button
+                      key="btn-set-active"
+                      icon="linkify"
+                      size="small"
+                      color="teal"
+                      content="Set to Active"
+                      onClick={() => this.props.onSetActive(branch)}
+                    />,
+                    <Button.Or />,
+                    <Button
+                      key="btn-set-delete"
+                      icon="trash"
+                      size="small"
+                      color="red"
+                      content="Remove"
+                      onClick={() => this.props.onDelete(branch)}
+                    />
+                  ]
+                )}
+              </Button.Group>
             </Table.Cell>
           </Table.Row>
         );
@@ -92,23 +99,27 @@ class BranchList extends React.Component {
 
     return (
       <div className="branch-list-container">
-        <Table basic="very" striped unstackable>
+        <Table basic="very" striped celled stackable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
-              <Table.HeaderCell>Teacher Payout</Table.HeaderCell>
-              <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>
+              <Table.HeaderCell>Level</Table.HeaderCell>
+              {
+                isPayoutDisplay ? [
+                    <Table.HeaderCell>Teacher Payout</Table.HeaderCell>,
+                    <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>] : null
+              }
               <Table.HeaderCell>
                 <Button
+                  fluid
                   floated="right"
-                  icon
+                  icon="plus"
                   labelPosition="left"
                   size="small"
                   color="green"
+                  content="Add Branch"
                   onClick={this.props.onCreate}
-                >
-                  <Icon name="plus" /> Add Branch
-                </Button>
+                />
               </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
@@ -120,8 +131,9 @@ class BranchList extends React.Component {
   }
 }
 
-const mapStateToProps = ({ branches }) => ({
-  branches
+const mapStateToProps = ({ branches, feature_flag }) => ({
+  branches,
+  feature_flag
 });
 
 BranchList.propTypes = {

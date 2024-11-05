@@ -2,25 +2,24 @@ import React from "react";
 import { connect } from "react-redux";
 import EditBranchForm from "../../forms/branches/edit-branch";
 import PropTypes from "prop-types";
+import * as action_branches from "../../../actions/branches";
 
 class EditBranchPage extends React.Component {
   onBack = () => {
-    const { history } = this.props;
+    const { history, clearBranch } = this.props;
+    clearBranch();
     history.push(`/branch`);
   };
 
   render() {
     const { branch, history } = this.props;
-
-    console.log(branch);
-    if (branch === null) {
+    if (branch === null || branch === "") {
       history.push(`/branch`);
     }
 
     return (
       <div className="edit-branch-container">
-        <EditBranchForm branch={branch} onBack={this.onBack} />
-        <hr />
+        <EditBranchForm onBack={this.onBack} />
       </div>
     );
   }
@@ -36,4 +35,4 @@ const mapStateToProps = ({ branch }) => ({
   branch
 });
 
-export default connect(mapStateToProps, {})(EditBranchPage);
+export default connect(mapStateToProps, action_branches)(EditBranchPage);

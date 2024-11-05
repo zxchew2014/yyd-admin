@@ -66,7 +66,6 @@ class AttendanceList extends React.Component {
       <Table.Header fullWidth>
         <Table.Row textAlign="center">
           <Table.HeaderCell>Date</Table.HeaderCell>
-          <Table.HeaderCell>Clock In</Table.HeaderCell>
           <Table.HeaderCell>Clock Out</Table.HeaderCell>
           <Table.HeaderCell>Name</Table.HeaderCell>
           <Table.HeaderCell>Subject</Table.HeaderCell>
@@ -82,20 +81,10 @@ class AttendanceList extends React.Component {
       attendanceList.map(attendance => (
         <Table.Row textAlign="center" key={attendance}>
           <Table.Cell>
-            {(attendance.clockIn &&
-              moment(attendance.clockIn, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                DATEFORMAT_DAY_MMM_DD_YYYY
-              )) ||
+            {attendance.clockOut &&
               moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
                 DATEFORMAT_DAY_MMM_DD_YYYY
               )}
-          </Table.Cell>
-          <Table.Cell>
-            {(attendance.clockIn &&
-              moment(attendance.clockIn, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                TIMEFORMAT_HHMMTT
-              )) ||
-              ""}
           </Table.Cell>
           <Table.Cell>
             {(attendance.clockOut &&

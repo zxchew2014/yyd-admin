@@ -2,6 +2,7 @@ import { yydASAuth } from "../configs/firebase";
 import { USER_LOGGED_IN, USER_LOGGED_OUT } from "./types";
 import { USER_KEY } from "../utils/common";
 import { adminLoggedOut, fetchAdmin } from "./admins";
+import { fetchFeatureFlagList } from "./feature_flag";
 
 export const userLoggedIn = user => ({
   type: USER_LOGGED_IN,
@@ -23,6 +24,7 @@ export const login = () => async dispatch => {
   }
   dispatch(fetchAdmin(user));
   dispatch(userLoggedIn(user));
+  dispatch(fetchFeatureFlagList());
 };
 
 export const logout = () => async dispatch => {

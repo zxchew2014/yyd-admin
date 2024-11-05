@@ -5,6 +5,7 @@ import { fetchTeacherAttendance, fetchStudentAttendance } from "./attendance";
 import { fetchTeacher, fetchTeacherList } from "./teacher";
 import { fetchStudent, fetchStudentList } from "./student";
 import { fetchAdmin, fetchAdminList, fetchEditAdmin } from "./admin";
+import { fetchFeatureFlag} from "./feature_flag";
 
 export default combineReducers({
   user,
@@ -18,5 +19,6 @@ export default combineReducers({
   students: fetchStudentList,
   admin: fetchAdmin,
   admins: fetchAdminList,
-  editAdmin: fetchEditAdmin
+  editAdmin: fetchEditAdmin,
+  feature_flag: fetchFeatureFlag
 });

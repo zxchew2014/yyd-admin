@@ -3,7 +3,7 @@ import firebase, { yydASAuth } from "../../configs/firebase";
 import PropTypes from "prop-types";
 import { FirebaseAuth } from "react-firebaseui";
 import dialogPolyfill from "dialog-polyfill";
-import * as firebaseui from "firebaseui";
+//import * as firebaseui from "firebaseui";
 
 class LoginForm extends React.Component {
   uiConfig = {
@@ -13,7 +13,6 @@ class LoginForm extends React.Component {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID
       }
     ],
-    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     // Sets the `signedIn` state property to `true` once signed in.
     callbacks: {
       signInSuccessWithAuthResult: () => {

@@ -13,8 +13,13 @@ class RemoveStudent extends React.Component {
       Name: student.Name,
       Branch: student.Branch,
       Primary: student.Primary,
+      Secondary: student.Secondary,
       Foundation: student.Foundation,
-      Batch: student.Batch
+      Batch: student.Batch,
+      level: student.level,
+      english: student.english,
+      math: student.math,
+      science: student.science
     };
   }
 
@@ -31,7 +36,18 @@ class RemoveStudent extends React.Component {
   };
 
   renderRemoveForm = () => {
-    const { Name, Primary, Branch, Batch, Foundation } = this.state;
+    const {
+      Name,
+      Primary,
+      Branch,
+      Batch,
+      Foundation,
+      Secondary,
+      english,
+      math,
+      science,
+      level
+    } = this.state;
     return [
       <Message warning key="student-remove-message">
         <Message.Header>Are you sure??</Message.Header>
@@ -45,15 +61,31 @@ class RemoveStudent extends React.Component {
             <Table.Cell>{Name || ""}</Table.Cell>
           </Table.Row>
 
-          <Table.Row>
-            <Table.Cell>Primary</Table.Cell>
-            <Table.Cell>{Primary || ""}</Table.Cell>
-          </Table.Row>
+          {level === "Primary" && [
+            <Table.Row>
+              <Table.Cell>Primary</Table.Cell>
+              <Table.Cell>{Primary || ""}</Table.Cell>
+            </Table.Row>,
+            <Table.Row>
+              <Table.Cell>Foundation</Table.Cell>
+              <Table.Cell>{Foundation || ""}</Table.Cell>
+            </Table.Row>
+          ]}
 
-          <Table.Row>
-            <Table.Cell>Foundation</Table.Cell>
-            <Table.Cell>{Foundation || ""}</Table.Cell>
-          </Table.Row>
+          {level === "Secondary" && [
+            <Table.Row>
+              <Table.Cell>Secondary</Table.Cell>
+              <Table.Cell>{Secondary || ""}</Table.Cell>
+            </Table.Row>,
+            <Table.Row>
+              <Table.Cell>Subjects</Table.Cell>
+              <Table.Cell>
+                {english && ["English", <br />]}
+                {math && ["Math", <br />]}
+                {science && "Science"}
+              </Table.Cell>
+            </Table.Row>
+          ]}
 
           <Table.Row>
             <Table.Cell>Branch</Table.Cell>
