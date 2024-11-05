@@ -11,6 +11,19 @@ class NewsUpdatePopup extends React.Component {
                     <Item.Group>
                         <Item>
                             <Item.Content>
+                                <Item.Header>5 Nov 2024 v3.4</Item.Header>
+                                <Item.Description>
+                                    <List bulleted>
+                                        <List.Item>Secondary 1 student able to fill up</List.Item>
+                                        <List.Item>Subject grouping is allowed as well</List.Item>
+                                        <List.Item>Secondary student update and remove is up as well</List.Item>
+                                        <List.Item>Refactor old code for secondary subject</List.Item>
+                                    </List>
+                                </Item.Description>
+                            </Item.Content>
+                        </Item>
+                        <Item>
+                            <Item.Content>
                                 <Item.Header>4 Nov 2024 v3.3</Item.Header>
                                 <Item.Description>
                                     <List bulleted>
