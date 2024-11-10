@@ -22,7 +22,8 @@ class NewsUpdatePopup extends React.Component {
                       Refactor old code for secondary subject
                     </List.Item>
                     <List.Item>
-                      Attendance summary indicate multiple branches taught by each teacher
+                      Attendance summary indicate multiple branches taught by
+                      each teacher
                     </List.Item>
                   </List>
                 </Item.Description>

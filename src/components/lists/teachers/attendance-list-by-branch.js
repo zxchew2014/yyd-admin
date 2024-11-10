@@ -73,28 +73,27 @@ class AttendanceListByBranch extends React.Component {
   retrieveBranchCode = branches => {
     const branchCodeMap = {};
     branches.forEach(branch => {
-      let branchCode = branch.branch_code ? branch.branch_code : branch.Branch_Name;
+      let branchCode = branch.branch_code
+        ? branch.branch_code
+        : branch.Branch_Name;
       branchCodeMap[branch.Branch_Name] = branchCode.trim();
-    })
+    });
     return branchCodeMap;
-  }
+  };
 
   retrieveNoOfClass = (attendanceList, branchCodeMapping) => {
-
     const result = {};
 
     attendanceList.forEach(attendance => {
       let branchCode = branchCodeMapping[attendance.branch];
-      if(!result.hasOwnProperty(branchCode)){
+      if (!result.hasOwnProperty(branchCode)) {
         result[branchCode] = 0;
       }
       result[branchCode] += attendance.primary.length;
     });
 
     return result;
-  }
-
-
+  };
 
   render() {
     const { attendanceTeachers, branches } = this.props;
@@ -152,38 +151,40 @@ class AttendanceListByBranch extends React.Component {
       let noOfClasses = 0;
       let noOfClassInMultipleBranchesLength = Object.keys(mBranches).length;
       let firstKey = Object.keys(mBranches)[0];
-      let lastKey = Object.keys(mBranches)[noOfClassInMultipleBranchesLength - 1];
+      let lastKey = Object.keys(mBranches)[
+        noOfClassInMultipleBranchesLength - 1
+      ];
 
       attendanceList.forEach(attendance => {
         noOfClasses += attendance.primary.length;
       });
 
       let branchStr = "";
-      if(noOfClassInMultipleBranchesLength > 1) {
-        Object.entries(mBranches).map( entry => {
+      if (noOfClassInMultipleBranchesLength > 1) {
+        Object.entries(mBranches).map(entry => {
           branchStr += entry[0] + " : " + entry[1];
-          if (lastKey !== entry[0]){
+          if (lastKey !== entry[0]) {
             branchStr += ", ";
           }
-        })
+        });
       }
 
       return [
         <Table.Row>
           <Table.Cell colSpan="11" textAlign="right">
-            <b>Total class taught {noOfClassInMultipleBranchesLength === 1 && `at ${firstKey}`}</b> : {noOfClasses}
-            {
-                noOfClassInMultipleBranchesLength > 1 && [
-                    <br/>,
-                    <div>{branchStr}</div>
-                ]
-          }
+            <b>
+              Total class taught{" "}
+              {noOfClassInMultipleBranchesLength === 1 && `at ${firstKey}`}
+            </b>{" "}
+            : {noOfClasses}
+            {noOfClassInMultipleBranchesLength > 1 && [
+              <br />,
+              <div>{branchStr}</div>
+            ]}
           </Table.Cell>
         </Table.Row>
       ];
     };
-
-
 
     const renderAttendanceList = () => [
       <div ref={this.myRef}>
@@ -197,12 +198,18 @@ class AttendanceListByBranch extends React.Component {
           {renderHeaderRow()}
           {attendanceTeachers.map(key => {
             const attendanceList = key[1];
-            const noOfClassInMultipleBranches = this.retrieveNoOfClass(attendanceList, branchCodeMapping);
+            const noOfClassInMultipleBranches = this.retrieveNoOfClass(
+              attendanceList,
+              branchCodeMapping
+            );
 
             return [
               <Table.Body key={key[0]}>
                 {renderAttendanceRows(attendanceList)}
-                {renderTotalLessonTaught(attendanceList, noOfClassInMultipleBranches)}
+                {renderTotalLessonTaught(
+                  attendanceList,
+                  noOfClassInMultipleBranches
+                )}
               </Table.Body>
             ];
           })}
