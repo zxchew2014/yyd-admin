@@ -3,13 +3,15 @@ import {
   FETCH_STUDENTS_BY_BRANCH,
   FETCH_STUDENT,
   REMOVE_STUDENTS_BY_BRANCH,
-  FETCH_BRANCHES
+  FETCH_BRANCHES,
+  REMOVE_STUDENT,
+  UPDATE_STUDENT,
+  ADD_STUDENT
 } from "./types";
-import { VALUE_KEY, URL_STUDENTS, BRANCH_PUNGGOL } from "../utils/common";
+import { VALUE_KEY, URL_STUDENTS } from "../utils/common";
 import { getBranch } from "./branches";
 
 export const addStudent = student => async dispatch => {
-  console.log(student, "1");
   const branch = student.Branch;
   const myRef = studentsRef.child(branch).push();
   const newKey = myRef.key;
@@ -21,7 +23,12 @@ export const addStudent = student => async dispatch => {
     .ref()
     .update(updateData)
     .then(() => dispatch(getBranch(branch)))
-    .then(() => dispatch(fetchStudentsByBranch(branch)));
+    .then(() => dispatch(fetchStudentsByBranch(branch)))
+    .then(() =>
+      dispatch({
+        type: ADD_STUDENT
+      })
+    );
 };
 
 export const updateStudent = student => async dispatch => {
@@ -34,8 +41,7 @@ export const updateStudent = student => async dispatch => {
     .then(() => dispatch(fetchStudentsByBranch(student.Branch)))
     .then(() =>
       dispatch({
-        type: FETCH_STUDENT,
-        student: null
+        type: UPDATE_STUDENT
       })
     );
 };
@@ -46,13 +52,12 @@ export const removeStudent = (studentKey, branch, batch) => async dispatch => {
     .child(studentKey)
     .remove()
     .then(() => dispatch(getBranch(branch)))
-    .then(result => {
+    .then(() => {
       dispatch(fetchStudentsByBranch(branch, batch));
     })
     .then(() =>
       dispatch({
-        type: FETCH_STUDENT,
-        student: null
+        type: REMOVE_STUDENT
       })
     );
 };
@@ -134,13 +139,16 @@ export const fetchStudent = student => async dispatch => {
   );
   studentRef.on(VALUE_KEY, data => {
     const student = data.val();
-    const level = student.level;
-    if (!level) student.level = "Primary";
+    //Check for null or empty
+    if (student) {
+      const level = student.level;
+      if (!level) student.level = "Primary";
 
-    dispatch({
-      type: FETCH_STUDENT,
-      student
-    });
+      dispatch({
+        type: FETCH_STUDENT,
+        student
+      });
+    }
   });
 };
 

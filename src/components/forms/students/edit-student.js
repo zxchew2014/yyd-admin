@@ -9,11 +9,10 @@ import {
   FOUNDATION_SUBJECT,
   ALL_SECONDARY_LEVEL,
   EDUCATION_LEVEL,
-  SECONDARY_SUBJECT
+  SECONDARY_GROUP
 } from "../../../utils/common";
 import PropTypes from "prop-types";
 import { DDL_BRANCH_OPTIONS } from "../../utils/dropdownlist";
-import * as action_branch from "../../../actions/branches";
 
 class EditStudent extends React.Component {
   constructor(props) {
@@ -27,30 +26,22 @@ class EditStudent extends React.Component {
 
   updateStudentCheck = () => {
     const { updateStudent } = this.props;
-    const { english, math, level, science, errors } = this.state;
     if (this.state.errors) delete this.state.errors;
-
-    if (level === "Secondary") {
-      if (english || math || science) {
-        updateStudent(this.state);
-        this.props.onBack();
-      } else {
-        // No Subject is selected
-        errors.subject = "At least 1 subject need to be select";
-        this.setState({ errors });
-      }
-    } else {
-      updateStudent(this.state);
-      this.props.onBack();
-    }
+    updateStudent(this.state);
+    this.props.onBack();
   };
+
   onSubmit = event => {
     const { removeStudent, addStudent, student } = this.props;
     event.preventDefault();
-    const { Batch } = this.state;
+    const { Batch, chinese } = this.state;
 
     if (Batch === "") {
       delete this.state.Batch;
+    }
+
+    if (chinese === "") {
+      delete this.state.chinese;
     }
 
     if (student.Branch === this.state.Branch) {
@@ -78,20 +69,24 @@ class EditStudent extends React.Component {
         delete this.state.Secondary;
         delete this.state.english;
         delete this.state.math;
-        delete this.state.science;
+        delete this.state.chinese;
         if (!Primary) this.setState({ Primary: "" });
       } else {
         this.setState({
           Secondary: "",
-          english: false,
-          math: false,
-          science: false
+          english: "",
+          math: "",
+          chinese: ""
         });
         delete this.state.Primary;
         delete this.state.Foundation;
       }
     }
 
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  handleInputSecondarySubjectChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -211,6 +206,69 @@ class EditStudent extends React.Component {
     return FORM_FIELD_SECONDARY();
   }
 
+  renderSubjectGroupDropDownList() {
+    const subjectGroup = SECONDARY_GROUP;
+    const { english, math, chinese } = this.state;
+
+    const GROUP_OPTIONS = _.map(subjectGroup, (value, key) => (
+      <option key={key} value={value}>
+        {value}
+      </option>
+    ));
+
+    const FORM_FIELD_ENGLISH = () => (
+      <Form.Field required>
+        <label htmlFor="english">English</label>
+        <select
+          ref="english"
+          name="english"
+          id="english"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={english || ""}
+          required
+        >
+          <option key={english || ""} defaultValue={english || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
+    );
+
+    const FORM_FIELD_MATH = () => (
+      <Form.Field required>
+        <label htmlFor="math">Math</label>
+        <select
+          ref="math"
+          name="math"
+          id="math"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={math || ""}
+          required
+        >
+          <option key={math || ""} defaultValue={math || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
+    );
+
+    const FORM_FIELD_CHINESE = () => (
+      <Form.Field>
+        <label htmlFor="chinese">Chinese</label>
+        <select
+          ref="chinese"
+          name="chinese"
+          id="chinese"
+          onChange={this.handleInputSecondarySubjectChange}
+          value={chinese || ""}
+        >
+          <option key={chinese || ""} defaultValue={chinese || ""} />
+          {GROUP_OPTIONS}
+        </select>
+      </Form.Field>
+    );
+
+    return [FORM_FIELD_ENGLISH(), FORM_FIELD_MATH(), FORM_FIELD_CHINESE()];
+  }
+
   renderBranchDropDownList() {
     const { branches } = this.props;
     const { Branch, level } = this.state;
@@ -236,29 +294,8 @@ class EditStudent extends React.Component {
 
     return FORM_FIELD_BRANCH();
   }
-
-  getSubjectChecked = subject => {
-    const { english, math, science } = this.state;
-    if (subject === "English") return english;
-    if (subject === "Math") return math;
-    if (subject === "Science") return science;
-  };
-
-  handleCheckboxChange = e => {
-    const { value, checked } = e.target;
-    if (checked) {
-      if (value === "English") this.setState({ english: true });
-      if (value === "Math") this.setState({ math: true });
-      if (value === "Science") this.setState({ science: true });
-    } else {
-      if (value === "English") this.setState({ english: false });
-      if (value === "Math") this.setState({ math: false });
-      if (value === "Science") this.setState({ science: false });
-    }
-  };
-
   renderEditForm = () => {
-    const { Name, Branch, level, Primary, errors } = this.state;
+    const { Name, level, Primary } = this.state;
 
     const FORM_FIELD_LEVEL = () => (
       <Form.Field required>
@@ -281,31 +318,13 @@ class EditStudent extends React.Component {
       />
     ));
 
-    const FORM_FIELD_SUBJECT = () => (
-      <Form.Field required error={!!errors.subject}>
-        <label htmlFor="Subject">Subject</label>
-        <Form.Group>{SECONDARY_SUBJECT_CHECKBOX_FIELDS}</Form.Group>
-      </Form.Field>
-    );
-
-    const SECONDARY_SUBJECT_CHECKBOX_FIELDS = SECONDARY_SUBJECT.map(subject => (
-      <Form.Field
-        key={subject}
-        label={subject}
-        control="input"
-        type="checkbox"
-        name={subject}
-        value={subject}
-        checked={this.getSubjectChecked(subject)}
-        onChange={this.handleCheckboxChange}
-      />
-    ));
     return (
       <Form onSubmit={this.onSubmit}>
         <Button secondary fluid onClick={() => this.props.onBack()}>
           Back
         </Button>
         <br />
+        {FORM_FIELD_LEVEL()}
         <Form.Field
           id="form-input-control-name"
           control={Input}
@@ -316,7 +335,6 @@ class EditStudent extends React.Component {
           onChange={this.handleInputChange}
           required
         />
-        {FORM_FIELD_LEVEL()}
         {this.renderBranchDropDownList()}
         {this.renderBatchDropDownList()}
         {(level === "Primary" || Primary) && [
@@ -325,12 +343,10 @@ class EditStudent extends React.Component {
         ]}
         {level === "Secondary" && [
           this.renderSecondaryDropDownList(),
-          FORM_FIELD_SUBJECT()
+          this.renderSubjectGroupDropDownList()
         ]}
 
-        <Button type="submit" primary fluid>
-          {level === "Primary" || Primary ? " Update Student" : "Update Alumni"}
-        </Button>
+        <Button type="submit" primary fluid content="Update Student" />
       </Form>
     );
   };

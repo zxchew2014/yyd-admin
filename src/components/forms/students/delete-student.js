@@ -19,7 +19,7 @@ class RemoveStudent extends React.Component {
       level: student.level,
       english: student.english,
       math: student.math,
-      science: student.science
+      chinese: student.chinese
     };
   }
 
@@ -45,7 +45,7 @@ class RemoveStudent extends React.Component {
       Secondary,
       english,
       math,
-      science,
+      chinese,
       level
     } = this.state;
     return [
@@ -66,10 +66,13 @@ class RemoveStudent extends React.Component {
               <Table.Cell>Primary</Table.Cell>
               <Table.Cell>{Primary || ""}</Table.Cell>
             </Table.Row>,
-            <Table.Row>
-              <Table.Cell>Foundation</Table.Cell>
-              <Table.Cell>{Foundation || ""}</Table.Cell>
-            </Table.Row>
+
+            Foundation && [
+              <Table.Row>
+                <Table.Cell>Foundation</Table.Cell>
+                <Table.Cell>{Foundation || ""}</Table.Cell>
+              </Table.Row>
+            ]
           ]}
 
           {level === "Secondary" && [
@@ -80,9 +83,9 @@ class RemoveStudent extends React.Component {
             <Table.Row>
               <Table.Cell>Subjects</Table.Cell>
               <Table.Cell>
-                {english && ["English", <br />]}
-                {math && ["Math", <br />]}
-                {science && "Science"}
+                {english && [`English ${english}`, <br />]}
+                {math && [`Math ${math}`, <br />]}
+                {chinese && `Chinese ${chinese}`}
               </Table.Cell>
             </Table.Row>
           ]}
@@ -92,12 +95,12 @@ class RemoveStudent extends React.Component {
             <Table.Cell>{Branch || ""}</Table.Cell>
           </Table.Row>
 
-          {Batch ? (
+          {Batch && (
             <Table.Row>
               <Table.Cell>Batch</Table.Cell>
               <Table.Cell>{Batch}</Table.Cell>
             </Table.Row>
-          ) : null}
+          )}
         </Table.Body>
       </Table>,
 

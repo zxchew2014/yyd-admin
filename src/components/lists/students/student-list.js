@@ -1,10 +1,9 @@
 import React from "react";
-import { Table, Icon, Button } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import * as STUDENTS from "../../../actions/students";
 import { BATCH_1, BATCH_2 } from "../../../utils/common";
-import StudentSubjectList from "../subjectList";
 
 class StudentList extends React.Component {
   componentDidMount() {
@@ -41,7 +40,9 @@ class StudentList extends React.Component {
         ]}
         {level === "Secondary" && [
           <Table.HeaderCell textAlign="center">Secondary</Table.HeaderCell>,
-          <Table.HeaderCell textAlign="center">Subject</Table.HeaderCell>
+          <Table.HeaderCell textAlign="center">English</Table.HeaderCell>,
+          <Table.HeaderCell textAlign="center">Math</Table.HeaderCell>,
+          <Table.HeaderCell textAlign="center">Chinese</Table.HeaderCell>
         ]}
         <Table.HeaderCell textAlign="center">Branch</Table.HeaderCell>
         {batch && <Table.HeaderCell>Batch</Table.HeaderCell>}
@@ -90,9 +91,14 @@ class StudentList extends React.Component {
             <Table.Cell textAlign="center">
               Secondary {student.Secondary}
             </Table.Cell>,
+            <Table.Cell textAlign="center">{student.english}</Table.Cell>,
+            <Table.Cell textAlign="center">{student.math}</Table.Cell>,
+            <Table.Cell textAlign="center">{student.chinese}</Table.Cell>
+            /*
             <Table.Cell textAlign="center">
               <StudentSubjectList student={student} />
             </Table.Cell>
+               */
           ]}
           <Table.Cell textAlign="center">{student.Branch}</Table.Cell>
           {batch && <Table.Cell textAlign="center">{student.Batch}</Table.Cell>}
