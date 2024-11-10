@@ -5,12 +5,12 @@ class NewsUpdatePopup extends React.Component {
   render() {
     return (
       <Popup trigger={<Button circular icon="help" />}>
-        <Popup.Header>News Update</Popup.Header>
+        <Popup.Header>Latest Update</Popup.Header>
         <Popup.Content>
           <Item.Group>
             <Item>
               <Item.Content>
-                <Item.Header>5 Nov 2024 v3.4</Item.Header>
+                <Item.Header>10 Nov 2024 v3.4</Item.Header>
                 <Item.Description>
                   <List bulleted>
                     <List.Item>Secondary 1 student able to fill up</List.Item>
@@ -20,6 +20,9 @@ class NewsUpdatePopup extends React.Component {
                     </List.Item>
                     <List.Item>
                       Refactor old code for secondary subject
+                    </List.Item>
+                    <List.Item>
+                      Attendance summary indicate multiple branches taught by each teacher
                     </List.Item>
                   </List>
                 </Item.Description>

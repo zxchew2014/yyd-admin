@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import LoginPage from "./components/pages/login";
-import AttendancePage from "./components/pages/teachers/retrieve";
+import TeacherAttendancePage from "./components/pages/teachers/retrieve";
 import StudentAttendancePage from "./components/pages/students/retrieve";
 import TeacherPage from "./components/pages/teachers";
 import EditTeacherPage from "./components/pages/teachers/update";
@@ -63,7 +63,7 @@ class App extends React.Component {
                 location={this.props.location}
                 path="/teacher/attendance"
                 exact
-                component={AttendancePage}
+                component={TeacherAttendancePage}
               />
 
               <UserRoute

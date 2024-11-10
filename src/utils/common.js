@@ -1,4 +1,4 @@
-export const VERSION_DATE = "5 Nov 2024";
+export const VERSION_DATE = "10 Nov 2024";
 export const VERSION_NO = "V3.4";
 
 export const YYD_EDUCATION_CENTRE = "YYD Education Centre";

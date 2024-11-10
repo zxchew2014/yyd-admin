@@ -5,7 +5,7 @@ import RetrieveTeacherAttendanceForm from "../../forms/attendance/teacher-attend
 import TeacherAttendanceListByBranch from "../../lists/teachers/teacher-attendance-list-by-branch";
 import * as attendances from "../../../actions/attendances";
 
-class AttendancePage extends React.Component {
+class TeacherAttendancePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -81,4 +81,4 @@ const mapStateToProps = ({ attendanceTeachers }) => ({
   attendanceTeachers
 });
 
-export default connect(mapStateToProps, attendances)(AttendancePage);
+export default connect(mapStateToProps, attendances)(TeacherAttendancePage);

@@ -105,7 +105,6 @@ class RemoveStudent extends React.Component {
       </Table>,
 
       <Form key="student-remove-form">
-        {JSON.stringify(this.state)}
         <div className="ui buttons">
           <Button
             className="ui button"
