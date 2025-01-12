@@ -21,11 +21,14 @@ const store = createStore(
 if (localStorage.user) {
   yydASAuth.onAuthStateChanged(user => {
     if (user) {
-      if (user.emailVerified) {
-        store.dispatch(userLoggedIn(user));
-        store.dispatch(fetchAdmin(user));
-        store.dispatch(fetchFeatureFlagList());
-      }
+      store.dispatch(userLoggedIn(user));
+      store.dispatch(fetchAdmin(user));
+      store.dispatch(fetchFeatureFlagList());
+      // if (user.emailVerified) {
+      //   store.dispatch(userLoggedIn(user));
+      //   store.dispatch(fetchAdmin(user));
+      //   store.dispatch(fetchFeatureFlagList());
+      // }
     }
   });
 }

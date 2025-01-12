@@ -10,6 +10,16 @@ class NewsUpdatePopup extends React.Component {
           <Item.Group>
             <Item>
               <Item.Content>
+                <Item.Header>12 Jan 2025 v3.5</Item.Header>
+                <Item.Description>
+                  <List bulleted>
+                    <List.Item>Remove email verify step</List.Item>
+                  </List>
+                </Item.Description>
+              </Item.Content>
+            </Item>
+            <Item>
+              <Item.Content>
                 <Item.Header>10 Nov 2024 v3.4</Item.Header>
                 <Item.Description>
                   <List bulleted>

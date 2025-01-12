@@ -9,7 +9,11 @@ const GuestRoute = ({ user, component: Component, ...rest }) => (
     render={props =>
       user === null ? (
         [<Component {...props} />]
-      ) : user.emailVerified ? (
+      ) :  <Redirect
+          to={{ pathname: "/student", state: { from: props.location } }}
+      />
+          /*
+          user.emailVerified ? (
         <Redirect
           to={{ pathname: "/student", state: { from: props.location } }}
         />
@@ -18,6 +22,7 @@ const GuestRoute = ({ user, component: Component, ...rest }) => (
           to={{ pathname: "/verify_email", state: { from: props.location } }}
         />
       )
+           */
     }
   />
 );

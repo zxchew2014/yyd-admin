@@ -9,12 +9,13 @@ class TopMenu extends React.Component {
     const { user, admin } = this.props;
     fetchAdmin(user);
 
-    if (user !== null && user.emailVerified) {
+    if (user !== null) {
+    //if (user !== null && user.emailVerified) {
       if (admin !== null) {
         return (
           <div className="menu-container">
             <Menu stackable>
-              {admin !== null && admin.isSuperAdmin
+              {admin.isSuperAdmin
                 ? [
                     <Dropdown item pointing text="Admin" key="admin">
                       <Dropdown.Menu>
@@ -35,22 +36,23 @@ class TopMenu extends React.Component {
                           <Dropdown.Item>Add Branch</Dropdown.Item>
                         </Link>
                       </Dropdown.Menu>
-                    </Dropdown>,
-                    <Dropdown item text="Teacher" key="teacher">
-                      <Dropdown.Menu>
-                        <Link to="/teacher">
-                          <Dropdown.Item>View Teachers</Dropdown.Item>
-                        </Link>
-                        <Link to="/teacher/add">
-                          <Dropdown.Item>Add Teacher</Dropdown.Item>
-                        </Link>
-                        <Link to="/teacher/attendance">
-                          <Dropdown.Item>View Attendance</Dropdown.Item>
-                        </Link>
-                      </Dropdown.Menu>
                     </Dropdown>
                   ]
                 : null}
+
+              <Dropdown item text="Teacher" key="teacher">
+                <Dropdown.Menu>
+                  <Link to="/teacher">
+                    <Dropdown.Item>View Teachers</Dropdown.Item>
+                  </Link>
+                  <Link to="/teacher/add">
+                    <Dropdown.Item>Add Teacher</Dropdown.Item>
+                  </Link>
+                  <Link to="/teacher/attendance">
+                    <Dropdown.Item>View Attendance</Dropdown.Item>
+                  </Link>
+                </Dropdown.Menu>
+              </Dropdown>
 
               <Dropdown item text="Student" key="student">
                 <Dropdown.Menu>
