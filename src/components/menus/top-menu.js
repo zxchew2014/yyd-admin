@@ -10,7 +10,7 @@ class TopMenu extends React.Component {
     fetchAdmin(user);
 
     if (user !== null) {
-    //if (user !== null && user.emailVerified) {
+      //if (user !== null && user.emailVerified) {
       if (admin !== null) {
         return (
           <div className="menu-container">

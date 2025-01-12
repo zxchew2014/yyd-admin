@@ -12,7 +12,7 @@ import { userLoggedIn } from "./actions/auth";
 import rootReducer from "./reducers/rootReducer";
 import App from "./App";
 import { fetchAdmin } from "./actions/admins";
-import {fetchFeatureFlagList} from "./actions/feature_flag";
+import { fetchFeatureFlagList } from "./actions/feature_flag";
 
 const store = createStore(
   rootReducer,

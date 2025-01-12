@@ -6,13 +6,16 @@ import { Route, Redirect } from "react-router-dom";
 const GuestRoute = ({ user, component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
-      user === null ? (
-        [<Component {...props} />]
-      ) :  <Redirect
-          to={{ pathname: "/student", state: { from: props.location } }}
-      />
-          /*
+    render={
+      props =>
+        user === null ? (
+          [<Component {...props} />]
+        ) : (
+          <Redirect
+            to={{ pathname: "/student", state: { from: props.location } }}
+          />
+        )
+      /*
           user.emailVerified ? (
         <Redirect
           to={{ pathname: "/student", state: { from: props.location } }}

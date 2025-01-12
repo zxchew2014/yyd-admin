@@ -18,7 +18,7 @@ class SideMenu extends React.Component {
     const { user, logout } = this.props;
 
     return user !== null ? (
-    //return user !== null && user.emailVerified ? (
+      //return user !== null && user.emailVerified ? (
       <div className="menu-container">
         <Menu vertical>
           <Menu.Item>
