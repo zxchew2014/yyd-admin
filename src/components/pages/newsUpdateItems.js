@@ -13,7 +13,10 @@ class NewsUpdatePopup extends React.Component {
                 <Item.Header>14 Feb 2025 v3.6</Item.Header>
                 <Item.Description>
                   <List bulleted>
-                    <List.Item>Refactor student list in branch not active and student page</List.Item>
+                    <List.Item>
+                      Refactor student list in branch not active and student
+                      page
+                    </List.Item>
                   </List>
                 </Item.Description>
               </Item.Content>
