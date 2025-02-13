@@ -6,7 +6,7 @@ import {
   FETCH_BRANCHES,
   REMOVE_STUDENT,
   UPDATE_STUDENT,
-  ADD_STUDENT
+  ADD_STUDENT, FETCH_ALL_STUDENTS_BY_BRANCH
 } from "./types";
 import { VALUE_KEY, URL_STUDENTS } from "../utils/common";
 import { getBranch } from "./branches";
@@ -93,15 +93,11 @@ export const fetchStudentsByBranch = (
       const newStudentList = [];
       Object.keys(studentList).forEach(key => {
         const student = studentList[key];
-        if (
-          !student.level &&
-          (level === "Primary" || student.level === level)
-        ) {
-          student.Id = key;
+        student.Id = key;
+        if (!student.level &&  (level === "Primary" || student.level === level)) {
           student.level = level;
           newStudentList.push(student);
         } else if (student.level === level) {
-          student.Id = key;
           newStudentList.push(student);
         }
       });
@@ -127,6 +123,50 @@ export const fetchStudentsByBranch = (
 
       dispatch({
         type: FETCH_STUDENTS_BY_BRANCH,
+        students: newStudentList
+      });
+    }
+  });
+};
+
+export const fetchAllStudentsByBranch = (
+    branch,
+    batch
+) => async dispatch => {
+
+  const studentByBranchRef = yydASDb
+      .ref(`${URL_STUDENTS}/${branch}`)
+      .orderByChild("Name");
+
+  studentByBranchRef.on(VALUE_KEY, data => {
+    const studentList = data.val();
+    if (studentList === null) {
+      dispatch({
+        type: FETCH_ALL_STUDENTS_BY_BRANCH,
+        students: null
+      });
+    } else {
+      const newStudentList = [];
+      Object.keys(studentList).forEach(key => {
+        const student = studentList[key];
+        student.Id = key;
+        if (!student.level) {
+          student.level = "Primary";
+        }
+        newStudentList.push(student);
+      });
+
+        newStudentList.sort((a, b) => {
+          //console.log(a, b, b.Name);
+          return (
+              parseInt(a.Primary, 10) - parseInt(b.Primary, 10) ||
+              parseInt(a.Secondary, 10) - parseInt(b.Secondary, 10) ||
+              a.Name.localeCompare(b.Name)
+          );
+        });
+
+      dispatch({
+        type: FETCH_ALL_STUDENTS_BY_BRANCH,
         students: newStudentList
       });
     }

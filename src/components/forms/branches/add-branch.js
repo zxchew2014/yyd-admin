@@ -99,10 +99,7 @@ class AddBranch extends React.Component {
 
   renderAddForm = () => {
     const { Branch_Name, branch_code, teacher_payout, parent_volunteer_payout, primary, secondary } = this.state;
-    console.log(this.props);
     const { IsPayoutDisplay } = this.props.feature_flag;
-    console.log(IsPayoutDisplay);
-
     const FORM_FIELD_LEVEL = () => (
       <Form.Field required>
         <label htmlFor="Level">Level</label>

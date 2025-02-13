@@ -16,7 +16,7 @@ class UpdateBranch extends React.Component {
 
   renderNotActiveForm = () => {
     const { branch } = this.props;
-    const { Branch_Name, branch_code } = this.state;
+    const { Branch_Name, branch_code, primary, secondary} = this.state;
 
     return [
       <Message error key="branch-remove-message">
@@ -61,7 +61,7 @@ class UpdateBranch extends React.Component {
         <Icon name="users" />
         <Header.Content>Student List</Header.Content>
       </Header>,
-      <StudentList key="student-list" branch={Branch_Name} btnDisable={true} />,
+      <StudentList key="student-list" branch={Branch_Name} btnDisable={true} spiltLevel={true} branchHasPrimary={primary} branchHasSecondary={secondary} />,
       <Header as="h3" key="teachers-header">
         <Icon name="users" />
         <Header.Content>Teacher List</Header.Content>

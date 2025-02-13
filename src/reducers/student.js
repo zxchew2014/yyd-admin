@@ -1,4 +1,5 @@
 import {
+  FETCH_ALL_STUDENTS_BY_BRANCH,
   FETCH_STUDENT,
   FETCH_STUDENTS,
   FETCH_STUDENTS_BY_BRANCH,
@@ -12,6 +13,8 @@ export const fetchStudentList = (state = null, action) => {
     case FETCH_STUDENTS_BY_BRANCH:
       return action.students;
     case REMOVE_STUDENTS_BY_BRANCH:
+      return action.students;
+    case FETCH_ALL_STUDENTS_BY_BRANCH:
       return action.students;
     default:
       return state;
