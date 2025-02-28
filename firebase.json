@@ -5,6 +5,16 @@
   "hosting": {
     "public": "build",
     "site": "yyd-admin",
+    "rewrites":[
+      {"source":"/student/*","destination":"/index.html"},
+      {"source":"/admin/*","destination":"/index.html"},
+      {"source":"/teacher/*","destination":"/index.html"},
+      {"source":"/branch/*","destination":"/index.html"},
+      {"source":"/student","destination":"/index.html"},
+      {"source":"/admin","destination":"/index.html"},
+      {"source":"/teacher","destination":"/index.html"},
+      {"source":"/branch","destination":"/index.html"}
+    ],
     "ignore": [
       "firebase.json",
       "**/.*",
