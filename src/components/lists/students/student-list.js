@@ -281,11 +281,10 @@ class StudentList extends React.Component {
         branchHasSecondary = false
       } = this.props;
       return (
-        <div>
+        <div key="student-list-branch">
           {spiltLevel
             ? [
-                branchHasPrimary
-                  ? [
+                branchHasPrimary &&  [
                       <Table
                         striped
                         celled
@@ -301,11 +300,8 @@ class StudentList extends React.Component {
                           </Table.Body>
                         )}
                       </Table>
-                    ]
-                  : null,
-
-                branchHasSecondary
-                  ? [
+                    ],
+                branchHasSecondary && [
                       <Table
                         striped
                         celled
@@ -326,7 +322,6 @@ class StudentList extends React.Component {
                         )}
                       </Table>
                     ]
-                  : null
               ]
             : [
                 level === "Primary"
@@ -396,30 +391,33 @@ class StudentList extends React.Component {
     }
 
     return [
-      <br />,
-      <Button
-        fluid
-        floated="right"
-        icon="add user"
-        labelPosition="left"
-        size="small"
-        color="green"
-        content="Add Student / Alumni"
-        onClick={() => this.props.onCreate()}
-      />
+        <React.Fragment key="add-student-button">
+            <br/>
+            <Button
+                fluid
+                floated="right"
+                icon="add user"
+                labelPosition="left"
+                size="small"
+                color="green"
+                content="Add Student / Alumni"
+                onClick={() => this.props.onCreate()}
+            />
+        </React.Fragment>
+
     ];
   }
 }
 
 StudentList.propTypes = {
-  onEdit: PropTypes.func,
-  onDelete: PropTypes.func,
-  onCreate: PropTypes.func,
-  branch: PropTypes.string,
-  batch: PropTypes.string,
-  level: PropTypes.string,
-  btnDisable: PropTypes.bool,
-  spiltLevel: PropTypes.bool,
+    onEdit: PropTypes.func,
+    onDelete: PropTypes.func,
+    onCreate: PropTypes.func,
+    branch: PropTypes.string,
+    batch: PropTypes.string,
+    level: PropTypes.string,
+    btnDisable: PropTypes.bool,
+    spiltLevel: PropTypes.bool,
   branchHasPrimary: PropTypes.bool,
   branchHasSecondary: PropTypes.bool
 };

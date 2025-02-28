@@ -225,7 +225,11 @@ class AddStudentForm extends React.Component {
       </Form.Field>
     );
 
-    return [FORM_FIELD_ENGLISH(), FORM_FIELD_MATH(), FORM_FIELD_CHINESE()];
+    return <React.Fragment key="secondary-subjusts-ddl">
+        {FORM_FIELD_ENGLISH()}
+        {FORM_FIELD_MATH()}
+        {FORM_FIELD_CHINESE()}
+    </React.Fragment>;
   }
 
   renderBranchDropDownList() {
@@ -306,7 +310,7 @@ class AddStudentForm extends React.Component {
     ));
 
     return (
-      <Form onSubmit={this.onSubmit}>
+      <Form onSubmit={this.onSubmit} key="add-student-form">
         <Button
           secondary
           fluid
@@ -329,15 +333,19 @@ class AddStudentForm extends React.Component {
         />
         {this.renderBranchDropDownList()}
         {this.renderBatchDropDownList()}
-        {level === "Primary" && [
-          this.renderPrimaryDropDownList(),
-          this.renderFoundationDropDownList()
-        ]}
+        {level === "Primary" &&
+            <React.Fragment key="add-student-primary">
+                {this.renderPrimaryDropDownList()}
+                {this.renderFoundationDropDownList()}
+            </React.Fragment>
+        }
 
-        {level === "Secondary" && [
-          this.renderSecondaryDropDownList(),
-          this.renderSubjectGroupDropDownList()
-        ]}
+        {level === "Secondary" &&
+            <React.Fragment key="add-student-secondary">
+                {this.renderSecondaryDropDownList()}
+                {this.renderSubjectGroupDropDownList()}
+            </React.Fragment>
+        }
 
         <Button
           type="submit"
@@ -352,7 +360,7 @@ class AddStudentForm extends React.Component {
   };
 
   render() {
-    return <div className="add-student-form">{this.renderAddForm()}</div>;
+    return <div key="add-student-form" className="add-student-form">{this.renderAddForm()}</div>;
   }
 }
 

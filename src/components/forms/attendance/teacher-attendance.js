@@ -10,10 +10,7 @@ import {
   DATE_UNITOFTIME_MONTH,
   DATEFORMAT_DAY_MMM_DD_YYYY,
   ENDATE_ERROR_MESSAGE,
-  STARTDATE_ERROR_MESSAGE,
-  BATCH_1,
-  BATCH_2,
-  BRANCH_PUNGGOL
+  EDUCATION_LEVEL
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -25,7 +22,8 @@ class RetrieveTeacherAttendanceForm extends React.Component {
         .startOf(DATE_UNITOFTIME_MONTH)
         .format(DATEFORMAT_DAY_MMM_DD_YYYY),
       endDate: new Date().toDateString(),
-      branch: ""
+      branch: "",
+      level: "Primary"
     },
     errors: {}
   };
@@ -63,15 +61,24 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     });
   };
 
+  handleRadioInputChange = event => {
+    const { fetchBranchList } = this.props;
+    const { data } = this.state;
+    fetchBranchList(event.target.value);
+    this.setState({
+      data: { ...data, [event.target.name]: event.target.value }
+    });
+  };
+
   validateDate = data => {
     const { startDate, endDate } = data;
     const errors = {};
 
-    if (new Date(endDate) < new Date(startDate)) {
+    const momentStartDate = moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
+    const momentEndDate = moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
+
+    if (momentEndDate < momentStartDate) {
       errors.endDate = ENDATE_ERROR_MESSAGE;
-    }
-    if (new Date(startDate) > new Date(endDate)) {
-      errors.startDate = STARTDATE_ERROR_MESSAGE;
     }
 
     return errors;
@@ -79,7 +86,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
 
   render() {
     const { errors, data } = this.state;
-    const { branch, endDate, startDate } = data;
+    const { branch, endDate, startDate, level } = data;
     const { branches } = this.props;
 
     if (branches === null) return null;
@@ -105,8 +112,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           {branch !== "" ? (
             <option key="" defaultValue="" />
           ) : (
-            ((<option key={branch} defaultValue={branch} />),
-            (<option key="" defaultValue="" />))
+            <option key={branch} defaultValue={branch} />
           )}
           <option key="All" defaultValue="All" value="All">
             All Branches
@@ -126,7 +132,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(startDate).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
           required
         />
         {errors.startDate && <InlineError text={errors.startDate} />}
@@ -143,15 +149,36 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(endDate).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
           required
         />
         {errors.endDate && <InlineError text={errors.endDate} />}
       </Form.Field>
     );
 
-    return [
-      <Form onSubmit={this.onSubmit}>
+    const FORM_FIELD_LEVEL = () => (
+        <Form.Field key="level" required>
+          <label htmlFor="Level">Level</label>
+          <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
+        </Form.Field>
+    );
+
+    const LEVEL_RADIOBOX_FIELDS = EDUCATION_LEVEL.map(l => (
+        <Form.Field
+            key={l}
+            label={l}
+            control="input"
+            type="radio"
+            name="level"
+            value={l}
+            checked={level === l}
+            onChange={this.handleRadioInputChange}
+        />
+    ));
+
+    return (
+      <Form onSubmit={this.onSubmit} key="teacher-attendance-form">
+        {FORM_FIELD_LEVEL()}
         {FORM_FIELD_BRANCH()}
         {FORM_FIELD_START_DATE()}
         {FORM_FIELD_END_DATE()}
@@ -159,7 +186,7 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           Submit
         </Button>
       </Form>
-    ];
+    );
   }
 }
 

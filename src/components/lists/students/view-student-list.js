@@ -89,7 +89,7 @@ class ViewStudentList extends React.Component {
 
     const FORM_FIELD_LEVEL = () => (
       <Form.Field required>
-        <label htmlFor="Level">Level</label>
+        <label htmlFor="level">Level</label>
         <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
       </Form.Field>
     );
@@ -120,8 +120,9 @@ class ViewStudentList extends React.Component {
     const { branch, batch, level } = this.state;
 
     return (
-      <div className="student-list-container">
+      <div className="student-list-container" key="student-list-container">
         {this.renderInput()}
+        <br />
         <StudentList
           key="student-list"
           id="student-list"

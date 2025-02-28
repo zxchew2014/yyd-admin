@@ -5,17 +5,20 @@ import AttendanceListByBranch from "./attendance-list-by-branch";
 
 class TeacherAttendanceListByBranch extends React.Component {
   render() {
-    const { startDate, endDate, branch, batch } = this.props;
+    const { startDate, endDate, branch, batch, level } = this.props;
 
-    return [
-      <AttendanceListByBranch
-        startDate={startDate}
-        endDate={endDate}
-        branch={branch}
-        batch={batch}
-      />,
-      <hr />
-    ];
+    return (
+        <React.Fragment key="teacher-attendance-list">
+          <AttendanceListByBranch
+            startDate={startDate}
+            endDate={endDate}
+            branch={branch}
+            batch={batch}
+            level={level}
+          />
+          <hr />
+        </React.Fragment>
+    );
   }
 }
 
@@ -23,7 +26,8 @@ TeacherAttendanceListByBranch.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   branch: PropTypes.string,
-  batch: PropTypes.string
+  batch: PropTypes.string,
+  level: PropTypes.string
 };
 
 export default connect(null, {})(TeacherAttendanceListByBranch);

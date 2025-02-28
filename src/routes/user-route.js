@@ -4,20 +4,19 @@ import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 const UserRoute = ({ user, component: Component, ...rest }) => (
-  <Route
+  <Route key="user-route"
     {...rest}
     render={props =>
       user !== null ? (
         <Component {...props} />
       ) : (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        <Redirect key="redirect-from-user-route" to={{ pathname: "/", state: { from: props.location } }} />
       )
     }
   />
 );
 
 UserRoute.propTypes = {
-  //component: PropTypes.object.isRequired,
   user: PropTypes.object
 };
 

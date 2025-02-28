@@ -8,7 +8,7 @@ class GenerateHeaderCellList extends React.Component {
     const { headerList } = this.props;
 
     return _.map(headerList, value => {
-      return <Table.HeaderCell>{value}</Table.HeaderCell>;
+      return <Table.HeaderCell key={value}>{value}</Table.HeaderCell>;
     });
   }
 }

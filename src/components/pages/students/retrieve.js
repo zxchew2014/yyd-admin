@@ -30,8 +30,8 @@ class StudentAttendancePage extends React.Component {
     const { startDate, endDate, branch, batch, level } = this.state;
     const { attendanceStudents } = this.props;
     return (
-      <div>
-        <h1>Select Student Attendance</h1>
+      <React.Fragment key="student-attendance-page">
+        <h1>Retrieve Student Attendance</h1>
         <RetrieveStudentAttendanceForm submit={this.submit} />
         <hr />
         {attendanceStudents !== null ? (
@@ -44,7 +44,7 @@ class StudentAttendancePage extends React.Component {
               level={level}
             />
           ) : (
-            <Message warning>
+            <Message warning key="no-attendance-found">
               <Message.Header>
                 No attendance was found during{" "}
                 {startDate === endDate
@@ -56,12 +56,12 @@ class StudentAttendancePage extends React.Component {
           )
         ) : null}
         <br />
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = ({ attendanceStudents, branches }) => ({
+const mapStateToProps = ({ attendanceStudents }) => ({
   attendanceStudents
 });
 

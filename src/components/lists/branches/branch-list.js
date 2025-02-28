@@ -70,25 +70,25 @@ class BranchList extends React.Component {
                     onClick={() => this.props.onSetNotActive(branch)}
                   />
                 ) : (
-                  [
-                    <Button
-                      key="btn-set-active"
-                      icon="linkify"
-                      size="small"
-                      color="teal"
-                      content="Set to Active"
-                      onClick={() => this.props.onSetActive(branch)}
-                    />,
-                    <Button.Or />,
-                    <Button
-                      key="btn-set-delete"
-                      icon="trash"
-                      size="small"
-                      color="red"
-                      content="Remove"
-                      onClick={() => this.props.onDelete(branch)}
-                    />
-                  ]
+                      <React.Fragment key="btn-active-n-delete">
+                        <Button
+                            key="btn-set-active"
+                            icon="linkify"
+                            size="small"
+                            color="teal"
+                            content="Set to Active"
+                            onClick={() => this.props.onSetActive(branch)}
+                        />
+                        <Button.Or />
+                        <Button
+                            key="btn-set-delete"
+                            icon="trash"
+                            size="small"
+                            color="red"
+                            content="Remove"
+                            onClick={() => this.props.onDelete(branch)}
+                        />
+                      </React.Fragment>
                 )}
               </Button.Group>
             </Table.Cell>
@@ -98,7 +98,7 @@ class BranchList extends React.Component {
     };
 
     return (
-      <div className="branch-list-container">
+      <React.Fragment key="branch-list-container">
         <Table basic="very" striped celled stackable>
           <Table.Header>
             <Table.Row>
@@ -126,7 +126,7 @@ class BranchList extends React.Component {
 
           <Table.Body>{renderBranchRow()}</Table.Body>
         </Table>
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -1,5 +1,7 @@
-export const VERSION_DATE = "14 Feb 2025";
-export const VERSION_NO = "V3.6";
+import {newItems} from "./newItems";
+
+export const VERSION_DATE = newItems[0].date;
+export const VERSION_NO = newItems[0].version;
 
 export const YYD_EDUCATION_CENTRE = "YYD Education Centre";
 export const TEACHER_ATTENDANCE_REPORT = "Teacher Attendance Report";
@@ -29,7 +31,6 @@ export const ALL_BATCH = [BATCH_1, BATCH_2];
 export const EDUCATION_LEVEL = ["Primary", "Secondary"];
 
 export const ALL_SECONDARY_LEVEL = ["1"];
-export const SECONDARY_SUBJECT = ["English", "Math", "Chinese"];
 export const SECONDARY_GROUP = ["G1", "G2", "G3"];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";
@@ -51,8 +52,7 @@ export const URL_TEACHERS = "/Teacher_Allocation";
 export const URL_BRANCHES = "/Branches";
 export const URL_ADMINS = "/Admins";
 
-export const ENDATE_ERROR_MESSAGE = "End Date is smaller than Start Date";
-export const STARTDATE_ERROR_MESSAGE = "Start Date is greater than End Date";
+export const ENDATE_ERROR_MESSAGE = "End Date should be later than Start Date";
 
 export const COLOUR_BLACK = "#000000";
 

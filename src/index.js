@@ -24,11 +24,6 @@ if (localStorage.user) {
       store.dispatch(userLoggedIn(user));
       store.dispatch(fetchAdmin(user));
       store.dispatch(fetchFeatureFlagList());
-      // if (user.emailVerified) {
-      //   store.dispatch(userLoggedIn(user));
-      //   store.dispatch(fetchAdmin(user));
-      //   store.dispatch(fetchFeatureFlagList());
-      // }
     }
   });
 }

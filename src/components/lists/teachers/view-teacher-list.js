@@ -90,7 +90,7 @@ class ViewTeacherList extends React.Component {
     const { branch, level } = this.state;
 
     return (
-      <div className="teacher-list-container">
+      <React.Fragment key="teacher-list-container">
         <Form>
           {this.renderLevelRadioboxList()}
           {this.renderBranchDropDownList()}
@@ -105,7 +105,7 @@ class ViewTeacherList extends React.Component {
           onDelete={this.props.onDelete}
           onCreate={this.props.onCreate}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

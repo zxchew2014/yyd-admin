@@ -139,6 +139,7 @@ const filterStudentAttendance = (
   end,
   branch,
   batch,
+  level,
   clockType
 ) => {
   const mapDate = new Map();
@@ -155,11 +156,11 @@ const filterStudentAttendance = (
               const attendanceList = dateList[dateKey];
               Object.keys(attendanceList).forEach(attendanceKey => {
                 const attendance = attendanceList[attendanceKey];
-                const attendanceId = attendance.id;
-                const attendanceBranch = attendance.branch;
 
-                if (branch === attendanceBranch) {
-                  mapDate.set(attendanceId, attendance);
+                if(attendance.level === undefined) attendance.level = "Primary"
+
+                if ((branch === attendance.branch) && (level === attendance.level))  {
+                  mapDate.set(attendance.id, attendance);
                 }
               });
             }
@@ -217,25 +218,49 @@ const sortStudentMapByName = result => {
     const studentList = attendance.students;
     const teacherName = attendance.teacher;
 
+
     Object.keys(studentList).forEach(studentKey => {
       const student = studentList[studentKey];
 
+      let newStudentAttendanceDetail = {};
+      let combineKey;
       const studentName = student.Name;
-      const primary = student.Primary;
-      const combineKey = `P${primary}_${studentName}`;
-      const foundation = student.Foundation || "";
       const status = student.Status;
+      const level = attendance.level;
 
-      const newStudentAttendanceDetail = {
-        subject: attendance.subject,
-        timestamp: attendance.timestamp,
-        studentName,
-        primary,
-        foundation,
-        status,
-        id: combineKey,
-        teacherName
-      };
+      if(level === "Primary"){
+        const primary = student.Primary;
+        combineKey = `P${primary}_${studentName}`;
+        const foundation = student.Foundation || "";
+
+        newStudentAttendanceDetail = {
+          subject: attendance.subject,
+          timestamp: attendance.timestamp,
+          studentName,
+          primary,
+          foundation,
+          status,
+          id: combineKey,
+          teacherName,
+          level
+        };
+      } else if(level === "Secondary"){
+        const secondary = student.Secondary;
+        const group = student.Group;
+        const subject = attendance.subject;
+        combineKey = `Sec${secondary}_${studentName}`;
+        newStudentAttendanceDetail = {
+          subject,
+          secondary,
+          group,
+          timestamp: attendance.timestamp,
+          studentName,
+          status,
+          id: combineKey,
+          teacherName,
+          level
+        };
+      }
 
       if (mapStudent.has(combineKey)) {
         const currentAttendance = mapStudent.get(combineKey);
@@ -412,9 +437,7 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
             clockInAttendance.subject === clockOutArray[clockOutIndex].subject;
           if (studentNameCheck && dateCheck && subjectCheck) {
             clockInAttendance.status = clockOutArray[clockOutIndex].status;
-            clockInAttendance.checkOutStatus =
-              clockOutArray[clockOutIndex].status;
-            return;
+            clockInAttendance.checkOutStatus = clockOutArray[clockOutIndex].status;
           }
         });
       }
@@ -451,7 +474,6 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
 
           if (studentNameCheck && dateCheck && subjectCheck) {
             checkDuplication = true;
-            return;
           }
         });
       }
@@ -512,12 +534,14 @@ const studentFieldsRemove = attendance => {
   delete attendance.relief;
   delete attendance.feedback;
   delete attendance.primary;
+  delete attendance.secondary;
+  delete attendance.group;
   delete attendance.classroomSetup;
   return attendance;
 };
 
 export const fetchStudentAttendanceClockOut = inputData => async dispatch => {
-  const { startDate, endDate, branch, batch } = inputData;
+  const { startDate, endDate, branch, batch, level } = inputData;
 
   const start = new Date(startDate);
   const end = new Date(endDate);
@@ -530,6 +554,7 @@ export const fetchStudentAttendanceClockOut = inputData => async dispatch => {
       end,
       branch,
       batch,
+      level,
       CAMELCASED_CLOCK_IN
     );
 
@@ -541,6 +566,7 @@ export const fetchStudentAttendanceClockOut = inputData => async dispatch => {
       end,
       branch,
       batch,
+      level,
       CAMELCASED_CLOCK_OUT
     );
 

@@ -4,34 +4,22 @@ import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 
 const GuestRoute = ({ user, component: Component, ...rest }) => (
-  <Route
+  <Route key="guest-route"
     {...rest}
     render={
       props =>
         user === null ? (
-          [<Component {...props} />]
+          <Component {...props} />
         ) : (
-          <Redirect
+          <Redirect key="redirect-from-guest-route"
             to={{ pathname: "/student", state: { from: props.location } }}
           />
         )
-      /*
-          user.emailVerified ? (
-        <Redirect
-          to={{ pathname: "/student", state: { from: props.location } }}
-        />
-      ) : (
-        <Redirect
-          to={{ pathname: "/verify_email", state: { from: props.location } }}
-        />
-      )
-           */
     }
   />
 );
 
 GuestRoute.propTypes = {
-  //component: PropTypes.object.isRequired,
   user: PropTypes.object
 };
 

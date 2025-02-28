@@ -1,6 +1,6 @@
 {
   "name": "yyd-admin",
-  "version": "3.6",
+  "version": "3.7",
   "main": "index.js",
   "repository": "git@github.com:zxchew2014/yyd-admin.git",
   "lint-staged": {

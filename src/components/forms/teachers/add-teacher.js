@@ -135,7 +135,7 @@ class AddTeacher extends React.Component {
 
 AddTeacher.propTypes = {
   navToTeacherPage: PropTypes.func.isRequired,
-  teacher: PropTypes.objectOf(PropTypes.object).isRequired,
+  teacher: PropTypes.objectOf(PropTypes.object),
   addTeacher: PropTypes.func.isRequired
 };
 

@@ -7,13 +7,9 @@ import * as branchAPI from "../../../actions/branches";
 import {
   DATE_UNITOFTIME_MONTH,
   DATEFORMAT_DAY_MMM_DD_YYYY,
-  BATCH_1,
-  BATCH_2,
   DATEFORMAT_YYYYDASHMMDASHDD,
   START_DATE,
-  BRANCH_PUNGGOL,
   ENDATE_ERROR_MESSAGE,
-  STARTDATE_ERROR_MESSAGE,
   ALL_BATCH,
   EDUCATION_LEVEL
 } from "../../../utils/common";
@@ -78,11 +74,11 @@ class RetrieveStudentAttendanceForm extends React.Component {
     const { startDate, endDate } = data;
     const errors = {};
 
-    if (new Date(endDate) < new Date(startDate)) {
+    const momentStartDate = moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
+    const momentEndDate = moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
+
+    if (momentEndDate < momentStartDate) {
       errors.endDate = ENDATE_ERROR_MESSAGE;
-    }
-    if (new Date(startDate) > new Date(endDate)) {
-      errors.startDate = STARTDATE_ERROR_MESSAGE;
     }
     return errors;
   };
@@ -98,7 +94,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
 
   render() {
     const { errors, data } = this.state;
-    const { branch, batch, endDate, startDate, level } = data;
+    const { branch, endDate, startDate, level } = data;
     const { branches } = this.props;
 
     const BRANCH_OPTIONS = Object.keys(branches).map(key => {
@@ -143,7 +139,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(startDate).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
           required
         />
         {errors.startDate && <InlineError text={errors.startDate} />}
@@ -160,7 +156,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(endDate).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
           required
         />
         {errors.endDate && <InlineError text={errors.endDate} />}
@@ -187,8 +183,8 @@ class RetrieveStudentAttendanceForm extends React.Component {
       />
     ));
 
-    return [
-      <Form onSubmit={this.onSubmit}>
+    return (
+      <Form onSubmit={this.onSubmit} key="student-attendance-form">
         {FORM_FIELD_LEVEL()}
         {FORM_FIELD_BRANCH()}
         {FORM_FIELD_START_DATE()}
@@ -197,7 +193,7 @@ class RetrieveStudentAttendanceForm extends React.Component {
           Submit
         </Button>
       </Form>
-    ];
+    );
   }
 }
 

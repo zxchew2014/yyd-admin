@@ -22,24 +22,27 @@ require("jspdf-autotable");
 class AttendanceListByBranch extends React.Component {
   constructor(props) {
     super(props);
-    this.myRef = React.createRef();
   }
 
   generatePDF = () => {
-    const { startDate, endDate, branch, batch } = this.props;
+    const { startDate, endDate, branch, batch, level } = this.props;
     const newPDF = new jsPDF("landscape", "pt");
-    const res = newPDF.autoTableHtmlToJson(
-      document.getElementById("attendanceTableByBranch")
-    );
-    let fileName = "";
+    let res;
+
+    if (level === "Primary")
+      res = newPDF.autoTableHtmlToJson(document.getElementById("attendanceTableByBranchPrimary"));
+    else if(level === "Secondary")
+      res = newPDF.autoTableHtmlToJson(document.getElementById("attendanceTableByBranchSecondary"));
+
+    let fileName = `${YYD_EDUCATION_CENTRE} - ${level} - ${branch} `;
     if (branch === BRANCH_PUNGGOL) {
       if (batch) {
-        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${BATCH} ${batch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
+        fileName += `${BATCH} ${batch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
       } else {
-        fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
+        fileName += `${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
       }
     } else {
-      fileName = `${YYD_EDUCATION_CENTRE} - ${branch} ${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
+      fileName += `${TEACHER_ATTENDANCE_REPORT} on ${startDate} to ${endDate}`;
     }
 
     const header = function(data) {
@@ -62,11 +65,8 @@ class AttendanceListByBranch extends React.Component {
       newPDF.text(data.settings.margin.left + 500, 585, "Role:");
     };
 
-    const options = {
-      didDrawPage: header
-    };
 
-    newPDF.autoTable(res.columns, res.data, options);
+    newPDF.autoTable({columns: res.columns, body: res.data, didDrawPage: header});
     newPDF.save(`${fileName}.pdf`);
   };
 
@@ -83,23 +83,39 @@ class AttendanceListByBranch extends React.Component {
 
   retrieveNoOfClass = (attendanceList, branchCodeMapping) => {
     const result = {};
+    const { level } = this.props;
 
     attendanceList.forEach(attendance => {
       let branchCode = branchCodeMapping[attendance.branch];
-      if (!result.hasOwnProperty(branchCode)) {
-        result[branchCode] = 0;
+
+      if(attendance.level === "Primary" && level === "Primary") {
+        if (!result.hasOwnProperty(branchCode)) {
+          result[branchCode] = 0;
+        }
+        result[branchCode] += attendance.primary.length;
       }
-      result[branchCode] += attendance.primary.length;
+      else if(attendance.level === "Secondary" && level === "Secondary") {
+        if (!result.hasOwnProperty(branchCode)) {
+          result[branchCode] = {"G1" : 0, "G2/G3": 0};
+        }
+
+        const { group } = attendance
+        if(group.includes("G2") || group.includes("G3")) {
+          result[branchCode]["G2/G3"]++;
+        }
+        if(group.includes("G1"))
+          result[branchCode]["G1"]++;
+      }
     });
 
     return result;
   };
 
   render() {
-    const { attendanceTeachers, branches } = this.props;
+    const { attendanceTeachers, branches , level} = this.props;
     const branchCodeMapping = this.retrieveBranchCode(branches);
 
-    const renderHeaderRow = () => (
+    const renderHeaderRow = () =>
       <Table.Header fullWidth>
         <Table.Row textAlign="center">
           <Table.HeaderCell>Date</Table.HeaderCell>
@@ -115,37 +131,89 @@ class AttendanceListByBranch extends React.Component {
           <Table.HeaderCell>Remarks</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
+
+
+    const renderSecondaryHeaderRow = () => (
+        <Table.Header fullWidth>
+          <Table.Row textAlign="center">
+            <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>Clock Out</Table.HeaderCell>
+            <Table.HeaderCell>Phone User</Table.HeaderCell>
+            <Table.HeaderCell>Phone Number</Table.HeaderCell>
+            <Table.HeaderCell>Name</Table.HeaderCell>
+            <Table.HeaderCell>Subject</Table.HeaderCell>
+            <Table.HeaderCell>Branch</Table.HeaderCell>
+            <Table.HeaderCell>Batch</Table.HeaderCell>
+            <Table.HeaderCell>Relief</Table.HeaderCell>
+            <Table.HeaderCell>Secondary</Table.HeaderCell>
+            <Table.HeaderCell>Group</Table.HeaderCell>
+            <Table.HeaderCell>Remarks</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
     );
 
-    const renderAttendanceRows = attendanceList =>
-      attendanceList.map(attendance => (
-        <Table.Row textAlign="center" key={attendance.id}>
-          <Table.Cell>
-            {attendance.clockOut &&
-              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                DATEFORMAT_DAY_MMM_DD_YYYY
-              )}
-          </Table.Cell>
-          <Table.Cell>
-            {(attendance.clockOut &&
-              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                TIMEFORMAT_HHMMTT
-              )) ||
-              ""}
-          </Table.Cell>
-          <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
-          <Table.Cell>{attendance.phoneNumber || ""}</Table.Cell>
-          <Table.Cell>{attendance.teacher}</Table.Cell>
-          <Table.Cell>{attendance.subject}</Table.Cell>
-          <Table.Cell>{attendance.branch}</Table.Cell>
-          <Table.Cell>
-            {attendance.batch ? `Batch ${attendance.batch}` : "-"}
-          </Table.Cell>
-          <Table.Cell>{attendance.relief ? RELIEF_YES : RELIEF_NO}</Table.Cell>
-          <Table.Cell>P{attendance.primary.join(", P")}</Table.Cell>
-          <Table.Cell>{attendance.feedback || ""}</Table.Cell>
-        </Table.Row>
-      ));
+    const renderPrimaryAttendanceRows = attendanceList => (
+      attendanceList.map(attendance =>
+          attendance.level === "Primary" &&
+                <Table.Row textAlign="center" key={attendance.id}>
+                  <Table.Cell>
+                    {attendance.clockOut &&
+                        moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
+                            DATEFORMAT_DAY_MMM_DD_YYYY
+                        )}
+                  </Table.Cell>
+                  <Table.Cell>
+                    {(attendance.clockOut &&
+                            moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
+                                TIMEFORMAT_HHMMTT
+                            )) ||
+                        ""}
+                  </Table.Cell>
+                  <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
+                  <Table.Cell>{attendance.phoneNumber || ""}</Table.Cell>
+                  <Table.Cell>{attendance.teacher}</Table.Cell>
+                  <Table.Cell>{attendance.subject}</Table.Cell>
+                  <Table.Cell>{attendance.branch}</Table.Cell>
+                  <Table.Cell>{attendance.batch ? `Batch ${attendance.batch}` : "-"}</Table.Cell>
+                  <Table.Cell>{attendance.relief ? RELIEF_YES : RELIEF_NO}</Table.Cell>
+                  <Table.Cell>P{attendance.primary.join(", P")}</Table.Cell>
+                  <Table.Cell>{attendance.feedback || ""}</Table.Cell>
+                </Table.Row>
+      )
+    )
+
+    const renderSecondaryAttendanceRows = attendanceList => (
+        attendanceList.map(attendance =>
+            attendance.level === "Secondary" &&
+            <Table.Row textAlign="center" key={attendance.id}>
+              <Table.Cell>
+                {attendance.clockOut &&
+                    moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
+                        DATEFORMAT_DAY_MMM_DD_YYYY
+                    )}
+              </Table.Cell>
+              <Table.Cell>
+                {(attendance.clockOut &&
+                        moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
+                            TIMEFORMAT_HHMMTT
+                        )) ||
+                    ""}
+              </Table.Cell>
+              <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
+              <Table.Cell>{attendance.phoneNumber || ""}</Table.Cell>
+              <Table.Cell>{attendance.teacher}</Table.Cell>
+              <Table.Cell>{attendance.subject}</Table.Cell>
+              <Table.Cell>{attendance.branch}</Table.Cell>
+              <Table.Cell>
+                {attendance.batch ? `Batch ${attendance.batch}` : "-"}
+              </Table.Cell>
+              <Table.Cell>{attendance.relief ? RELIEF_YES : RELIEF_NO}</Table.Cell>
+              <Table.Cell>Sec {attendance.secondary}</Table.Cell>
+              <Table.Cell>{attendance.group.join(", ")}</Table.Cell>
+              <Table.Cell>{attendance.feedback || ""}</Table.Cell>
+            </Table.Row>
+        )
+    )
 
     const renderTotalLessonTaught = (attendanceList, mBranches) => {
       let noOfClasses = 0;
@@ -156,8 +224,11 @@ class AttendanceListByBranch extends React.Component {
       ];
 
       attendanceList.forEach(attendance => {
-        noOfClasses += attendance.primary.length;
+        if(attendance.level === "Primary" && level === "Primary") {
+          noOfClasses += attendance.primary.length;
+        }
       });
+
 
       let branchStr = "";
       if (noOfClassInMultipleBranchesLength > 1) {
@@ -169,51 +240,142 @@ class AttendanceListByBranch extends React.Component {
         });
       }
 
-      return [
-        <Table.Row>
-          <Table.Cell colSpan="11" textAlign="right">
-            <b>
-              Total class taught{" "}
-              {noOfClassInMultipleBranchesLength === 1 && `at ${firstKey}`}
-            </b>{" "}
-            : {noOfClasses}
-            {noOfClassInMultipleBranchesLength > 1 && [
-              <br />,
-              <div>{branchStr}</div>
-            ]}
-          </Table.Cell>
-        </Table.Row>
-      ];
+      return (
+              <Table.Row>
+                <Table.Cell colSpan="11" textAlign="right">
+                  <b>
+                    Total class taught{" "}
+                    {noOfClassInMultipleBranchesLength === 1 && `at ${firstKey}`}
+                  </b>{" "}
+                  : {noOfClasses}
+                  {noOfClassInMultipleBranchesLength > 1 && [
+                    <br />,
+                    <div>{branchStr}</div>
+                  ]}
+                </Table.Cell>
+              </Table.Row>
+              );
+    };
+
+    const renderSecondaryTotalLessonTaught = (attendanceList, mBranches) => {
+
+      if(Object.entries(mBranches).length > 0) {
+        let noOfClasses = 0;
+        let noOfClassInMultipleBranchesLength = Object.keys(mBranches).length;
+        let firstKey = Object.keys(mBranches)[0];
+
+        let noOfClassG1 = 0;
+        let noOfClassG2G3 = 0;
+
+        attendanceList.forEach(attendance => {
+          const { group } = attendance;
+          if(attendance.level === "Secondary")  {
+            if(group.includes("G2") || group.includes("G3")){
+              noOfClassG2G3++;
+              noOfClasses++;
+            }
+            if(group.includes("G1")) {
+              noOfClasses++;
+              noOfClassG1++
+            }
+          }
+        });
+
+        let branchStr = "";
+        if (noOfClassInMultipleBranchesLength >= 1) {
+          Object.keys(mBranches).map(branchCode => {
+            const branch = mBranches[branchCode];
+            branchStr += branchCode + ": ";
+            Object.keys(branch).map(groupId =>{
+              const noOfGroup = branch[groupId];
+              if(noOfGroup > 0){
+                  branchStr += groupId + " : " + noOfGroup + ", ";
+              }
+            })
+            //IN FUTURE IF THERE IS MULTI-BRANCH THEN WILL REQUIRE TO NEXT LINE IT
+          });
+        }
+        branchStr = branchStr.substring(0,branchStr.length - 2);
+
+        return(
+            <Table.Row>
+              <Table.Cell colSpan="12" textAlign="right">
+                <b>
+                  Total class taught{" "}
+                  {noOfClassInMultipleBranchesLength >= 1 && `at ${firstKey}`}
+                </b>{" "}
+                : {noOfClasses}
+                {
+                    (noOfClasses !== noOfClassG1 && noOfClasses !== noOfClassG2G3) && [
+                  <br />,
+                  <div>{branchStr}</div>
+                ]}
+              </Table.Cell>
+            </Table.Row>
+        )
+      }
+      return null;
     };
 
     const renderAttendanceList = () => [
-      <div ref={this.myRef}>
+      <div key="teacher-attendance-list">
         <Button onClick={this.generatePDF}>Generate PDF</Button>
-        <Table
-          unstackable
-          key="all-attendance"
-          id="attendanceTableByBranch"
-          ref="attendanceTableByBranch"
-        >
-          {renderHeaderRow()}
-          {attendanceTeachers.map(key => {
-            const attendanceList = key[1];
-            const noOfClassInMultipleBranches = this.retrieveNoOfClass(
-              attendanceList,
-              branchCodeMapping
-            );
+        {
+          level === "Primary" ? (
+              <Table
+                  unstackable
+                  key="all-attendance-primary"
+                  id="attendanceTableByBranchPrimary"
+              >
+                {renderHeaderRow()}
+                {attendanceTeachers.map(key => {
+                  const attendanceList = key[1];
 
-            return [
-              <Table.Body key={key[0]}>
-                {renderAttendanceRows(attendanceList)}
-                {renderTotalLessonTaught(
-                  attendanceList,
-                  noOfClassInMultipleBranches
-                )}
-              </Table.Body>
-            ];
-          })}
-        </Table>
+                  const noOfClassInMultipleBranches = this.retrieveNoOfClass(
+                      attendanceList,
+                      branchCodeMapping
+                  );
+
+                  return [
+                    <Table.Body key={key[0]}>
+                      {renderPrimaryAttendanceRows(attendanceList)}
+                      {
+                        renderTotalLessonTaught(
+                            attendanceList,
+                            noOfClassInMultipleBranches
+                        )}
+                    </Table.Body>
+                  ];
+                })}
+              </Table>
+          ) : (
+              <Table
+                  unstackable
+                  key="all-attendance-secondary"
+                  id="attendanceTableByBranchSecondary"
+              >
+                {renderSecondaryHeaderRow()}
+                {attendanceTeachers.map(key => {
+                  const attendanceList = key[1];
+
+                  const noOfClassInMultipleBranches = this.retrieveNoOfClass(
+                      attendanceList,
+                      branchCodeMapping
+                  );
+                  return [
+                    <Table.Body key={key[0]}>
+                      {renderSecondaryAttendanceRows(attendanceList)}
+                      {
+                        renderSecondaryTotalLessonTaught(
+                            attendanceList,
+                            noOfClassInMultipleBranches
+                        )}
+                    </Table.Body>
+                  ];
+                })}
+              </Table>
+          )
+        }
       </div>
     ];
 
@@ -226,7 +388,8 @@ AttendanceListByBranch.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   branch: PropTypes.string,
-  batch: PropTypes.string || ""
+  batch: PropTypes.string || "",
+  level: PropTypes.string
 };
 
 const mapStateToProps = ({ attendanceTeachers, branches }) => ({

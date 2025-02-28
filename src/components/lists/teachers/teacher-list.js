@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Table, Icon, Button } from "semantic-ui-react";
+import { Table, Button } from "semantic-ui-react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import * as TEACHERS from "../../../actions/teachers";
@@ -54,7 +54,7 @@ class TeacherList extends React.Component {
     const headerTextList = ["S/N", "Name", "Contact No.", "Branch"];
 
     const renderHeaderRow = () => (
-      <Table.Row>
+      <Table.Row key="headerRow">
         <GenerateHeaderCellList headerList={headerTextList} />
         {btnDisable ? null : (
           <Table.HeaderCell textAlign="right">
@@ -111,30 +111,32 @@ class TeacherList extends React.Component {
     const renderAllTeacherList = () => {
       const { teachers } = this.props;
 
-      return teachers !== null ? (
+      return teachers !== null && (
         <Table striped stackable key="all-teacher">
           {Object.keys(teachers).map(branchKey => {
             const branchName = teachers[branchKey];
             counter = 0;
             const noOfTeacher = _.size(branchName);
 
-            return [
-              <Table.Header key={branchKey} fullWidth>
-                <Table.Row>
-                  <Table.HeaderCell colSpan="6">
-                    {branchKey} - {noOfTeacher}{" "}
-                    {noOfTeacher <= 1 ? "teacher" : "teachers"}
-                  </Table.HeaderCell>
-                </Table.Row>
-                {renderHeaderRow()}
-              </Table.Header>,
-              <Table.Body>
-                {renderTeacherRows(branchName, branchKey)}
-              </Table.Body>
-            ];
+            return (
+                <React.Fragment key={branchKey}>
+                  <Table.Header fullWidth>
+                    <Table.Row>
+                      <Table.HeaderCell colSpan="6">
+                        {branchKey} - {noOfTeacher}{" "}
+                        {noOfTeacher <= 1 ? "teacher" : "teachers"}
+                      </Table.HeaderCell>
+                    </Table.Row>
+                    {renderHeaderRow()}
+                  </Table.Header>
+                  <Table.Body>
+                    {renderTeacherRows(branchName, branchKey)}
+                  </Table.Body>
+                </React.Fragment>
+            );
           })}
         </Table>
-      ) : null;
+      );
     };
 
     const renderTeachersByBranch = branchName => {
@@ -142,9 +144,10 @@ class TeacherList extends React.Component {
       return (
         <Table striped stackable key="teacher-by-branch">
           <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
-          {teachers !== null ? (
+          {
+            teachers !== null &&
             <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>
-          ) : null}
+          }
         </Table>
       );
     };

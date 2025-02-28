@@ -37,7 +37,7 @@ class BranchPage extends React.Component {
 
   render() {
     return (
-      <div className="retrieve-branch">
+      <React.Fragment key="branch-page">
         <BranchList
           onCreate={this.onCreate}
           onSetNotActive={this.onSetNotActive}
@@ -45,7 +45,7 @@ class BranchPage extends React.Component {
           onDelete={this.onDelete}
           onEdit={this.onEdit}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }
