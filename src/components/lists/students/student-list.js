@@ -284,44 +284,40 @@ class StudentList extends React.Component {
         <div key="student-list-branch">
           {spiltLevel
             ? [
-                branchHasPrimary &&  [
-                      <Table
-                        striped
-                        celled
-                        stackable
-                        key="student-primary-by-branch"
-                      >
-                        <Table.Header fullWidth>
-                          {renderPrimaryLevelHeaderRow(branchName)}
-                        </Table.Header>
-                        {students !== null && (
-                          <Table.Body>
-                            {renderStudentRows(students, branchName, "Primary")}
-                          </Table.Body>
-                        )}
-                      </Table>
-                    ],
+                branchHasPrimary && [
+                  <Table
+                    striped
+                    celled
+                    stackable
+                    key="student-primary-by-branch"
+                  >
+                    <Table.Header fullWidth>
+                      {renderPrimaryLevelHeaderRow(branchName)}
+                    </Table.Header>
+                    {students !== null && (
+                      <Table.Body>
+                        {renderStudentRows(students, branchName, "Primary")}
+                      </Table.Body>
+                    )}
+                  </Table>
+                ],
                 branchHasSecondary && [
-                      <Table
-                        striped
-                        celled
-                        stackable
-                        key="student-secondary-by-branch"
-                      >
-                        <Table.Header fullWidth>
-                          {renderSecondaryLevelHeaderRow(branchName)}
-                        </Table.Header>
-                        {students !== null && (
-                          <Table.Body>
-                            {renderStudentRows(
-                              students,
-                              branchName,
-                              "Secondary"
-                            )}
-                          </Table.Body>
-                        )}
-                      </Table>
-                    ]
+                  <Table
+                    striped
+                    celled
+                    stackable
+                    key="student-secondary-by-branch"
+                  >
+                    <Table.Header fullWidth>
+                      {renderSecondaryLevelHeaderRow(branchName)}
+                    </Table.Header>
+                    {students !== null && (
+                      <Table.Body>
+                        {renderStudentRows(students, branchName, "Secondary")}
+                      </Table.Body>
+                    )}
+                  </Table>
+                ]
               ]
             : [
                 level === "Primary"
@@ -391,33 +387,32 @@ class StudentList extends React.Component {
     }
 
     return [
-        <React.Fragment key="add-student-button">
-            <br/>
-            <Button
-                fluid
-                floated="right"
-                icon="add user"
-                labelPosition="left"
-                size="small"
-                color="green"
-                content="Add Student / Alumni"
-                onClick={() => this.props.onCreate()}
-            />
-        </React.Fragment>
-
+      <React.Fragment key="add-student-button">
+        <br />
+        <Button
+          fluid
+          floated="right"
+          icon="add user"
+          labelPosition="left"
+          size="small"
+          color="green"
+          content="Add Student / Alumni"
+          onClick={() => this.props.onCreate()}
+        />
+      </React.Fragment>
     ];
   }
 }
 
 StudentList.propTypes = {
-    onEdit: PropTypes.func,
-    onDelete: PropTypes.func,
-    onCreate: PropTypes.func,
-    branch: PropTypes.string,
-    batch: PropTypes.string,
-    level: PropTypes.string,
-    btnDisable: PropTypes.bool,
-    spiltLevel: PropTypes.bool,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  onCreate: PropTypes.func,
+  branch: PropTypes.string,
+  batch: PropTypes.string,
+  level: PropTypes.string,
+  btnDisable: PropTypes.bool,
+  spiltLevel: PropTypes.bool,
   branchHasPrimary: PropTypes.bool,
   branchHasSecondary: PropTypes.bool
 };

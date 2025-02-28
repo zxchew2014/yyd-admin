@@ -74,8 +74,12 @@ class RetrieveStudentAttendanceForm extends React.Component {
     const { startDate, endDate } = data;
     const errors = {};
 
-    const momentStartDate = moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
-    const momentEndDate = moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
+    const momentStartDate = moment(new Date(startDate)).format(
+      DATEFORMAT_YYYYDASHMMDASHDD
+    );
+    const momentEndDate = moment(new Date(endDate)).format(
+      DATEFORMAT_YYYYDASHMMDASHDD
+    );
 
     if (momentEndDate < momentStartDate) {
       errors.endDate = ENDATE_ERROR_MESSAGE;
@@ -139,7 +143,10 @@ class RetrieveStudentAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={
+            moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) ||
+            ""
+          }
           required
         />
         {errors.startDate && <InlineError text={errors.startDate} />}
@@ -156,7 +163,9 @@ class RetrieveStudentAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={
+            moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""
+          }
           required
         />
         {errors.endDate && <InlineError text={errors.endDate} />}

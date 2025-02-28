@@ -74,8 +74,12 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     const { startDate, endDate } = data;
     const errors = {};
 
-    const momentStartDate = moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
-    const momentEndDate = moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD);
+    const momentStartDate = moment(new Date(startDate)).format(
+      DATEFORMAT_YYYYDASHMMDASHDD
+    );
+    const momentEndDate = moment(new Date(endDate)).format(
+      DATEFORMAT_YYYYDASHMMDASHDD
+    );
 
     if (momentEndDate < momentStartDate) {
       errors.endDate = ENDATE_ERROR_MESSAGE;
@@ -132,7 +136,10 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={
+            moment(new Date(startDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) ||
+            ""
+          }
           required
         />
         {errors.startDate && <InlineError text={errors.startDate} />}
@@ -149,7 +156,9 @@ class RetrieveTeacherAttendanceForm extends React.Component {
           type="date"
           onChange={this.onChangeDate}
           min={START_DATE}
-          value={moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""}
+          value={
+            moment(new Date(endDate)).format(DATEFORMAT_YYYYDASHMMDASHDD) || ""
+          }
           required
         />
         {errors.endDate && <InlineError text={errors.endDate} />}
@@ -157,23 +166,23 @@ class RetrieveTeacherAttendanceForm extends React.Component {
     );
 
     const FORM_FIELD_LEVEL = () => (
-        <Form.Field key="level" required>
-          <label htmlFor="Level">Level</label>
-          <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
-        </Form.Field>
+      <Form.Field key="level" required>
+        <label htmlFor="Level">Level</label>
+        <Form.Group>{LEVEL_RADIOBOX_FIELDS}</Form.Group>
+      </Form.Field>
     );
 
     const LEVEL_RADIOBOX_FIELDS = EDUCATION_LEVEL.map(l => (
-        <Form.Field
-            key={l}
-            label={l}
-            control="input"
-            type="radio"
-            name="level"
-            value={l}
-            checked={level === l}
-            onChange={this.handleRadioInputChange}
-        />
+      <Form.Field
+        key={l}
+        label={l}
+        control="input"
+        type="radio"
+        name="level"
+        value={l}
+        checked={level === l}
+        onChange={this.handleRadioInputChange}
+      />
     ));
 
     return (

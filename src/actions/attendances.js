@@ -157,9 +157,13 @@ const filterStudentAttendance = (
               Object.keys(attendanceList).forEach(attendanceKey => {
                 const attendance = attendanceList[attendanceKey];
 
-                if(attendance.level === undefined) attendance.level = "Primary"
+                if (attendance.level === undefined)
+                  attendance.level = "Primary";
 
-                if ((branch === attendance.branch) && (level === attendance.level))  {
+                if (
+                  branch === attendance.branch &&
+                  level === attendance.level
+                ) {
                   mapDate.set(attendance.id, attendance);
                 }
               });
@@ -218,7 +222,6 @@ const sortStudentMapByName = result => {
     const studentList = attendance.students;
     const teacherName = attendance.teacher;
 
-
     Object.keys(studentList).forEach(studentKey => {
       const student = studentList[studentKey];
 
@@ -228,7 +231,7 @@ const sortStudentMapByName = result => {
       const status = student.Status;
       const level = attendance.level;
 
-      if(level === "Primary"){
+      if (level === "Primary") {
         const primary = student.Primary;
         combineKey = `P${primary}_${studentName}`;
         const foundation = student.Foundation || "";
@@ -244,7 +247,7 @@ const sortStudentMapByName = result => {
           teacherName,
           level
         };
-      } else if(level === "Secondary"){
+      } else if (level === "Secondary") {
         const secondary = student.Secondary;
         const group = student.Group;
         const subject = attendance.subject;
@@ -437,7 +440,8 @@ const mergeStudentAttendance = (clockInMap, clockOutMap) => {
             clockInAttendance.subject === clockOutArray[clockOutIndex].subject;
           if (studentNameCheck && dateCheck && subjectCheck) {
             clockInAttendance.status = clockOutArray[clockOutIndex].status;
-            clockInAttendance.checkOutStatus = clockOutArray[clockOutIndex].status;
+            clockInAttendance.checkOutStatus =
+              clockOutArray[clockOutIndex].status;
           }
         });
       }

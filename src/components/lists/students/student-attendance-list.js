@@ -7,16 +7,16 @@ class StudentAttendanceList extends React.Component {
     const { startDate, endDate, branch, batch, level } = this.props;
 
     return (
-        <React.Fragment key="student-attendance-list">
-          <GenerateStudentAttendanceList
-              startDate={startDate}
-              endDate={endDate}
-              branch={branch}
-              batch={batch}
-              level={level}
-          />
-          <hr />
-        </React.Fragment>
+      <React.Fragment key="student-attendance-list">
+        <GenerateStudentAttendanceList
+          startDate={startDate}
+          endDate={endDate}
+          branch={branch}
+          batch={batch}
+          level={level}
+        />
+        <hr />
+      </React.Fragment>
     );
   }
 }

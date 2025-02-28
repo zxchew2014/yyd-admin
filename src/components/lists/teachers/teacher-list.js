@@ -111,14 +111,15 @@ class TeacherList extends React.Component {
     const renderAllTeacherList = () => {
       const { teachers } = this.props;
 
-      return teachers !== null && (
-        <Table striped stackable key="all-teacher">
-          {Object.keys(teachers).map(branchKey => {
-            const branchName = teachers[branchKey];
-            counter = 0;
-            const noOfTeacher = _.size(branchName);
+      return (
+        teachers !== null && (
+          <Table striped stackable key="all-teacher">
+            {Object.keys(teachers).map(branchKey => {
+              const branchName = teachers[branchKey];
+              counter = 0;
+              const noOfTeacher = _.size(branchName);
 
-            return (
+              return (
                 <React.Fragment key={branchKey}>
                   <Table.Header fullWidth>
                     <Table.Row>
@@ -133,9 +134,10 @@ class TeacherList extends React.Component {
                     {renderTeacherRows(branchName, branchKey)}
                   </Table.Body>
                 </React.Fragment>
-            );
-          })}
-        </Table>
+              );
+            })}
+          </Table>
+        )
       );
     };
 
@@ -144,10 +146,9 @@ class TeacherList extends React.Component {
       return (
         <Table striped stackable key="teacher-by-branch">
           <Table.Header fullWidth>{renderHeaderRow()}</Table.Header>
-          {
-            teachers !== null &&
+          {teachers !== null && (
             <Table.Body>{renderTeacherRows(teachers, branchName)}</Table.Body>
-          }
+          )}
         </Table>
       );
     };

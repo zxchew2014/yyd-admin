@@ -1,4 +1,4 @@
-import {newItems} from "./newItems";
+import { newItems } from "./newItems";
 
 export const VERSION_DATE = newItems[0].date;
 export const VERSION_NO = newItems[0].version;

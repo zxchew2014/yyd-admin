@@ -40,51 +40,50 @@ class TeacherAttendancePage extends React.Component {
   };
 
   render() {
-    const { startDate, endDate, branch, batch, level} = this.state;
+    const { startDate, endDate, branch, batch, level } = this.state;
     const { attendanceTeachers } = this.props;
 
     return (
-        <React.Fragment key="teacher-attendance-page">
-            <h1>Retrieve Teacher Attendance</h1>
-            <RetrieveTeacherAttendanceForm submit={this.submit}/>
-            <hr/>
+      <React.Fragment key="teacher-attendance-page">
+        <h1>Retrieve Teacher Attendance</h1>
+        <RetrieveTeacherAttendanceForm submit={this.submit} />
+        <hr />
 
-            {attendanceTeachers
-                ? attendanceTeachers.length > 0
-                    ? [
-                      <React.Fragment key="teacher-attendance-list-by-branch">
-                        <TeacherAttendanceListByBranch
-                            startDate={startDate}
-                            endDate={endDate}
-                            branch={branch}
-                            batch={batch}
-                            level={level}
-                        />
-                        <br/>
-                      </React.Fragment>
-
-                    ]
-                    : [
-                      <React.Fragment key="no-attendance-found">
-                        <Message warning>
-                          <Message.Header>
-                            No attendance was found during{" "}
-                            {startDate === endDate
-                                ? startDate
-                                : `${startDate} - ${endDate}`}
-                            .
-                          </Message.Header>
-                        </Message>
-                        <br/>
-                      </React.Fragment>
-                    ]
-                : null}
-        </React.Fragment>
+        {attendanceTeachers
+          ? attendanceTeachers.length > 0
+            ? [
+                <React.Fragment key="teacher-attendance-list-by-branch">
+                  <TeacherAttendanceListByBranch
+                    startDate={startDate}
+                    endDate={endDate}
+                    branch={branch}
+                    batch={batch}
+                    level={level}
+                  />
+                  <br />
+                </React.Fragment>
+              ]
+            : [
+                <React.Fragment key="no-attendance-found">
+                  <Message warning>
+                    <Message.Header>
+                      No attendance was found during{" "}
+                      {startDate === endDate
+                        ? startDate
+                        : `${startDate} - ${endDate}`}
+                      .
+                    </Message.Header>
+                  </Message>
+                  <br />
+                </React.Fragment>
+              ]
+          : null}
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = ({attendanceTeachers}) => ({
+const mapStateToProps = ({ attendanceTeachers }) => ({
   attendanceTeachers
 });
 

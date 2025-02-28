@@ -43,13 +43,16 @@ class BranchList extends React.Component {
                 <ItemList value={branch.secondary} description="Secondary" />
               </List>
             </Table.Cell>
-            {
-              isPayoutDisplay ? [
-                  <Table.Cell>SGD $ {branch.teacher_payout || "0.00"}</Table.Cell>,
+            {isPayoutDisplay
+              ? [
+                  <Table.Cell>
+                    SGD $ {branch.teacher_payout || "0.00"}
+                  </Table.Cell>,
                   <Table.Cell>
                     SGD $ {branch.parent_volunteer_payout || "0.00"}
-                  </Table.Cell>] : null
-            }
+                  </Table.Cell>
+                ]
+              : null}
             <Table.Cell textAlign="right">
               <Button.Group fluid>
                 <Button
@@ -70,25 +73,25 @@ class BranchList extends React.Component {
                     onClick={() => this.props.onSetNotActive(branch)}
                   />
                 ) : (
-                      <React.Fragment key="btn-active-n-delete">
-                        <Button
-                            key="btn-set-active"
-                            icon="linkify"
-                            size="small"
-                            color="teal"
-                            content="Set to Active"
-                            onClick={() => this.props.onSetActive(branch)}
-                        />
-                        <Button.Or />
-                        <Button
-                            key="btn-set-delete"
-                            icon="trash"
-                            size="small"
-                            color="red"
-                            content="Remove"
-                            onClick={() => this.props.onDelete(branch)}
-                        />
-                      </React.Fragment>
+                  <React.Fragment key="btn-active-n-delete">
+                    <Button
+                      key="btn-set-active"
+                      icon="linkify"
+                      size="small"
+                      color="teal"
+                      content="Set to Active"
+                      onClick={() => this.props.onSetActive(branch)}
+                    />
+                    <Button.Or />
+                    <Button
+                      key="btn-set-delete"
+                      icon="trash"
+                      size="small"
+                      color="red"
+                      content="Remove"
+                      onClick={() => this.props.onDelete(branch)}
+                    />
+                  </React.Fragment>
                 )}
               </Button.Group>
             </Table.Cell>
@@ -104,11 +107,12 @@ class BranchList extends React.Component {
             <Table.Row>
               <Table.HeaderCell>Branch Name</Table.HeaderCell>
               <Table.HeaderCell>Level</Table.HeaderCell>
-              {
-                isPayoutDisplay ? [
+              {isPayoutDisplay
+                ? [
                     <Table.HeaderCell>Teacher Payout</Table.HeaderCell>,
-                    <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>] : null
-              }
+                    <Table.HeaderCell>Parent Volunteer Payout</Table.HeaderCell>
+                  ]
+                : null}
               <Table.HeaderCell>
                 <Button
                   fluid

@@ -52,7 +52,11 @@ class GenerateStudentAttendanceList extends React.Component {
       newPDF.text(data.settings.margin.left + 500, 585, "Role:");
     };
 
-    newPDF.autoTable({columns: res.columns, body: res.data, didDrawPage: header});
+    newPDF.autoTable({
+      columns: res.columns,
+      body: res.data,
+      didDrawPage: header
+    });
     newPDF.save(`${fileName}.pdf`);
   };
 
@@ -67,19 +71,17 @@ class GenerateStudentAttendanceList extends React.Component {
             <Table.HeaderCell>Subject</Table.HeaderCell>
             <Table.HeaderCell>Teacher Name</Table.HeaderCell>
             <Table.HeaderCell>Student Name</Table.HeaderCell>
-            {
-              level === "Primary" ? (
-                  <React.Fragment>
-                    <Table.HeaderCell>Primary</Table.HeaderCell>
-                    <Table.HeaderCell>Foundation</Table.HeaderCell>
-                  </React.Fragment>
-              ) : (
-                  <React.Fragment>
-                    <Table.HeaderCell>Secondary</Table.HeaderCell>
-                    <Table.HeaderCell>Group</Table.HeaderCell>
-                  </React.Fragment>
-              )
-            }
+            {level === "Primary" ? (
+              <React.Fragment>
+                <Table.HeaderCell>Primary</Table.HeaderCell>
+                <Table.HeaderCell>Foundation</Table.HeaderCell>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Table.HeaderCell>Secondary</Table.HeaderCell>
+                <Table.HeaderCell>Group</Table.HeaderCell>
+              </React.Fragment>
+            )}
 
             <Table.HeaderCell>Status</Table.HeaderCell>
           </Table.Row>
@@ -88,8 +90,7 @@ class GenerateStudentAttendanceList extends React.Component {
     };
 
     const renderAttendanceRows = attendanceList =>
-      attendanceList.map(attendance =>
-          (
+      attendanceList.map(attendance => (
         <Table.Row
           textAlign="center"
           key={attendance.id + "-" + attendance.timestamp}
@@ -103,19 +104,17 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>{attendance.subject}</Table.Cell>
           <Table.Cell>{attendance.teacherName}</Table.Cell>
           <Table.Cell>{attendance.studentName}</Table.Cell>
-          {
-            attendance.level === "Primary" ? (
-                <React.Fragment>
-                  <Table.Cell>P{attendance.primary}</Table.Cell>
-                  <Table.Cell>{attendance.foundation}</Table.Cell>
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-                  <Table.Cell>Sec {attendance.secondary}</Table.Cell>
-                  <Table.Cell>{attendance.group}</Table.Cell>
-                </React.Fragment>
-            )
-          }
+          {attendance.level === "Primary" ? (
+            <React.Fragment>
+              <Table.Cell>P{attendance.primary}</Table.Cell>
+              <Table.Cell>{attendance.foundation}</Table.Cell>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <Table.Cell>Sec {attendance.secondary}</Table.Cell>
+              <Table.Cell>{attendance.group}</Table.Cell>
+            </React.Fragment>
+          )}
           {renderStatusCell(attendance.checkOutStatus)}
         </Table.Row>
       ));
@@ -162,7 +161,6 @@ class GenerateStudentAttendanceList extends React.Component {
 
       const actualPercentage = (100.0 - absentPercentage).toFixed(2);
 
-
       return (
         <Table.Row>
           <Table.Cell colSpan="7" textAlign="right">
@@ -175,21 +173,17 @@ class GenerateStudentAttendanceList extends React.Component {
     const renderAttendanceList = () => (
       <div key="student-attendance-list">
         <Button onClick={this.generatePDF}>Generate PDF</Button>
-        <Table
-          unstackable
-          key="all-attendance"
-          id="attendanceTable"
-        >
+        <Table unstackable key="all-attendance" id="attendanceTable">
           {attendanceStudents.map(studentAttendance => {
             const attendanceList = studentAttendance[1];
             return (
-                <React.Fragment key={studentAttendance[0]}>
-                  {renderHeaderRow()}
-                  <Table.Body>
-                    {renderAttendanceRows(attendanceList)}
-                    {renderCalculateAttendancePercentage(attendanceList)}
-                  </Table.Body>
-                </React.Fragment>
+              <React.Fragment key={studentAttendance[0]}>
+                {renderHeaderRow()}
+                <Table.Body>
+                  {renderAttendanceRows(attendanceList)}
+                  {renderCalculateAttendancePercentage(attendanceList)}
+                </Table.Body>
+              </React.Fragment>
             );
           })}
         </Table>
