@@ -1,5 +1,14 @@
 export const newItems = [
   {
+    date: "24 Aug 2025",
+    version: "v3.8",
+    description: [
+      {
+        itemDescription: "Reduce font size for both attendance"
+      }
+    ]
+  },
+  {
     date: "28 Feb 2025",
     version: "v3.7",
     description: [

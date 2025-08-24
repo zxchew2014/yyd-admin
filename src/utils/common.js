@@ -35,10 +35,14 @@ export const SECONDARY_GROUP = ["G1", "G2", "G3"];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";
 export const DATEFORMAT_DAY_MMM_DD_YYYY = "ddd MMM DD YYYY";
+export const DATEFORMAT_DAY_DD_MMM_YY = "ddd DD MMM YY";
 export const DATEFORMAT_YYYYDASHMMDASHDD = "YYYY-MM-DD";
+
+export const FULL_TIMESTAMP = "ddd D MMM YY HH:mm"
 
 export const DATEFORMAT_DDSLASHMMSLASHYYYY = "L";
 export const TIMEFORMAT_HHMMTT = "LT";
+export const TIMEFORMAT_Hm = "H:m";
 export const DATE_UNITOFTIME_MONTH = "month";
 
 export const CAMELCASED_CLOCK_IN = "clockIn";

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { Button, Table } from "semantic-ui-react";
 import {
   ABSENT,
-  DATEFORMAT_DAY_MMM_DD_YYYY,
   DATETME_DDMMYYYSLASH_HHMMSS,
   LATE,
   MC,
@@ -12,7 +11,8 @@ import {
   NOT_AVAILABLE,
   NO_SUCH_STUDENT,
   YYD_EDUCATION_CENTRE,
-  STUDENT_ATTENDANCE_REPORT
+  STUDENT_ATTENDANCE_REPORT,
+  DATEFORMAT_DAY_DD_MMM_YY
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -55,6 +55,7 @@ class GenerateStudentAttendanceList extends React.Component {
     newPDF.autoTable({
       columns: res.columns,
       body: res.data,
+      styles: { fontSize: 9 },
       didDrawPage: header
     });
     newPDF.save(`${fileName}.pdf`);
@@ -98,7 +99,7 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>
             {attendance.timestamp &&
               moment(attendance.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                DATEFORMAT_DAY_MMM_DD_YYYY
+                  DATEFORMAT_DAY_DD_MMM_YY
               )}
           </Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>

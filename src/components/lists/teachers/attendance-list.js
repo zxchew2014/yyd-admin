@@ -3,14 +3,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Table, Button } from "semantic-ui-react";
 import {
-  DATEFORMAT_DAY_MMM_DD_YYYY,
   DATETME_DDMMYYYSLASH_HHMMSS,
-  TIMEFORMAT_HHMMTT,
   COLOUR_BLACK,
   RELIEF_YES,
   RELIEF_NO,
   TEACHER_ATTENDANCE_REPORT,
-  YYD_EDUCATION_CENTRE
+  YYD_EDUCATION_CENTRE, FULL_TIMESTAMP
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -40,18 +38,19 @@ class AttendanceList extends React.Component {
       newPDF.setFontSize(10);
       newPDF.text(str, data.settings.margin.left, 585);
 
-      newPDF.text(data.settings.margin.left + 130, 557, "1st Verify By");
-      newPDF.text(data.settings.margin.left + 200, 557, "Signature:");
-      newPDF.text(data.settings.margin.left + 200, 570, "Name:");
-      newPDF.text(data.settings.margin.left + 200, 585, "Role:");
+      newPDF.text(data.settings.margin.left + 130, 565, "1st Verify By");
+      newPDF.text(data.settings.margin.left + 200, 565, "Signature:");
+      newPDF.text(data.settings.margin.left + 200, 577, "Name:");
+      newPDF.text(data.settings.margin.left + 200, 590, "Role:");
 
-      newPDF.text(data.settings.margin.left + 430, 557, "2nd Verify By");
-      newPDF.text(data.settings.margin.left + 500, 557, "Signature:");
-      newPDF.text(data.settings.margin.left + 500, 570, "Name:");
-      newPDF.text(data.settings.margin.left + 500, 585, "Role:");
+      newPDF.text(data.settings.margin.left + 430, 565, "2nd Verify By");
+      newPDF.text(data.settings.margin.left + 500, 565, "Signature:");
+      newPDF.text(data.settings.margin.left + 500, 577, "Name:");
+      newPDF.text(data.settings.margin.left + 500, 590, "Role:");
     };
 
     const options = {
+      styles: { fontSize: 8 },
       didDrawPage: header
     };
 
@@ -65,8 +64,7 @@ class AttendanceList extends React.Component {
     const renderHeaderRow = () => (
       <Table.Header fullWidth>
         <Table.Row textAlign="center">
-          <Table.HeaderCell>Date</Table.HeaderCell>
-          <Table.HeaderCell>Clock Out</Table.HeaderCell>
+          <Table.HeaderCell>Timestamp</Table.HeaderCell>
           <Table.HeaderCell>Name</Table.HeaderCell>
           <Table.HeaderCell>Subject</Table.HeaderCell>
           <Table.HeaderCell>Branch</Table.HeaderCell>
@@ -82,16 +80,7 @@ class AttendanceList extends React.Component {
         <Table.Row textAlign="center" key={attendance}>
           <Table.Cell>
             {attendance.clockOut &&
-              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                DATEFORMAT_DAY_MMM_DD_YYYY
-              )}
-          </Table.Cell>
-          <Table.Cell>
-            {(attendance.clockOut &&
-              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                TIMEFORMAT_HHMMTT
-              )) ||
-              ""}
+              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(FULL_TIMESTAMP)}
           </Table.Cell>
           <Table.Cell>{attendance.teacher}</Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>
