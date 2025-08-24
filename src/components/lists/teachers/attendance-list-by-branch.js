@@ -161,7 +161,11 @@ class AttendanceListByBranch extends React.Component {
           attendance.level === "Primary" && (
             <Table.Row textAlign="center" key={attendance.id}>
               <Table.Cell>
-                {attendance.clockOut && moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(FULL_TIMESTAMP)}
+                {attendance.clockOut &&
+                  moment(
+                    attendance.clockOut,
+                    DATETME_DDMMYYYSLASH_HHMMSS
+                  ).format(FULL_TIMESTAMP)}
               </Table.Cell>
               <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
               <Table.Cell>{attendance.phoneNumber || ""}</Table.Cell>
@@ -186,7 +190,11 @@ class AttendanceListByBranch extends React.Component {
           attendance.level === "Secondary" && (
             <Table.Row textAlign="center" key={attendance.id}>
               <Table.Cell>
-                {attendance.clockOut && moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(FULL_TIMESTAMP)}
+                {attendance.clockOut &&
+                  moment(
+                    attendance.clockOut,
+                    DATETME_DDMMYYYSLASH_HHMMSS
+                  ).format(FULL_TIMESTAMP)}
               </Table.Cell>
               <Table.Cell>{attendance.phoneUser || ""} </Table.Cell>
               <Table.Cell>{attendance.phoneNumber || ""}</Table.Cell>

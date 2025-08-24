@@ -99,7 +99,7 @@ class GenerateStudentAttendanceList extends React.Component {
           <Table.Cell>
             {attendance.timestamp &&
               moment(attendance.timestamp, DATETME_DDMMYYYSLASH_HHMMSS).format(
-                  DATEFORMAT_DAY_DD_MMM_YY
+                DATEFORMAT_DAY_DD_MMM_YY
               )}
           </Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>

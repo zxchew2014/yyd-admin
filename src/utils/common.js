@@ -38,7 +38,7 @@ export const DATEFORMAT_DAY_MMM_DD_YYYY = "ddd MMM DD YYYY";
 export const DATEFORMAT_DAY_DD_MMM_YY = "ddd DD MMM YY";
 export const DATEFORMAT_YYYYDASHMMDASHDD = "YYYY-MM-DD";
 
-export const FULL_TIMESTAMP = "ddd D MMM YY HH:mm"
+export const FULL_TIMESTAMP = "ddd D MMM YY HH:mm";
 
 export const DATEFORMAT_DDSLASHMMSLASHYYYY = "L";
 export const TIMEFORMAT_HHMMTT = "LT";

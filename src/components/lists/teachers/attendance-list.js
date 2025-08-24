@@ -8,7 +8,8 @@ import {
   RELIEF_YES,
   RELIEF_NO,
   TEACHER_ATTENDANCE_REPORT,
-  YYD_EDUCATION_CENTRE, FULL_TIMESTAMP
+  YYD_EDUCATION_CENTRE,
+  FULL_TIMESTAMP
 } from "../../../utils/common";
 
 const moment = require("moment");
@@ -80,7 +81,9 @@ class AttendanceList extends React.Component {
         <Table.Row textAlign="center" key={attendance}>
           <Table.Cell>
             {attendance.clockOut &&
-              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(FULL_TIMESTAMP)}
+              moment(attendance.clockOut, DATETME_DDMMYYYSLASH_HHMMSS).format(
+                FULL_TIMESTAMP
+              )}
           </Table.Cell>
           <Table.Cell>{attendance.teacher}</Table.Cell>
           <Table.Cell>{attendance.subject}</Table.Cell>
