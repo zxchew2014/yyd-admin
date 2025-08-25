@@ -67,27 +67,25 @@ class AttendanceListByBranch extends React.Component {
       newPDF.text(data.settings.margin.left + 500, 577, "Name:");
       newPDF.text(data.settings.margin.left + 500, 590, "Role:");
     };
-    if(level === "Primary"){
+    if (level === "Primary") {
       newPDF.autoTable({
         columns: res.columns,
         body: res.data,
         didDrawPage: header,
         columnStyles: {
-          0: { cellWidth: 110},
-          1: { cellWidth: 125},
-          3: { cellWidth: 140}
-        },
+          0: { cellWidth: 110 },
+          1: { cellWidth: 125 },
+          3: { cellWidth: 140 }
+        }
       });
-    }
-    else if (level === "Secondary")
-    {
+    } else if (level === "Secondary") {
       newPDF.autoTable({
         columns: res.columns,
         body: res.data,
         didDrawPage: header,
         columnStyles: {
-          0: { cellWidth: 110}
-        },
+          0: { cellWidth: 110 }
+        }
       });
     }
 

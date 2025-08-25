@@ -55,8 +55,8 @@ class AttendanceList extends React.Component {
       body: res.data,
       didDrawPage: header,
       columnStyles: {
-        0: { cellWidth: 110}
-      },
+        0: { cellWidth: 110 }
+      }
     });
     newPDF.save(`${fileName}.pdf`);
   };
