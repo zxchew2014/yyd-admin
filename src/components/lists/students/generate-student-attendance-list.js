@@ -52,12 +52,29 @@ class GenerateStudentAttendanceList extends React.Component {
       newPDF.text(data.settings.margin.left + 500, 585, "Role:");
     };
 
-    newPDF.autoTable({
-      columns: res.columns,
-      body: res.data,
-      styles: { fontSize: 9 },
-      didDrawPage: header
-    });
+    if(level === "Primary"){
+      newPDF.autoTable({
+        columns: res.columns,
+        body: res.data,
+        didDrawPage: header,
+        columnStyles: {
+          0: { cellWidth: 110},
+          2: { cellWidth: 200},
+          3: { cellWidth: 230},
+          4: { cellWidth: "auto"},
+          5: { cellWidth: "auto"},
+          6: { cellWidth: "auto"}
+        },
+      });
+    }
+    else if (level === "Secondary")
+    {
+      newPDF.autoTable({
+        columns: res.columns,
+        body: res.data,
+        didDrawPage: header,
+      });
+    }
     newPDF.save(`${fileName}.pdf`);
   };
 

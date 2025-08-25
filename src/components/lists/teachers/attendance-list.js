@@ -50,12 +50,14 @@ class AttendanceList extends React.Component {
       newPDF.text(data.settings.margin.left + 500, 590, "Role:");
     };
 
-    const options = {
-      styles: { fontSize: 8 },
-      didDrawPage: header
-    };
-
-    newPDF.autoTable(res.columns, res.data, options);
+    newPDF.autoTable({
+      columns: res.columns,
+      body: res.data,
+      didDrawPage: header,
+      columnStyles: {
+        0: { cellWidth: 110}
+      },
+    });
     newPDF.save(`${fileName}.pdf`);
   };
 

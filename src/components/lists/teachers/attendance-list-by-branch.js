@@ -67,13 +67,30 @@ class AttendanceListByBranch extends React.Component {
       newPDF.text(data.settings.margin.left + 500, 577, "Name:");
       newPDF.text(data.settings.margin.left + 500, 590, "Role:");
     };
+    if(level === "Primary"){
+      newPDF.autoTable({
+        columns: res.columns,
+        body: res.data,
+        didDrawPage: header,
+        columnStyles: {
+          0: { cellWidth: 110},
+          1: { cellWidth: 125},
+          3: { cellWidth: 140}
+        },
+      });
+    }
+    else if (level === "Secondary")
+    {
+      newPDF.autoTable({
+        columns: res.columns,
+        body: res.data,
+        didDrawPage: header,
+        columnStyles: {
+          0: { cellWidth: 110}
+        },
+      });
+    }
 
-    newPDF.autoTable({
-      columns: res.columns,
-      body: res.data,
-      styles: { fontSize: 8 },
-      didDrawPage: header
-    });
     newPDF.save(`${fileName}.pdf`);
   };
 
@@ -160,7 +177,7 @@ class AttendanceListByBranch extends React.Component {
         attendance =>
           attendance.level === "Primary" && (
             <Table.Row textAlign="center" key={attendance.id}>
-              <Table.Cell>
+              <Table.Cell collapsing>
                 {attendance.clockOut &&
                   moment(
                     attendance.clockOut,
