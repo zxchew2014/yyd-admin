@@ -1,5 +1,14 @@
 export const newItems = [
   {
+    date: "29 Sep 2025",
+    version: "v3.8.1",
+    description: [
+      {
+        itemDescription: "Remove auditor attendance from teacher/student attendance & pdf"
+      }
+    ]
+  },
+  {
     date: "24 Aug 2025",
     version: "v3.8",
     description: [
