@@ -89,11 +89,9 @@ const filterTeacherAttendanceByDate = (result, inputData, clockType) => {
           Object.keys(dateList).forEach(dateKey => {
             const currentDate = new Date(dateKey);
             const second = currentDate.getTime() / 1000;
-            if (currentDate >= start && currentDate <= end)
-            {
+            if (currentDate >= start && currentDate <= end) {
               mapDate.set(second, dateList[dateKey]);
             }
-
           });
         }
       });
@@ -121,7 +119,7 @@ const filterTeacherAttendanceByDateNBranch = (result, inputData, clockType) => {
               Object.keys(attendanceList).forEach(attendanceKey => {
                 const attendance = attendanceList[attendanceKey];
 
-                if(attendance.auditor) return; //skip auditor
+                if (attendance.auditor) return; //skip auditor
 
                 const attendanceId = attendance.id;
                 const attendanceBranch = attendance.branch;
@@ -189,7 +187,7 @@ const sortTeacherMapByTeacherName = result => {
     Object.keys(value).forEach(attendanceKey => {
       const attendance = teacherFieldsRemove(value[attendanceKey]);
 
-      if(attendance.auditor) return; //skip auditor
+      if (attendance.auditor) return; //skip auditor
 
       if (mapTeacher.has(attendance.teacher)) {
         const currentAttendance = mapTeacher.get(attendance.teacher);
@@ -228,7 +226,7 @@ const sortStudentMapByName = result => {
   result.forEach(value => {
     const attendance = studentFieldsRemove(value);
 
-    if(attendance.auditor) return;
+    if (attendance.auditor) return;
 
     const studentList = attendance.students;
     const teacherName = attendance.teacher;

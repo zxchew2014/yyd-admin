@@ -4,7 +4,8 @@ export const newItems = [
     version: "v3.8.1",
     description: [
       {
-        itemDescription: "Remove auditor attendance from teacher/student attendance & pdf"
+        itemDescription:
+          "Remove auditor attendance from teacher/student attendance & pdf"
       }
     ]
   },
