@@ -1,5 +1,15 @@
 export const newItems = [
   {
+    date: "20 Dec 2025",
+    version: "v3.8.2",
+    description: [
+      {
+        itemDescription:
+            "Add Secondary 2 option"
+      }
+    ]
+  },
+  {
     date: "29 Sep 2025",
     version: "v3.8.1",
     description: [

@@ -30,7 +30,7 @@ export const ALL_BATCH = [BATCH_1, BATCH_2];
 
 export const EDUCATION_LEVEL = ["Primary", "Secondary"];
 
-export const ALL_SECONDARY_LEVEL = ["1"];
+export const ALL_SECONDARY_LEVEL = ["1", "2"];
 export const SECONDARY_GROUP = ["G1", "G2", "G3"];
 
 export const DATETME_DDMMYYYSLASH_HHMMSS = "DD/MM/YYYY, HH:mm:ss";
