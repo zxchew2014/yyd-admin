@@ -4,8 +4,7 @@ export const newItems = [
     version: "v3.8.2",
     description: [
       {
-        itemDescription:
-            "Add Secondary 2 option"
+        itemDescription: "Add Secondary 2 option"
       }
     ]
   },
